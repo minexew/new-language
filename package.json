@@ -1,0 +1,22 @@
+{
+  "name": "dmparser",
+  "version": "1.0.0",
+  "description": "DM language parser",
+  "main": "dmparser.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minexew/dmparser.git"
+  },
+  "keywords": [
+    "byond"
+  ],
+  "author": "minexew",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/minexew/dmparser/issues"
+  },
+  "homepage": "https://github.com/minexew/dmparser#readme"
+}
