@@ -3,16 +3,12 @@ node_js:
   - "8"
 
 before_install:
+  - "[ -d Step\\ BYOND] || curl -o StepBYOND.zip http://files.byondhome.com/download/Deadron/StepBYOND"
+  - "[ -d Step\\ BYOND] || unzip StepBYOND.zip"
   - "[ -d Your\\ First\\ World ] || curl -o YourFirstWorld.zip http://files.byondhome.com/download/Dantom/YourFirstWorld"
   - "[ -d Your\\ First\\ World ] || unzip YourFirstWorld.zip"
 
-script:
-  - "./test.js Your\\ First\\ World/main-a.dm"
-  - "./test.js Your\\ First\\ World/main-b.dm"
-  - "./test.js Your\\ First\\ World/main-c.dm"
-  - "./test.js Your\\ First\\ World/main-d.dm"
-  - "./test.js Your\\ First\\ World/main-e.dm"
-
 cache:
   directories:
+    - "Step BYOND"
     - "Your First World"

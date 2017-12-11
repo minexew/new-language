@@ -1,10 +1,4 @@
-#!/usr/bin/env node
-
-const Dmparser = require('./dmparser');
 const fs = require('fs');
-
-const argv = process.argv;
-//console.log(argv);
 
 class SimpleFileAccessor {
     getFileContentsAsString(path) {
@@ -15,5 +9,4 @@ class SimpleFileAccessor {
     }
 }
 
-const parser = new Dmparser(new SimpleFileAccessor());
-parser.parseUnit(argv[2]);
+module.exports = SimpleFileAccessor;

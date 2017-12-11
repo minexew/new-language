@@ -4,7 +4,7 @@
   "description": "DM language parser",
   "main": "dmparser.js",
   "scripts": {
-    "test": "test.js"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/minexew/dmparser/issues"
   },
-  "homepage": "https://github.com/minexew/dmparser#readme"
+  "homepage": "https://github.com/minexew/dmparser#readme",
+  "devDependencies": {
+    "mocha": "^4.0.1"
+  }
 }
