@@ -7,12 +7,12 @@ const argv = process.argv;
 //console.log(argv);
 
 class SimpleFileAccessor {
-	getFileContentsAsString(path) {
-		console.log('[SimpleFileAccessor]', 'read', path);
-		const file = fs.readFileSync(path);
-		//console.log(file);
-		return file.toString();
-	}
+    getFileContentsAsString(path) {
+        console.log('[SimpleFileAccessor]', 'read', path);
+        const file = fs.readFileSync(path);
+        //console.log(file);
+        return file.toString();
+    }
 }
 
 const parser = new Dmparser(new SimpleFileAccessor());
