@@ -3,8 +3,8 @@ node_js:
   - "8"
 
 before_install:
-  - "curl -o YourFirstWorld.zip http://files.byondhome.com/download/Dantom/YourFirstWorld"
-  - unzip YourFirstWorld.zip
+  - "[ -d Your\\ First\\ World ] || curl -o YourFirstWorld.zip http://files.byondhome.com/download/Dantom/YourFirstWorld"
+  - "[ -d Your\\ First\\ World ] || unzip YourFirstWorld.zip"
 
 script:
   - "./test.js Your\\ First\\ World/main-a.dm"
