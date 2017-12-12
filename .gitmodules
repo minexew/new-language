@@ -1,0 +1,3 @@
+[submodule "dependencies/cpp.js"]
+	path = dependencies/cpp.js
+	url = https://github.com/minexew/cpp.js.git
