@@ -3,8 +3,16 @@
 const Dmparser = require('./dmparser');
 const SimpleFileAccessor = require('./SimpleFileAccessor');
 
-const argv = process.argv;
-//console.log(argv);
+async function asyncMain() {
+	const parser = new Dmparser(new SimpleFileAccessor());
 
-const parser = new Dmparser(new SimpleFileAccessor());
-parser.parseUnit(argv[2]);
+	const argv = process.argv;
+	//console.log(argv);
+
+	await parser.parseUnit(argv[2]);
+}
+
+asyncMain().catch(err => {
+	console.log(err);
+	process.exit(-1);
+});

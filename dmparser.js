@@ -6,7 +6,7 @@ class Dmparser {
         this.fileAccessor = fileAccessor;
     }
 
-    parseUnit(unitName) {
+    async parseUnit(unitName) {
         const source = this.fileAccessor.getFileContentsAsString(unitName);
 
         const lexer = new Lexer(unitName, source);
