@@ -25,7 +25,7 @@ class Dmparser {
 
                 // TODO: will this work if 'file' is absolute? (not that it ever is)
                 console.log(included_from)
-                const relative_path = path.join(path.dirname(included_from), file);
+                const relative_path = path.join(path.dirname(included_from), file.replace('\\', '/'));
 
                 this.fileAccessor.getFileContentsAsString(relative_path).then(contents => {
                     resumer(contents);
@@ -40,7 +40,7 @@ class Dmparser {
             },
 
             error_func: (err) => {
-                rejecter(err);
+                rejecter(new Error(err));
             },
         };
 

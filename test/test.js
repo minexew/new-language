@@ -34,4 +34,15 @@ describe('basics', function() {
 			assert.equal(err.message, 'Parse error at test/correct-diagnostic-include/b.dm:2:1: Unexpected character')
 		}
 	})
+
+	it('preprocessor should report correct line for diagnostic', async function() {
+		try {
+			const promise = new Dmparser(new SimpleFileAccessor()).parseUnit('test/_compile_options.dm');
+			await promise;
+			assert.fail();
+		}
+		catch (err) {
+			assert.equal(err.message, '(cpp) error # test/_compile_options.dm:76: #error: Your version of BYOND is too out-of-date to compile this project. Go to byond.com/download and update.')
+		}
+	})
 })
