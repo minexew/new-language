@@ -1,0 +1,2 @@
+// Trigger error in lexer
+$

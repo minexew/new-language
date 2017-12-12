@@ -2,6 +2,8 @@ const Lexer = require('./Lexer');
 
 const cpp = require('./dependencies/cpp.js/cpp');
 
+const path = require('path');
+
 class Dmparser {
     constructor(fileAccessor) {
         this.fileAccessor = fileAccessor;
@@ -14,8 +16,18 @@ class Dmparser {
         const settings = {
             signal_char : '#',
 
-            include_func : (file, is_global, resumer, error) => {
-                this.fileAccessor.getFileContentsAsString(file).then(contents => {
+            include_func : (file, is_global, resumer, error, included_from) => {
+                // Ignore maps for now
+                if (file.endsWith('.dmm')) {
+                    resumer(' ');
+                    return;
+                }
+
+                // TODO: will this work if 'file' is absolute? (not that it ever is)
+                console.log(included_from)
+                const relative_path = path.join(path.dirname(included_from), file);
+
+                this.fileAccessor.getFileContentsAsString(relative_path).then(contents => {
                     resumer(contents);
                 }).catch(err => {
                     console.log(err);
@@ -39,13 +51,13 @@ class Dmparser {
         return await new Promise((resolve, reject) => {
             resolver = resolve;
             rejecter = reject;
-            pp.run(contents);
+            pp.run(contents, unitName);
         })
     }
 
     async parseUnit(unitName) {
-        const source = await this.getPreprocessedUnit(unitName)
-        this.fileAccessor.getFileContentsAsString(unitName);
+        const source = await this.getPreprocessedUnit(unitName);
+        //console.log('parseUnit source', source);
 
         const lexer = new Lexer(unitName, source);
 

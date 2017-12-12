@@ -58,7 +58,7 @@ class Lexer {
         if (!point)
             point = this.point;
 
-        console.log('PARSE ERROR at', point.toString(), ':', what);
+        console.log(point.toString() + ': error: ' + what);
 
         const start = this.source.lastIndexOf('\n', this.pos);
         const end = this.source.indexOf('\n', this.pos);
@@ -68,7 +68,7 @@ class Lexer {
 
         console.log(' '.repeat(point.column - 1) + '^');
 
-        throw new Error();
+        throw new Error('Parse error at ' + point.toString() + ': ' + what);
     }
 
     read() {
