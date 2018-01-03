@@ -45,6 +45,8 @@ class Lexer {
         // it is cleared to null after a token is parsed
         // it is reset to 0 on new line
         this.indent = 0;
+
+        this.hackConsumePreprocessorDirectives();
     }
 
     emitToken(type, span, value) {
@@ -52,6 +54,31 @@ class Lexer {
         console.log('(indent', this.indent, ')', value);
         this.indent = null;
         return {};
+    }
+
+    hackConsumePreprocessorDirectives() {
+        // A bit hacky, just like the C preprocessor itself
+        while (this.nextPoint.column == 1 && this.source[this.pos] == '#') {
+            let lineEndIndex = this.source.indexOf('\n', this.pos + 1);
+
+            if (lineEndIndex === -1)
+                lineEndIndex = this.source.length;
+
+            const directive = this.source.slice(this.pos, lineEndIndex);
+            console.log(directive);
+
+            // per https://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
+            const linemarker_re = /# (\d+) "([^"]+)" (\d+)/i;
+            const [full, line, unit, flags] = directive.match(linemarker_re);
+            //console.log([full, line, unit, flags]);
+
+            this.pos = lineEndIndex + 1;
+            this.nextPoint = new SourcePoint(
+                    unit,
+                    parseInt(line),
+                    1,
+                    lineEndIndex);      // FIXME: this is NOT correct
+        }
     }
 
     parseError(what, point) {
@@ -125,6 +152,8 @@ class Lexer {
 
             if (this.readChar('\n')) {
                 this.indent = 0;
+
+                this.hackConsumePreprocessorDirectives();
             }
             else if (this.readSequence('/*')) {
                 let comment = '';

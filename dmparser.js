@@ -2,8 +2,6 @@ const Lexer = require('./Lexer');
 
 const cpp = require('./dependencies/cpp.js/cpp');
 
-const path = require('path');
-
 class Dmparser {
     constructor(fileAccessor) {
         this.fileAccessor = fileAccessor;
@@ -23,11 +21,9 @@ class Dmparser {
                     return;
                 }
 
-                // TODO: will this work if 'file' is absolute? (not that it ever is)
-                console.log(included_from)
-                const relative_path = path.join(path.dirname(included_from), file.replace('\\', '/'));
+                //console.log(included_from)
 
-                this.fileAccessor.getFileContentsAsString(relative_path).then(contents => {
+                this.fileAccessor.getFileContentsAsString(file).then(contents => {
                     resumer(contents);
                 }).catch(err => {
                     console.log(err);
