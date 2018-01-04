@@ -50,10 +50,13 @@ class Lexer {
     }
 
     emitToken(type, span, value) {
-        console.log(type, span);
-        console.log('(indent', this.indent, ')', value);
+        const token = {type: type, span: span, indent: this.indent, value: value};
+
+        //console.log(token.type, token.span);
+        //console.log('(indent', token.this.indent, ')', token.value);
+
         this.indent = null;
-        return {};
+        return token;
     }
 
     hackConsumePreprocessorDirectives() {
@@ -65,7 +68,7 @@ class Lexer {
                 lineEndIndex = this.source.length;
 
             const directive = this.source.slice(this.pos, lineEndIndex);
-            console.log(directive);
+            //console.log(directive);
 
             // per https://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
             const linemarker_re = /# (\d+) "([^"]+)" (\d+)/i;
