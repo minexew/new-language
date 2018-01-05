@@ -1,11 +1,10 @@
 const Token = require('./Token');
 
 class SourcePoint {
-    constructor(unit, line, column, byteOffset) {
+    constructor(unit, line, column) {
         this.unit = unit;
         this.line = line;
         this.column = column;
-        this.byteOffset = byteOffset;
     }
 
     toString() {
@@ -28,8 +27,8 @@ class Lexer {
         this.pos = 0;
         this.end = this.source.length;
 
-        this.point = new SourcePoint(unitName, 1, 0, 0);
-        this.nextPoint = new SourcePoint(unitName, 1, 1, 0);
+        this.point = new SourcePoint(unitName, 1, 0);
+        this.nextPoint = new SourcePoint(unitName, 1, 1);
 
         // indent counts number of leading spaces
         // it is cleared to null after a token is parsed
@@ -69,8 +68,7 @@ class Lexer {
             this.nextPoint = new SourcePoint(
                     unit,
                     parseInt(line),
-                    1,
-                    lineEndIndex);      // FIXME: this is NOT correct
+                    1);
         }
     }
 
@@ -99,15 +97,13 @@ class Lexer {
             this.nextPoint = new SourcePoint(
                     this.nextPoint.unit,
                     this.nextPoint.line + 1,
-                    1,
-                    this.nextPoint.byteOffset + 1);
+                    1);
         }
         else {
             this.nextPoint = new SourcePoint(
                     this.nextPoint.unit,
                     this.nextPoint.line,
-                    this.nextPoint.column + (this.source[this.pos] === '\t' ? 8 : 1),
-                    this.nextPoint.byteOffset + 1);
+                    this.nextPoint.column + (this.source[this.pos] === '\t' ? 8 : 1));
         }
 
         return this.source[this.pos++];
@@ -270,6 +266,7 @@ class Lexer {
             return this.emitToken(Token.TOKEN_IDENT, [start, this.point], ident);
         }
 
+        // TODO: Map should be used instead
         const literalTokens = {
             TOKEN_COMMA:        ',',
             TOKEN_DOT:          '.',
