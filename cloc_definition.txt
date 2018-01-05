@@ -1,0 +1,8 @@
+DM
+    filter call_regexp_common C
+    filter remove_matches ^\s*//
+    filter remove_inline #.*$
+    extension dm
+    extension dme
+    3rd_gen_scale 2.0
+
