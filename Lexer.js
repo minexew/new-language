@@ -1,16 +1,4 @@
-const TOKEN_COMMA =         'COMMA';
-const TOKEN_COMMENT =       'COMMENT';
-const TOKEN_DOT =           'DOT';
-const TOKEN_EQUAL =         'EQUAL';
-const TOKEN_EXCLAMATION =   'EXCLAMATION';
-const TOKEN_IDENT =         'IDENT';
-const TOKEN_NEWLINE =       'NEWLINE';
-const TOKEN_PAREN_L =       'PAREN_L';
-const TOKEN_PAREN_R =       'PAREN_R';
-const TOKEN_SHIFT_L =       'SHIFT_L';
-const TOKEN_SLASH =         'SLASH';
-const TOKEN_STRING =        'STRING';
-const TOKEN_STRING2 =       'STRING2';
+const Token = require('./Token');
 
 class SourcePoint {
     constructor(unit, line, column, byteOffset) {
@@ -52,7 +40,7 @@ class Lexer {
     }
 
     emitToken(type, span, value) {
-        const token = {type: type, span: span, indent: this.indent, value: value};
+        const token = new Token(type, this.indent, value, span);
 
         //console.log(token.type, token.span);
         //console.log('(indent', token.this.indent, ')', token.value);
@@ -179,7 +167,7 @@ class Lexer {
 
                 // FIXME: check for EOF
 
-                return this.emitToken(TOKEN_COMMENT, [start, this.point], comment);
+                return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
             }
             else if (this.readSequence('//')) {
                 let comment = '';
@@ -188,7 +176,7 @@ class Lexer {
                     comment += this.read();
                 }
 
-                return this.emitToken(TOKEN_COMMENT, [start, this.point], comment);
+                return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
             }
             else if (this.readChar(' ')) {
                 if (this.indent !== null)
@@ -237,7 +225,7 @@ class Lexer {
                 this.read();
             }
 
-            return this.emitToken(TOKEN_STRING, [start, this.point], literal);
+            return this.emitToken(Token.TOKEN_STRING, [start, this.point], literal);
         }
         else if (this.readChar("'")) {
             let literal = '';
@@ -268,7 +256,7 @@ class Lexer {
                 this.read();
             }
 
-            return this.emitToken(TOKEN_STRING2, [start, this.point], literal);
+            return this.emitToken(Token.TOKEN_STRING2, [start, this.point], literal);
         }
 
         // Identifier
@@ -279,7 +267,7 @@ class Lexer {
                 ident += this.read();
             }
 
-            return this.emitToken(TOKEN_IDENT, [start, this.point], ident);
+            return this.emitToken(Token.TOKEN_IDENT, [start, this.point], ident);
         }
 
         const literalTokens = {
@@ -296,7 +284,7 @@ class Lexer {
         for (const type in literalTokens) {
             if (literalTokens.hasOwnProperty(type)) {
                 if (this.readSequence(literalTokens[type]))
-                    return this.emitToken(type, [start, this.point]);
+                    return this.emitToken(Token[type], [start, this.point]);
             }
         }
 

@@ -18,49 +18,49 @@
     ";7;17;;7;20"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";7;21;;7;21"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";7;22;;7;22"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     3,
     null,
     ";13;25;;13;25"
   ],
   [
-    "TOKEN_EQUAL",
+    "EQUAL",
     null,
     null,
     ";13;27;;13;27"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     null,
     null,
     ";13;29;;13;29"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     null,
     null,
     ";13;30;;13;30"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";13;31;;13;31"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";13;32;;13;32"
@@ -72,7 +72,7 @@
     ";15;25;;15;27"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";15;28;;15;28"
@@ -84,7 +84,7 @@
     ";15;29;;15;31"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";15;32;;15;32"
@@ -96,7 +96,7 @@
     ";15;33;;15;35"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";15;36;;15;36"
@@ -108,7 +108,7 @@
     ";15;37;;15;39"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";15;40;;15;40"
@@ -132,7 +132,7 @@
     ";15;48;;15;51"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";15;52;;15;52"
@@ -144,13 +144,13 @@
     ";15;53;;15;55"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";15;56;;15;56"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";15;57;;15;57"
@@ -162,7 +162,7 @@
     ";16;33;;16;39"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";16;40;;16;40"
@@ -174,7 +174,7 @@
     ";16;41;;16;43"
   ],
   [
-    "TOKEN_COMMA",
+    "COMMA",
     null,
     null,
     ";16;44;;16;44"
@@ -186,7 +186,7 @@
     ";16;46;;16;48"
   ],
   [
-    "TOKEN_COMMA",
+    "COMMA",
     null,
     null,
     ";16;49;;16;49"
@@ -198,7 +198,7 @@
     ";16;51;;16;51"
   ],
   [
-    "TOKEN_COMMA",
+    "COMMA",
     null,
     null,
     ";16;52;;16;52"
@@ -210,7 +210,7 @@
     ";16;54;;16;54"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";16;55;;16;55"
@@ -234,7 +234,7 @@
     ";27;17;;27;22"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";27;23;;27;23"
@@ -246,7 +246,7 @@
     ";27;24;;27;27"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";27;28;;27;28"
@@ -258,7 +258,7 @@
     ";27;29;;27;35"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";27;36;;27;36"
@@ -270,7 +270,7 @@
     ";27;37;;27;42"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";27;43;;27;43"
@@ -294,7 +294,7 @@
     ";31;17;;31;20"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";31;21;;31;21"
@@ -306,7 +306,7 @@
     ";31;22;;31;25"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";31;26;;31;26"
@@ -318,31 +318,31 @@
     ";31;27;;31;34"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";31;35;;31;35"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     3,
     null,
     ";37;25;;37;25"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     null,
     null,
     ";37;26;;37;26"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";37;27;;37;27"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";37;28;;37;28"
@@ -354,7 +354,7 @@
     ";44;25;;44;32"
   ],
   [
-    "TOKEN_DOT",
+    "DOT",
     null,
     null,
     ";44;33;;44;33"
@@ -366,7 +366,7 @@
     ";44;34;;44;39"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";44;40;;44;40"
@@ -378,7 +378,7 @@
     ";44;41;;44;43"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";44;44;;44;44"
@@ -396,7 +396,7 @@
     ";47;17;;47;22"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";47;23;;47;23"
@@ -408,7 +408,7 @@
     ";47;24;;47;27"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";47;28;;47;28"
@@ -420,7 +420,7 @@
     ";47;29;;47;35"
   ],
   [
-    "TOKEN_SLASH",
+    "SLASH",
     null,
     null,
     ";47;36;;47;36"
@@ -432,7 +432,7 @@
     ";47;37;;47;42"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";47;43;;47;43"
@@ -444,7 +444,7 @@
     ";48;25;;48;30"
   ],
   [
-    "TOKEN_SHIFT_L",
+    "SHIFT_L",
     null,
     null,
     ";48;32;;48;33"
@@ -462,7 +462,7 @@
     ";50;25;;50;27"
   ],
   [
-    "TOKEN_EQUAL",
+    "EQUAL",
     null,
     null,
     ";50;29;;50;29"
@@ -474,7 +474,7 @@
     ";50;31;;50;37"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";50;38;;50;38"
@@ -486,7 +486,7 @@
     ";50;39;;50;41"
   ],
   [
-    "TOKEN_COMMA",
+    "COMMA",
     null,
     null,
     ";50;42;;50;42"
@@ -498,7 +498,7 @@
     ";50;44;;50;49"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";50;50;;50;50"
@@ -510,7 +510,7 @@
     ";52;25;;52;29"
   ],
   [
-    "TOKEN_PAREN_L",
+    "PAREN_L",
     null,
     null,
     ";52;30;;52;30"
@@ -522,7 +522,7 @@
     ";52;31;;52;37"
   ],
   [
-    "TOKEN_COMMA",
+    "COMMA",
     null,
     null,
     ";52;38;;52;38"
@@ -534,7 +534,7 @@
     ";52;40;;52;42"
   ],
   [
-    "TOKEN_PAREN_R",
+    "PAREN_R",
     null,
     null,
     ";52;43;;52;43"
