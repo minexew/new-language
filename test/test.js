@@ -49,7 +49,7 @@ describe('basics', function() {
 
     it('should report correct location for diagnostics in included file', async function() {
         try {
-            const promise = new Dmparser(new SimpleFileAccessor()).lexUnit('test/correct-diagnostic-include/a.dm');
+            const promise = new Dmparser(new SimpleFileAccessor()).lexUnit('test/correct-diagnostic-include/a.dm', false);
             await promise;
             assert.fail();
         }
@@ -60,7 +60,7 @@ describe('basics', function() {
 
     it('should report correct line for preprocessor diagnostic', async function() {
         try {
-            const promise = new Dmparser(new SimpleFileAccessor()).lexUnit('test/_compile_options.dm');
+            const promise = new Dmparser(new SimpleFileAccessor()).lexUnit('test/_compile_options.dm', false);
             await promise;
             assert.fail();
         }

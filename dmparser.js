@@ -8,7 +8,10 @@ class Dmparser {
         this.fileAccessor = fileAccessor;
     }
 
-    async getPreprocessedUnit(unitName) {
+    // TODO: warn+error callbacks instead of displayErrors
+    async getPreprocessedUnit(unitName, displayErrors) {
+        displayErrors = (displayErrors === undefined ? true : displayErrors);
+
         let resolver = null;
         let rejecter = null;
 
@@ -27,13 +30,23 @@ class Dmparser {
                 this.fileAccessor.getFileContentsAsString(file).then(contents => {
                     resumer(contents);
                 }).catch(err => {
-                    console.log(err);
+                    // Desirability debatable
+                    if (displayErrors)
+                        console.log(err);
+
                     resumer(null);
                 })
             },
 
             completion_func : (data) => {
                 resolver(data);
+            },
+
+            warn_func: (message) => {
+                console.log(displayErrors);
+
+                if (displayErrors)
+                    console.log(message);
             },
 
             error_func: (err) => {
@@ -52,11 +65,11 @@ class Dmparser {
         })
     }
 
-    async lexUnit(unitName) {
-        const source = await this.getPreprocessedUnit(unitName);
+    async lexUnit(unitName, displayErrors) {
+        const source = await this.getPreprocessedUnit(unitName, displayErrors);
         //console.log('parseUnit source', source);
 
-        const lexer = new Lexer(unitName, source);
+        const lexer = new Lexer(unitName, source, displayErrors);
 
         // TODO: is it ok/preferable to return array vs returning a generator?
         const tokens = [];
@@ -74,7 +87,7 @@ class Dmparser {
     }
 
     async parseUnit(unitName) {
-        const lexed = await this.lexUnit(unitName);
+        const lexed = await this.lexUnit(unitName, true);
 
         const parser = new Parser(lexed);
         const ast = parser.unit();
