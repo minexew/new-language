@@ -6,7 +6,7 @@ class TokenSerializer {
         const formatUnit = (unit) => {
             if (unit != lastUnit) {
                 if (unit.indexOf(';') !== -1)
-                    throw RuntimeError("Forbidden character in unit name.");
+                    throw Error("Forbidden character in unit name.");
 
                 lastUnit = unit;
                 return unit;

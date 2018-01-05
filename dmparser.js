@@ -1,4 +1,5 @@
 const Lexer = require('./Lexer');
+const Parser = require('./Parser');
 
 const cpp = require('./dependencies/cpp.js/cpp');
 
@@ -69,7 +70,18 @@ class Dmparser {
             tokens.push(token);
         }
 
-        return tokens;
+        return {'unitName': unitName, 'tokens': tokens};
+    }
+
+    async parseUnit(unitName) {
+        const lexed = await this.lexUnit(unitName);
+
+        const parser = new Parser(lexed);
+        const ast = parser.unit();
+
+        parser.finalCheck();
+
+        return ast;
     }
 }
 
