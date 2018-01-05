@@ -14,8 +14,11 @@ function getSpanPreview(start, end, fileAccessor) {
     const lineStart = (start.line > 1) ? nthIndex(source, '\n', start.line - 1) : 0;
     const lineEnd = source.indexOf('\n', lineStart + 1);
 
-    const preview = source.slice((lineStart >= 0) ? lineStart : 0,
+    const line = source.slice((lineStart >= 0) ? lineStart : 0,
             (lineEnd >= 0 ? lineEnd : source.length));
+
+    // FIXME: This is wrong. Tab needs to be counted as 1 column and repeat counts in this function must be adjusted.
+    const lineWithoutTab = line.replace('\t', '        ');
 
     let numColumns;
 
@@ -24,7 +27,7 @@ function getSpanPreview(start, end, fileAccessor) {
     else
         numColumns = 1;
 
-    return [preview, ' '.repeat(start.column - 1) + '^'.repeat(numColumns)];
+    return [lineWithoutTab, ' '.repeat(start.column - 1) + '^'.repeat(numColumns)];
 }
 
 class DiagnosticsPrinter {
