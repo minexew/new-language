@@ -4,14 +4,12 @@ const Parser = require('./Parser');
 const cpp = require('./dependencies/cpp.js/cpp');
 
 class Dmparser {
-    constructor(fileAccessor) {
+    constructor(fileAccessor, diagnosticsSink) {
         this.fileAccessor = fileAccessor;
+        this.diagnosticsSink = diagnosticsSink;
     }
 
-    // TODO: warn+error callbacks instead of displayErrors
-    async getPreprocessedUnit(unitName, displayErrors) {
-        displayErrors = (displayErrors === undefined ? true : displayErrors);
-
+    async getPreprocessedUnit(unitName) {
         let resolver = null;
         let rejecter = null;
 
@@ -30,9 +28,8 @@ class Dmparser {
                 this.fileAccessor.getFileContentsAsString(file).then(contents => {
                     resumer(contents);
                 }).catch(err => {
-                    // Desirability debatable
-                    if (displayErrors)
-                        console.log(err);
+                    // This records the underlying reason as well, which might (rarely) be non-trivial
+                    this.diagnosticsSink.errorGlobal(err.message);
 
                     resumer(null);
                 })
@@ -43,14 +40,13 @@ class Dmparser {
             },
 
             warn_func: (message) => {
-                console.log(displayErrors);
-
-                if (displayErrors)
-                    console.log(message);
+                this.diagnosticsSink.warnGlobal(message);
             },
 
-            error_func: (err) => {
-                rejecter(new Error(err));
+            error_func: (message) => {
+                this.diagnosticsSink.errorGlobal(message);
+
+                rejecter(new Error(message));
             },
         };
 
@@ -65,11 +61,11 @@ class Dmparser {
         })
     }
 
-    async lexUnit(unitName, displayErrors) {
-        const source = await this.getPreprocessedUnit(unitName, displayErrors);
+    async lexUnit(unitName) {
+        const source = await this.getPreprocessedUnit(unitName);
         //console.log('parseUnit source', source);
 
-        const lexer = new Lexer(unitName, source, displayErrors);
+        const lexer = new Lexer(unitName, source, this.diagnosticsSink);
 
         // TODO: is it ok/preferable to return array vs returning a generator?
         const tokens = [];
@@ -87,9 +83,9 @@ class Dmparser {
     }
 
     async parseUnit(unitName) {
-        const lexed = await this.lexUnit(unitName, true);
+        const lexed = await this.lexUnit(unitName);
 
-        const parser = new Parser(lexed);
+        const parser = new Parser(lexed, this.fileAccessor, this.diagnosticsSink);
         const ast = parser.unit();
 
         parser.finalCheck();

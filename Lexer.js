@@ -19,10 +19,10 @@ function isident(c) {
 }
 
 class Lexer {
-    constructor(unitName, source, displayErrors /* to be replaced with an ErrorSink */) {
+    constructor(unitName, source, diagnosticsSink) {
         this.unitName = unitName;
         this.source = source;
-        this.displayErrors = (displayErrors === undefined ? true : displayErrors);
+        this.diag = diagnosticsSink;
 
         this.pos = 0;
         this.end = this.source.length;
@@ -76,18 +76,8 @@ class Lexer {
         if (!point)
             point = this.point;
 
-        const start = this.source.lastIndexOf('\n', this.pos);
-        const end = this.source.indexOf('\n', this.pos);
-        const preview = this.source.slice((start >= 0) ? start : 0,
-                (end >= 0 ? end : this.source.length));
-
-        if (this.displayErrors) {
-            console.log(point.toString() + ': error: ' + what);
-            console.log(preview);
-            console.log(' '.repeat(point.column - 1) + '^');
-        }
-
-        throw new Error('Parse error at ' + point.toString() + ': ' + what);
+        this.diag.error(what, point);
+        throw new Error(what);
     }
 
     read() {
