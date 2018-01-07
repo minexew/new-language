@@ -10,49 +10,49 @@ const assert = require('assert');
 
 const sfa = new SimpleFileAccessor();
 const diagPrint = new DiagnosticsPrinter(sfa);
-const diagNull = new DiagnosticsDevNull();
+//const diagNull = new DiagnosticsDevNull();
 
 describe('basics', function() {
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/Your First World.dme');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/Your First World.dme');
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/Your First World.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/main-a.dm');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-a.dm');
         //TestUtil.dumpJson('test/main-a.lex.json', TokenSerializer.serializeList(tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-a.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/main-b.dm');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-b.dm');
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-b.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/main-c.dm');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-c.dm');
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-c.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/main-d.dm');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-d.dm');
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-d.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should correctly lex Your First World', async function() {
-        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('Your First World/main-e.dm');
+        const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-e.dm');
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-e.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
-    })
+    });
 
     it('should parse Your First World', async function() {
-        return new Dmparser(sfa, diagPrint).parseUnit('Your First World/main-a.dm');
-    })
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-a.dm');
+    });
 
     it('should report correct location for diagnostics in included file', async function() {
         const diag = new DiagnosticsLogger();
@@ -67,7 +67,7 @@ describe('basics', function() {
                     ['error', 'Unexpected character', {unit: 'test/correct-diagnostic-include/b.dm', line: 2, column: 1}]
             ]);
         }
-    })
+    });
 
     it('should report correct line for preprocessor diagnostic', async function() {
         const diag = new DiagnosticsLogger();
@@ -82,5 +82,5 @@ describe('basics', function() {
                     ['errorGlobal', '(cpp) error # test/_compile_options.dm:76: #error: Your version of BYOND is too out-of-date to compile this project. Go to byond.com/download and update.']
             ]);
         }
-    })
-})
+    });
+});
