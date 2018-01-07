@@ -843,5 +843,10 @@
     "NEWLINE",
     null,
     null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
   ]
 ]

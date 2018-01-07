@@ -448,5 +448,10 @@
     "IDENT",
     "cave",
     ";102;9;;102;12"
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
   ]
 ]

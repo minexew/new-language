@@ -898,5 +898,15 @@
     "STRING_DQ",
     "It's quite large.",
     ";67;24;;67;42"
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
   ]
 ]

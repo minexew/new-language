@@ -638,5 +638,20 @@
     "PAREN_R",
     null,
     ";52;43;;52;43"
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
   ]
 ]

@@ -163,8 +163,14 @@ class Lexer {
         while (this.tokenBacklog.length < 1) {
             if (this.pos < this.end)
                 this.doParseToken();
-            else
-                return null;
+            else {
+                if (this.lastIndent > 0) {
+                    this.tokenBacklog.push(new Token(Token.TOKEN_BLOCK_END));           // TODO: do we care about span?
+                    this.lastIndent--;
+                }
+                else
+                    return null;
+            }
         }
 
         // Pop the first item in the FIFO
