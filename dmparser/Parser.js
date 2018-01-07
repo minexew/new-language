@@ -1,162 +1,7 @@
 const SourcePoint = require('./SourcePoint');
 const Token = require('./Token');
 
-class AstExpression {
-    constructor(span) {
-        this.span = span;
-    }
-}
-
-class AstIdent extends AstExpression {
-    constructor(value, span) {
-        super(span);
-        this.value = value;
-    }
-}
-
-class AstLiteral extends AstExpression {
-    constructor(span) {
-        super(span);
-    }
-}
-
-class AstRootNamespace extends AstExpression {
-    constructor(span) {
-        super(span);
-    }
-}
-
-class AstPath extends AstExpression {
-    constructor(namespace, member, span) {
-        super(span);
-
-        if (!(namespace instanceof AstRootNamespace) && !(namespace instanceof AstPath) && !(namespace instanceof AstIdent))
-            throw Error('BUG: invalid namespace');
-
-        if (!(member instanceof AstIdent))
-            throw Error('BUG: invalid member');
-
-        this.namespace = namespace;
-        this.member = member;
-    }
-}
-
-/*
-
- class AstNodeLiteralBoolean : public AstNodeLiteral
- {
- public:
- AstNodeLiteralBoolean(bool value, SourceSpan span)
- : AstNodeLiteral(AstNodeLiteral::Type::boolean, span), value(value) {
- }
-
- const bool value;
- };
-*/
-class AstLiteralInteger extends AstLiteral {
-    constructor(value, span) {
-        super(span);
-        this.value = value;
-    }
-}
-/*
- class AstNodeLiteralInteger : public AstNodeLiteral
- {
- public:
- AstNodeLiteralInteger(Int_t value, SourceSpan span)
- : AstNodeLiteral(AstNodeLiteral::Type::integer, span), value(value) {
- }
-/*
- const Int_t value;
- };
-
- class AstNodeLiteralObject : public AstNodeLiteral
- {
- public:
- explicit AstNodeLiteralObject(SourceSpan span)
- : AstNodeLiteral(AstNodeLiteral::Type::object, span) {
- }
-
- void addProperty(std::string&& propertyName, pool_ptr<AstNodeExpression>&& expression) {
- properties.emplace_back(std::move(propertyName), std::move(expression));
- }
-
- const auto& getProperties() const { return properties; }
-
- private:
- // not a map, accessed mostly in order
- std::vector<std::pair<std::string, pool_ptr<AstNodeExpression>>> properties;
- };
-
- class AstNodeLiteralReal : public AstNodeLiteral
- {
- public:
- AstNodeLiteralReal(Real_t value, SourceSpan span)
- : AstNodeLiteral(AstNodeLiteral::Type::real, span), value(value) {
- }
-
- const Real_t value;
- };
-*/
-class AstLiteralString extends AstLiteral {
-    constructor(text, singleQuoted, span) {
-        super(span);
-        this.text = text;
-        this.singleQuoted = singleQuoted;
-    }
-}
-
-class AstClass {
-    constructor(path) {
-        this.path = path;           // TODO: type check
-
-        this.declarations = [];
-    }
-
-    pushDeclaration(declaration) {
-        this.declarations.push(declaration);
-    }
-}
-
-class AstUnit {
-    constructor(unitName) {
-        this.unitName = unitName;
-
-        this.declarations = [];
-    }
-
-    pushDeclaration(declaration) {
-        this.declarations.push(declaration);
-    }
-}
-
-class AstStatement {
-    constructor(span) {
-        this.span = span;
-    }
-}
-
-class AstAssignment extends AstStatement {
-    constructor(target, expression, span) {
-        super(span);
-
-        if (!(target instanceof AstIdent))
-            throw Error('BUG: invalid target');
-
-        this.target = target;
-        this.expression = expression;
-    }
-
-    /*SourceSpan getFullSpan() const override { return SourceSpan::union_(target->getFullSpan(), expression->getFullSpan()); }
-
-    const AstNodeExpression* getExpression() const { return expression.get(); }
-    pool_ptr<AstNodeExpression> getExpression2() const { return expression; }
-    const AstNodeExpression* getTarget() const { return target.get(); }
-    pool_ptr<AstNodeExpression> getTarget2() const { return target; }
-
-    private:
-        const pool_ptr<AstNodeExpression> target, expression;*/
-}
+const ast = require('./ast');
 
 class Parser {
     constructor(lexed, fileAccessor, diagnosticsSink) {
@@ -226,7 +71,7 @@ class Parser {
         if (!slash)
             return null;
 
-        const namespace = new AstRootNamespace(slash.span);
+        const namespace = new ast.RootNamespace(slash.span);
 
         const fullPath = this.relativePath(namespace);
 
@@ -280,7 +125,7 @@ class Parser {
             if (!expr)
                 this.syntaxError("Expected expression after '='");
 
-            return new AstAssignment(path, expr, assignment.span);
+            return new ast.Assignment(path, expr, assignment.span);
         }
 
         // TODO: check if function declaration
@@ -288,7 +133,7 @@ class Parser {
         // Otherwise, class declaration
         this.consumeNewlines();
 
-        const class_ = new AstClass(path);
+        const class_ = new ast.Class(path);
 
         if (this.consumeToken(Token.TOKEN_BLOCK_BEGIN)) {
             this.classDeclarationBody(class_);
@@ -313,7 +158,7 @@ class Parser {
         const tok = this.consumeToken(Token.TOKEN_IDENT);
 
         if (tok)
-            return new AstIdent(tok.value, tok.span);
+            return new ast.Ident(tok.value, tok.span);
 
         return null;
     }
@@ -322,17 +167,17 @@ class Parser {
         const integer = this.consumeToken(Token.TOKEN_INTEGER);
 
         if (integer)
-            return new AstLiteralInteger(integer.value, integer.span);
+            return new ast.LiteralInteger(integer.value, integer.span);
 
         const doubleQuotedString = this.consumeToken(Token.TOKEN_STRING_DQ);
 
         if (doubleQuotedString)
-            return new AstLiteralString(doubleQuotedString.value, false, doubleQuotedString.span);
+            return new ast.LiteralString(doubleQuotedString.value, false, doubleQuotedString.span);
 
         const singleQuotedString = this.consumeToken(Token.TOKEN_STRING_SQ);
 
         if (singleQuotedString)
-            return new AstLiteralString(singleQuotedString.value, true, singleQuotedString.span);
+            return new ast.LiteralString(singleQuotedString.value, true, singleQuotedString.span);
 
         return null;
     }
@@ -347,7 +192,7 @@ class Parser {
         if (!identifier)
             return null;
 
-        let path = namespace ? new AstPath(namespace, identifier, identifier.span) : identifier;
+        let path = namespace ? new ast.Path(namespace, identifier, identifier.span) : identifier;
 
         for (;;) {
             const slash = this.consumeToken(Token.TOKEN_SLASH);
@@ -360,14 +205,14 @@ class Parser {
             if (!nextIdentifier)
                 this.syntaxError("Expected identifier after '/'");
 
-            path = new AstPath(path, nextIdentifier, nextIdentifier.span);
+            path = new ast.Path(path, nextIdentifier, nextIdentifier.span);
         }
 
         return path;
     }
 
     unit() {
-        const unit = new AstUnit(this.lexed.unitName);
+        const unit = new ast.Unit(this.lexed.unitName);
 
         for (;;) {
             let declaration;
