@@ -1,7 +1,7 @@
 class Token {
     constructor(type, value, span) {
         this.type = type;
-        this.value = value || null;
+        this.value = (value !== undefined) ? value : null;      // TODO: is this good?
         this.span = span;
     }
 }
@@ -14,6 +14,7 @@ Token.TOKEN_DOT =           'DOT';
 Token.TOKEN_EQUAL =         'EQUAL';
 Token.TOKEN_EXCLAMATION =   'EXCLAMATION';
 Token.TOKEN_IDENT =         'IDENT';
+Token.TOKEN_INTEGER =       'INTEGER';
 Token.TOKEN_NEWLINE =       'NEWLINE';              // not necessarily newline, can be also ';'
 Token.TOKEN_PAREN_L =       'PAREN_L';
 Token.TOKEN_PAREN_R =       'PAREN_R';

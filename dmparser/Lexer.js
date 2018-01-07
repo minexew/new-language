@@ -7,6 +7,10 @@ function isident(c) {
     return /^[a-zA-Z0-9_]$/.test(c);
 }
 
+function isnumeric(c) {
+    return /^[0-9]$/.test(c);
+}
+
 class Lexer {
     constructor(unitName, source, diagnosticsSink, options) {
         this.unitName = unitName;
@@ -286,6 +290,20 @@ class Lexer {
             }
 
             return this.emitToken(Token.TOKEN_STRING_SQ, [start, this.point], literal);
+        }
+
+        // Numeric
+        if (isnumeric(this.source[this.pos])) {
+            let integer = "";
+
+            while (this.pos < this.end && (isnumeric(this.source[this.pos]) || this.source[this.pos] === '.')) {
+                if (this.source[this.pos] === '.')
+                    this.parseError("Decimals are not yet supported");
+
+                integer += this.read();
+            }
+
+            return this.emitToken(Token.TOKEN_INTEGER, [start, this.point], parseInt(integer));
         }
 
         // Identifier
