@@ -555,7 +555,7 @@
     ";48;32;;48;33"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "The giant rat defends its territory ferociously!",
     ";48;35;;48;84"
   ],
@@ -620,7 +620,7 @@
     ";52;30;;52;30"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "fight",
     ";52;31;;52;37"
   ],

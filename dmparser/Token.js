@@ -19,7 +19,7 @@ Token.TOKEN_PAREN_L =       'PAREN_L';
 Token.TOKEN_PAREN_R =       'PAREN_R';
 Token.TOKEN_SHIFT_L =       'SHIFT_L';
 Token.TOKEN_SLASH =         'SLASH';
-Token.TOKEN_STRING =        'STRING';               // "string"
-Token.TOKEN_STRING2 =       'STRING2';              // 'string'
+Token.TOKEN_STRING_DQ =     'STRING_DQ';            // "string"
+Token.TOKEN_STRING_SQ =     'STRING_SQ';            // 'string'
 
 module.exports = Token;

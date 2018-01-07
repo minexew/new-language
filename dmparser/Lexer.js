@@ -1,16 +1,5 @@
+const SourcePoint = require('./SourcePoint');
 const Token = require('./Token');
-
-class SourcePoint {
-    constructor(unit, line, column) {
-        this.unit = unit;
-        this.line = line;
-        this.column = column;
-    }
-
-    toString() {
-        return this.unit + ':' + this.line + ':' + this.column;
-    }
-}
 
 // --------------------------------------------------------------------------
 
@@ -265,7 +254,7 @@ class Lexer {
                 this.read();
             }
 
-            return this.emitToken(Token.TOKEN_STRING, [start, this.point], literal);
+            return this.emitToken(Token.TOKEN_STRING_DQ, [start, this.point], literal);
         }
         else if (this.readChar("'")) {
             let literal = '';
@@ -296,7 +285,7 @@ class Lexer {
                 this.read();
             }
 
-            return this.emitToken(Token.TOKEN_STRING2, [start, this.point], literal);
+            return this.emitToken(Token.TOKEN_STRING_SQ, [start, this.point], literal);
         }
 
         // Identifier

@@ -110,7 +110,7 @@
     ";18;29;;18;30"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "You get [src].",
     ";18;32;;18;47"
   ],
@@ -185,7 +185,7 @@
     ";24;29;;24;30"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "You drop [src].",
     ";24;32;;24;48"
   ],
@@ -265,7 +265,7 @@
     ";29;22;;29;22"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "It is quite smelly.",
     ";29;24;;29;44"
   ],
@@ -325,7 +325,7 @@
     ";33;37;;33;38"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "You take a bite of the cheese. Bleck!",
     ";33;40;;33;78"
   ],
@@ -345,7 +345,7 @@
     ";35;40;;35;40"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "(nibbled)",
     ";35;42;;35;52"
   ],
@@ -395,7 +395,7 @@
     ";38;22;;38;22"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "It looks to be rather old.",
     ";38;24;;38;51"
   ],
@@ -455,7 +455,7 @@
     ";42;37;;42;38"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "You utter the phrase written on the scroll: \"Knuth\"!",
     ";42;40;;42;95"
   ],
@@ -530,7 +530,7 @@
     ";47;37;;47;38"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "A giant rat appears!",
     ";47;40;;47;61"
   ],
@@ -615,7 +615,7 @@
     ";54;22;;54;22"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "A handsome and dashing rogue.",
     ";54;24;;54;54"
   ],
@@ -660,7 +660,7 @@
     ";57;34;;57;34"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "Inventory",
     ";57;35;;57;45"
   ],
@@ -740,7 +740,7 @@
     ";61;37;;61;38"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "You see...",
     ";61;40;;61;51"
   ],
@@ -840,7 +840,7 @@
     ";64;45;;64;46"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "[o].  [o.desc]",
     ";64;48;;64;63"
   ],
@@ -895,7 +895,7 @@
     ";67;22;;67;22"
   ],
   [
-    "STRING",
+    "STRING_DQ",
     "It's quite large.",
     ";67;24;;67;42"
   ]
