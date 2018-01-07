@@ -304,6 +304,10 @@ class Lexer {
 
             // multi-character tokens
             [Token.TOKEN_DOT_DOT,           '..'],
+            [Token.TOKEN_LOGIC_AND,         '&&'],
+            [Token.TOKEN_LOGIC_OR,          '||'],
+            [Token.TOKEN_MINUS_MINUS,       '--'],
+            [Token.TOKEN_PLUS_PLUS,         '++'],
             [Token.TOKEN_SHIFT_L,           '<<'],
 
             // single-character tokens
@@ -313,9 +317,11 @@ class Lexer {
             [Token.TOKEN_DOT,               '.'],
             [Token.TOKEN_EQUAL,             '='],
             [Token.TOKEN_EXCLAMATION,       '!'],
+            [Token.TOKEN_MINUS,             '-'],
             [Token.TOKEN_NEWLINE,           ';'],
             [Token.TOKEN_PAREN_L,           '('],
             [Token.TOKEN_PAREN_R,           ')'],
+            [Token.TOKEN_PLUS,              '+'],
             [Token.TOKEN_SLASH,             '/'],
         ]);
 

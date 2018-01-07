@@ -27,7 +27,11 @@ class BinaryExpression extends Expression {
     }
 }
 
+BinaryExpression.ADD = '+';
+BinaryExpression.LOGIC_AND = '&&';
+BinaryExpression.LOGIC_OR = '||';
 BinaryExpression.SHIFT_L = '<<';
+BinaryExpression.SUBTRACT = '-';
 
 class CallExpression extends Expression {
     constructor(callable, arguments_) {
@@ -77,6 +81,8 @@ class UnaryExpression extends Expression {
 }
 
 UnaryExpression.NOT = '!';
+UnaryExpression.POSTFIX_DECREMENT = '--';
+UnaryExpression.POSTFIX_INCREMENT = '++';
 
 class Ident extends Expression {
     constructor(value, span) {

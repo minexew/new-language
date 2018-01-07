@@ -383,23 +383,52 @@ class Parser {
             ( ) ! ~ ++ -- -     (expressionUnaryOrCall)
             **
             * / %
-            + -
+            + -                 (expressionAddSub)
             > < >= <=
             << >>               (expressionShift)
             == != <>
             &
             ^
             |
-            &&
-            ||
+            &&                  (expressionLogicAnd)
+            ||                  (expressionLogicOr)
             ?
             = += -= etc.
         */
 
-        const expr = this.expressionShift();
+        const expr = this.expressionLogicOr();
 
         if (!expr)
             return null;
+
+        return expr;
+    }
+
+    expressionAddSub() {
+        let expr = this.expressionUnaryOrCall();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const minus = this.consumeToken(Token.TOKEN_MINUS);
+
+            if (minus) {
+                const right = this.expectRule(this.expressionUnaryOrCall, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.SUBTRACT, expr, right, minus.span);
+                continue;
+            }
+
+            const plus = this.consumeToken(Token.TOKEN_PLUS);
+
+            if (plus) {
+                const right = this.expectRule(this.expressionUnaryOrCall, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.ADD, expr, right, plus.span);
+                continue;
+            }
+
+            break;
+        }
 
         return expr;
     }
@@ -464,8 +493,50 @@ class Parser {
         return expr;
     }
 
+    expressionLogicAnd() {
+        let expr = this.expressionShift();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const logicAnd = this.consumeToken(Token.TOKEN_LOGIC_AND);
+
+            if (logicAnd) {
+                const right = this.expectRule(this.expressionShift, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.LOGIC_AND, expr, right, logicAnd.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
+    }
+
+    expressionLogicOr() {
+        let expr = this.expressionLogicAnd();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const logicOr = this.consumeToken(Token.TOKEN_LOGIC_OR);
+
+            if (logicOr) {
+                const right = this.expectRule(this.expressionLogicAnd, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.LOGIC_OR, expr, right, logicOr.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
+    }
+
     expressionShift() {
-        let expr = this.expressionUnaryOrCall();
+        let expr = this.expressionAddSub();
 
         if (!expr)
             return null;
@@ -474,7 +545,7 @@ class Parser {
             const shift_l = this.consumeToken(Token.TOKEN_SHIFT_L);
 
             if (shift_l) {
-                const right = this.expectRule(this.expressionUnaryOrCall, 'expression');
+                const right = this.expectRule(this.expressionAddSub, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.SHIFT_L, expr, right, shift_l.span);
                 continue;
             }
@@ -505,6 +576,20 @@ class Parser {
 
             if (arguments_) {
                 expr = new ast.CallExpression(expr, arguments_);
+                continue;
+            }
+
+            const minusMinus = this.consumeToken(Token.TOKEN_MINUS_MINUS);
+
+            if (minusMinus) {
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_DECREMENT, expression, minusMinus.span);
+                continue;
+            }
+
+            const plusPlus = this.consumeToken(Token.TOKEN_PLUS_PLUS);
+
+            if (plusPlus) {
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_INCREMENT, expression, plusPlus.span);
                 continue;
             }
 
