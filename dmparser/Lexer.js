@@ -24,7 +24,7 @@ class Lexer {
         this.source = source;
         this.diag = diagnosticsSink;
 
-        // Sometimes we need to emit more than one token at a time
+        // Sometimes we need to emit more or less than one token, so to be general, everything goes through this FIFO
         this.tokenBacklog = [];
 
         this.pos = 0;
@@ -68,8 +68,6 @@ class Lexer {
     }
 
     emitToken(type, span, value) {
-        const emissions = [];
-
         if (type === Token.TOKEN_NEWLINE) {
             // Newline is a special snowflake. It never begins/ends a block on its own, its span is set to null
             // (at least for now), and it resets indent to zero.
@@ -78,36 +76,27 @@ class Lexer {
 
             // TODO: option to omit repeated TOKEN_NEWLINE
             // As long as its span is always set to null, it shouldn't make a functional difference
-            // However, it would need changes in how readToken works (always use FIFO), which might be a good idea anyways.
-
-            return new Token(type, value, span);
         }
+        else {
+            if (this.indent !== null) {
+                while (this.indent > this.lastIndent) {
+                    this.tokenBacklog.push(new Token(Token.TOKEN_BLOCK_BEGIN));         // TODO: do we care about span?
+                    this.lastIndent++;
+                }
 
-        if (this.indent !== null) {
-            while (this.indent > this.lastIndent) {
-                emissions.push(new Token(Token.TOKEN_BLOCK_BEGIN));         // TODO: do we care about span?
-                this.lastIndent++;
-            }
-
-            while (this.indent < this.lastIndent) {
-                emissions.push(new Token(Token.TOKEN_BLOCK_END));           // TODO: do we care about span?
-                this.lastIndent--;
+                while (this.indent < this.lastIndent) {
+                    this.tokenBacklog.push(new Token(Token.TOKEN_BLOCK_END));           // TODO: do we care about span?
+                    this.lastIndent--;
+                }
             }
         }
 
         const token = new Token(type, value, span);
-        emissions.push(token);
-
         //console.log(token.type, token.span);
         //console.log('(indent', token.this.indent, ')', token.value);
 
+        this.tokenBacklog.push(token);
         this.indent = null;
-
-        // This cryptic line takes all emissions past the first one and add them to the backlog
-        // TODO: this is idiotic. Why bother special-casing the first one and not just push all through a FIFO?
-        this.tokenBacklog.push.apply(this.tokenBacklog, emissions.splice(1));
-
-        return emissions[0];
     }
 
     parseError(what, point) {
@@ -161,10 +150,16 @@ class Lexer {
     }
 
     readToken() {
-        if (this.tokenBacklog.length > 0)
-            return this.tokenBacklog.splice(0, 1)[0];
-        else
-            return this.doParseToken();
+        // If FIFO is empty, attempt to fill it up
+        while (this.tokenBacklog.length < 1) {
+            if (this.pos < this.end)
+                this.doParseToken();
+            else
+                return null;
+        }
+
+        // Pop the first item in the FIFO
+        return this.tokenBacklog.splice(0, 1)[0];
     }
 
     doParseToken() {
@@ -174,8 +169,9 @@ class Lexer {
             const start = this.nextPoint;
 
             if (this.readChar('\n')) {
-                this.indent = 0;        // clearing indent before the emission is somewhat dirty. Any better idea?
-                return this.emitToken(Token.TOKEN_NEWLINE);      // TODO: do we care about span?
+                this.emitToken(Token.TOKEN_NEWLINE);      // TODO: do we care about span?
+                this.indent = 0;
+                return;
             }
             else if (this.readSequence('/*')) {
                 let comment = '';
