@@ -175,6 +175,111 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "world",
     "test/Your First World/main-a.dm;36;1;;36;5"
@@ -888,6 +993,11 @@
     "IDENT",
     "cave",
     ";102;2;;102;5"
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
   ],
   [
     "NEWLINE",
