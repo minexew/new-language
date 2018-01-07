@@ -1,3 +1,4 @@
+const AstSerializer = require("../utility/AstSerializer");
 const DiagnosticsDevNull = require('../utility/DiagnosticsDevNull');
 const DiagnosticsLogger = require('../utility/DiagnosticsLogger');
 const DiagnosticsPrinter = require('../utility/DiagnosticsPrinter');
@@ -61,9 +62,17 @@ describe('basics', function() {
         return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-a.dm');
     });
 
+    it('should correctly parse Your First World (main-a.dm)', async function() {
+        const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-a.dm');
+        //TestUtil.dumpJson('test/main-a.ast.json', AstSerializer.serializeUnit(parsed), true);
+        assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-a.ast.json'),
+            AstSerializer.serializeUnit(parsed));
+    });
+
     it('should report correct location for diagnostics in included file', async function() {
         const diag = new DiagnosticsLogger();
 
+        // TODO: use assert.throws
         try {
             const promise = new Dmparser(sfa, diag).lexUnit('test/correct-diagnostic-include/a.dm');
             await promise;
@@ -79,6 +88,7 @@ describe('basics', function() {
     it('should report correct line for preprocessor diagnostic', async function() {
         const diag = new DiagnosticsLogger();
 
+        // TODO: use assert.throws
         try {
             const promise = new Dmparser(sfa, diag).lexUnit('test/_compile_options.dm');
             await promise;

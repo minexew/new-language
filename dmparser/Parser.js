@@ -1,7 +1,6 @@
+const ast = require('./ast');
 const SourcePoint = require('./SourcePoint');
 const Token = require('./Token');
-
-const ast = require('./ast');
 
 class Parser {
     constructor(lexed, fileAccessor, diagnosticsSink) {

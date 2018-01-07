@@ -1,0 +1,314 @@
+{
+  "type": "Unit",
+  "span": null,
+  "classes": [
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": "test/Your First World/main-a.dm;36;1;;36;5",
+        "value": "world"
+      },
+      "classes": [],
+      "variables": [
+        {
+          "name": {
+            "type": "Ident",
+            "span": ";38;9;;38;12",
+            "value": "name"
+          },
+          "expression": {
+            "type": "LiteralString",
+            "span": ";38;16;;38;33",
+            "text": "Your First World",
+            "singleQuoted": false
+          },
+          "span": null
+        },
+        {
+          "name": {
+            "type": "Ident",
+            "span": ";41;9;;41;11",
+            "value": "mob"
+          },
+          "expression": {
+            "type": "Path",
+            "span": ";41;20;;41;25",
+            "namespace": {
+              "type": "Path",
+              "span": ";41;16;;41;18",
+              "namespace": {
+                "type": "RootNamespace",
+                "span": ";41;15;;41;15"
+              },
+              "member": {
+                "type": "Ident",
+                "span": ";41;16;;41;18",
+                "value": "mob"
+              }
+            },
+            "member": {
+              "type": "Ident",
+              "span": ";41;20;;41;25",
+              "value": "player"
+            }
+          },
+          "span": null
+        }
+      ]
+    },
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": ";50;1;;50;3",
+        "value": "mob"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";51;9;;51;14",
+            "value": "player"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";52;17;;52;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";52;24;;52;35",
+                "text": "player.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ]
+        },
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";54;9;;54;11",
+            "value": "rat"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";55;17;;55;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";55;24;;55;32",
+                "text": "rat.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ]
+        }
+      ],
+      "variables": []
+    },
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": ";64;1;;64;4",
+        "value": "turf"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";65;9;;65;13",
+            "value": "floor"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";66;17;;66;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";66;24;;66;34",
+                "text": "floor.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ]
+        },
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";68;9;;68;12",
+            "value": "wall"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";69;17;;69;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";69;24;;69;33",
+                "text": "wall.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            },
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";74;17;;74;23",
+                "value": "density"
+              },
+              "expression": {
+                "type": "LiteralInteger",
+                "span": ";74;27;;74;27",
+                "value": 1
+              },
+              "span": null
+            },
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";77;17;;77;23",
+                "value": "opacity"
+              },
+              "expression": {
+                "type": "LiteralInteger",
+                "span": ";77;27;;77;27",
+                "value": 1
+              },
+              "span": null
+            }
+          ]
+        }
+      ],
+      "variables": []
+    },
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": ";85;1;;85;3",
+        "value": "obj"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";86;9;;86;14",
+            "value": "cheese"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";87;17;;87;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";87;24;;87;35",
+                "text": "cheese.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ]
+        },
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";89;9;;89;14",
+            "value": "scroll"
+          },
+          "classes": [],
+          "variables": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";90;17;;90;20",
+                "value": "icon"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";90;24;;90;35",
+                "text": "scroll.dmi",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ]
+        }
+      ],
+      "variables": []
+    },
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": ";99;1;;99;4",
+        "value": "area"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";100;9;;100;15",
+            "value": "outside"
+          },
+          "classes": [],
+          "variables": []
+        },
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";102;9;;102;12",
+            "value": "cave"
+          },
+          "classes": [],
+          "variables": []
+        }
+      ],
+      "variables": []
+    }
+  ]
+}
