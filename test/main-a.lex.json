@@ -80,6 +80,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "mob",
     ";50;1;;50;3"
@@ -135,6 +140,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "rat",
     ";54;2;;54;4"
@@ -175,7 +185,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -231,6 +251,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -315,7 +340,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -375,6 +410,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "scroll",
     ";89;2;;89;7"
@@ -415,7 +455,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],

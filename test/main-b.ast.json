@@ -1,0 +1,352 @@
+{
+  "type": "Unit",
+  "span": null,
+  "classes": [
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": "test/Your First World/main-b.dm;10;1;;10;4",
+        "value": "area"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";32;2;;32;8",
+            "value": "outside"
+          },
+          "classes": [],
+          "procedures": [],
+          "properties": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";33;3;;33;6",
+                "value": "desc"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";33;10;;33;34",
+                "text": "Nice and jazzy, here...",
+                "singleQuoted": false
+              },
+              "span": null
+            },
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";35;3;;35;7",
+                "value": "music"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";35;11;;35;21",
+                "text": "jazzy.mid",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ],
+          "variables": []
+        },
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";37;2;;37;5",
+            "value": "cave"
+          },
+          "classes": [],
+          "procedures": [],
+          "properties": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";38;3;;38;6",
+                "value": "desc"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";38;10;;38;39",
+                "text": "Watch out for the giant rat!",
+                "singleQuoted": false
+              },
+              "span": null
+            },
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";40;3;;40;7",
+                "value": "music"
+              },
+              "expression": {
+                "type": "LiteralString",
+                "span": ";40;11;;40;22",
+                "text": "cavern.mid",
+                "singleQuoted": true
+              },
+              "span": null
+            }
+          ],
+          "variables": []
+        }
+      ],
+      "procedures": [
+        {
+          "type": "Procedure",
+          "name": {
+            "type": "Ident",
+            "span": ";14;2;;14;8",
+            "value": "Entered"
+          },
+          "arguments": {
+            "type": "ArgumentDeclList",
+            "arguments": [
+              {
+                "name": {
+                  "type": "Ident",
+                  "span": ";14;14;;14;14",
+                  "value": "m"
+                },
+                "type": {
+                  "type": "Ident",
+                  "span": ";14;10;;14;12",
+                  "value": "mob"
+                },
+                "inputType": null
+              }
+            ]
+          },
+          "body": {
+            "type": "Block",
+            "statements": [
+              {
+                "type": "IfStatement",
+                "span": ";21;3;;21;4",
+                "expression": {
+                  "type": "UnaryExpression",
+                  "span": ";21;6;;21;6",
+                  "unaryType": "!",
+                  "right": {
+                    "type": "CallExpression",
+                    "span": null,
+                    "callable": {
+                      "type": "Ident",
+                      "span": ";21;7;;21;11",
+                      "value": "ismob"
+                    },
+                    "arguments": {
+                      "type": "ArgumentList",
+                      "named": [],
+                      "positional": [
+                        {
+                          "type": "Ident",
+                          "span": ";21;13;;21;13",
+                          "value": "m"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "body": {
+                  "type": "Block",
+                  "statements": [
+                    {
+                      "type": "ReturnStatement",
+                      "span": ";22;4;;22;9",
+                      "expression": null
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "span": ";28;5;;28;6",
+                "expression": {
+                  "type": "BinaryExpression",
+                  "span": ";28;5;;28;6",
+                  "binaryType": "<<",
+                  "left": {
+                    "type": "Ident",
+                    "span": ";28;3;;28;3",
+                    "value": "m"
+                  },
+                  "right": {
+                    "type": "Ident",
+                    "span": ";28;8;;28;11",
+                    "value": "desc"
+                  }
+                }
+              },
+              {
+                "type": "ExpressionStatement",
+                "span": ";30;5;;30;6",
+                "expression": {
+                  "type": "BinaryExpression",
+                  "span": ";30;5;;30;6",
+                  "binaryType": "<<",
+                  "left": {
+                    "type": "Ident",
+                    "span": ";30;3;;30;3",
+                    "value": "m"
+                  },
+                  "right": {
+                    "type": "CallExpression",
+                    "span": null,
+                    "callable": {
+                      "type": "Ident",
+                      "span": ";30;8;;30;12",
+                      "value": "sound"
+                    },
+                    "arguments": {
+                      "type": "ArgumentList",
+                      "named": [
+                        {
+                          "name": {
+                            "type": "Ident",
+                            "span": ";30;24;;30;30",
+                            "value": "channel"
+                          },
+                          "type": {
+                            "type": "LiteralInteger",
+                            "span": ";30;34;;30;34",
+                            "value": 1
+                          },
+                          "span": ";30;32;;30;32"
+                        }
+                      ],
+                      "positional": [
+                        {
+                          "type": "Ident",
+                          "span": ";30;14;;30;18",
+                          "value": "music"
+                        },
+                        {
+                          "type": "LiteralInteger",
+                          "span": ";30;21;;30;21",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "properties": [],
+      "variables": [
+        {
+          "type": "Ident",
+          "span": ";12;3;;12;7",
+          "value": "music"
+        }
+      ]
+    },
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": ";42;1;;42;3",
+        "value": "mob"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";43;2;;43;7",
+            "value": "player"
+          },
+          "classes": [],
+          "procedures": [
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";44;3;;44;6",
+                "value": "Bump"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";44;13;;44;20",
+                      "value": "obstacle"
+                    },
+                    "type": {
+                      "type": "Ident",
+                      "span": ";44;8;;44;11",
+                      "value": "atom"
+                    },
+                    "inputType": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";45;8;;45;9",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";45;8;;45;9",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "Ident",
+                        "span": ";45;4;;45;6",
+                        "value": "src"
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";45;11;;45;37",
+                        "text": "You bump into [obstacle].",
+                        "singleQuoted": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";47;8;;47;9",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";47;8;;47;9",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "Ident",
+                        "span": ";47;4;;47;6",
+                        "value": "src"
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";47;11;;47;20",
+                        "text": "ouch.wav",
+                        "singleQuoted": true
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "properties": [],
+          "variables": []
+        }
+      ],
+      "procedures": [],
+      "properties": [],
+      "variables": []
+    }
+  ]
+}

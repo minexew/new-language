@@ -130,6 +130,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "shout",
     ";15;4;;15;8"
@@ -191,6 +196,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -271,6 +281,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -390,6 +405,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "change_name",
     ";31;4;;31;14"
@@ -461,6 +481,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],

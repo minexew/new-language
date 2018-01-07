@@ -23,8 +23,11 @@ Token.TOKEN_SLASH =         'SLASH';                // TODO: as it turns out, no
 Token.TOKEN_STRING_DQ =     'STRING_DQ';            // "string"
 Token.TOKEN_STRING_SQ =     'STRING_SQ';            // 'string'
 
-Token.TOKEN_KEYWORD_AS =    'KEYWORD_AS';
-Token.TOKEN_KEYWORD_PROC =  'KEYWORD_PROC';
-Token.TOKEN_KEYWORD_VERB =  'KEYWORD_VERB';
+Token.TOKEN_KEYWORD_AS =        'KEYWORD_AS';
+Token.TOKEN_KEYWORD_IF =        'KEYWORD_IF';
+Token.TOKEN_KEYWORD_PROC =      'KEYWORD_PROC';
+Token.TOKEN_KEYWORD_RETURN =    'KEYWORD_RETURN';
+Token.TOKEN_KEYWORD_VAR =       'KEYWORD_VAR';
+Token.TOKEN_KEYWORD_VERB =      'KEYWORD_VERB';
 
 module.exports = Token;

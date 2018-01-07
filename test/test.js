@@ -69,6 +69,13 @@ describe('basics', function() {
             AstSerializer.serializeUnit(parsed));
     });
 
+    it('should correctly parse Your First World (main-b.dm)', async function() {
+        const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-b.dm');
+        //TestUtil.dumpJson('test/main-b.ast.json', AstSerializer.serializeUnit(parsed), true);
+        assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-b.ast.json'),
+            AstSerializer.serializeUnit(parsed));
+    });
+
     it('should report correct location for diagnostics in included file', async function() {
         const diag = new DiagnosticsLogger();
 

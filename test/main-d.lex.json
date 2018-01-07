@@ -105,8 +105,8 @@
     ";15;7;;15;7"
   ],
   [
-    "IDENT",
-    "var",
+    "KEYWORD_VAR",
+    null,
     ";15;8;;15;10"
   ],
   [
@@ -240,7 +240,7 @@
     null
   ],
   [
-    "BLOCK_END",
+    "NEWLINE",
     null,
     null
   ],
@@ -250,7 +250,27 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -335,7 +355,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -475,7 +505,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],

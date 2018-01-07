@@ -20,8 +20,8 @@
     null
   ],
   [
-    "IDENT",
-    "var",
+    "KEYWORD_VAR",
+    null,
     ";11;2;;11;4"
   ],
   [
@@ -46,6 +46,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -90,8 +95,8 @@
     null
   ],
   [
-    "IDENT",
-    "if",
+    "KEYWORD_IF",
+    null,
     ";21;3;;21;4"
   ],
   [
@@ -140,8 +145,8 @@
     null
   ],
   [
-    "IDENT",
-    "return",
+    "KEYWORD_RETURN",
+    null,
     ";22;4;;22;9"
   ],
   [
@@ -151,6 +156,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -245,6 +255,11 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
     "outside",
     ";32;2;;32;8"
@@ -301,6 +316,11 @@
   ],
   [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],
@@ -365,7 +385,17 @@
     null
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
     null,
     null
   ],

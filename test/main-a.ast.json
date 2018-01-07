@@ -11,7 +11,8 @@
         "value": "world"
       },
       "classes": [],
-      "variables": [
+      "procedures": [],
+      "properties": [
         {
           "name": {
             "type": "Ident",
@@ -56,7 +57,8 @@
           },
           "span": null
         }
-      ]
+      ],
+      "variables": []
     },
     {
       "type": "Class",
@@ -76,7 +78,8 @@
             "value": "player"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -91,7 +94,8 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         },
         {
           "type": "Class",
@@ -102,7 +106,8 @@
             "value": "rat"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -117,9 +122,12 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         }
       ],
+      "procedures": [],
+      "properties": [],
       "variables": []
     },
     {
@@ -140,7 +148,8 @@
             "value": "floor"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -155,7 +164,8 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         },
         {
           "type": "Class",
@@ -166,7 +176,8 @@
             "value": "wall"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -207,9 +218,12 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         }
       ],
+      "procedures": [],
+      "properties": [],
       "variables": []
     },
     {
@@ -230,7 +244,8 @@
             "value": "cheese"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -245,7 +260,8 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         },
         {
           "type": "Class",
@@ -256,7 +272,8 @@
             "value": "scroll"
           },
           "classes": [],
-          "variables": [
+          "procedures": [],
+          "properties": [
             {
               "name": {
                 "type": "Ident",
@@ -271,9 +288,12 @@
               },
               "span": null
             }
-          ]
+          ],
+          "variables": []
         }
       ],
+      "procedures": [],
+      "properties": [],
       "variables": []
     },
     {
@@ -294,6 +314,8 @@
             "value": "outside"
           },
           "classes": [],
+          "procedures": [],
+          "properties": [],
           "variables": []
         },
         {
@@ -305,9 +327,13 @@
             "value": "cave"
           },
           "classes": [],
+          "procedures": [],
+          "properties": [],
           "variables": []
         }
       ],
+      "procedures": [],
+      "properties": [],
       "variables": []
     }
   ]

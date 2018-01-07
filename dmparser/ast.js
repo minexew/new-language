@@ -1,10 +1,54 @@
 const assert = require('assert');
 
+// ----------------------------------------------------------------------- //
+// EXPRESSIONS
+// ----------------------------------------------------------------------- //
+
 class Expression {
     constructor(span) {
         this.span = span;
     }
 }
+
+class BinaryExpression extends Expression {
+    constructor(type, left, right, span) {
+        super(span);
+
+        assert(left instanceof Expression);
+        assert(right instanceof Expression);
+
+        this.binaryType = type;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+BinaryExpression.SHIFT_L = '<<';
+
+class CallExpression extends Expression {
+    constructor(callable, arguments_) {
+        super(null);
+
+        assert(callable instanceof Expression);
+        assert(arguments_ instanceof ArgumentList);
+
+        this.callable = callable;
+        this.arguments = arguments_;
+    }
+}
+
+class UnaryExpression extends Expression {
+    constructor(type, right, span) {
+        super(span);
+
+        assert(right instanceof Expression);
+
+        this.unaryType = type;
+        this.right = right;
+    }
+}
+
+UnaryExpression.NOT = '!';
 
 class Ident extends Expression {
     constructor(value, span) {
@@ -37,63 +81,13 @@ class Path extends Expression {
     }
 }
 
-/*
-
- class NodeLiteralBoolean : public NodeLiteral
- {
- public:
- NodeLiteralBoolean(bool value, SourceSpan span)
- : NodeLiteral(NodeLiteral::Type::boolean, span), value(value) {
- }
-
- const bool value;
- };
- */
 class LiteralInteger extends Literal {
     constructor(value, span) {
         super(span);
         this.value = value;
     }
 }
-/*
- class NodeLiteralInteger : public NodeLiteral
- {
- public:
- NodeLiteralInteger(Int_t value, SourceSpan span)
- : NodeLiteral(NodeLiteral::Type::integer, span), value(value) {
- }
- /*
- const Int_t value;
- };
 
- class NodeLiteralObject : public NodeLiteral
- {
- public:
- explicit NodeLiteralObject(SourceSpan span)
- : NodeLiteral(NodeLiteral::Type::object, span) {
- }
-
- void addProperty(std::string&& propertyName, pool_ptr<NodeExpression>&& expression) {
- properties.emplace_back(std::move(propertyName), std::move(expression));
- }
-
- const auto& getProperties() const { return properties; }
-
- private:
- // not a map, accessed mostly in order
- std::vector<std::pair<std::string, pool_ptr<NodeExpression>>> properties;
- };
-
- class NodeLiteralReal : public NodeLiteral
- {
- public:
- NodeLiteralReal(Real_t value, SourceSpan span)
- : NodeLiteral(NodeLiteral::Type::real, span), value(value) {
- }
-
- const Real_t value;
- };
- */
 class LiteralString extends Literal {
     constructor(text, singleQuoted, span) {
         super(span);
@@ -102,41 +96,9 @@ class LiteralString extends Literal {
     }
 }
 
-class Class {
-    constructor(path) {
-        this.path = path;           // TODO: type check
-
-        this.classDeclarations = [];
-        this.variableDeclarations = [];
-    }
-
-    pushClassDeclaration(class_) {
-        assert(class_ instanceof Class);
-
-        this.classDeclarations.push(class_);
-    }
-
-    pushVariableDeclaration(name, value) {
-        assert(name instanceof Ident);
-        assert(value instanceof Expression);        // TODO: what are the limitations here?
-
-        this.variableDeclarations.push([name, value]);
-    }
-}
-
-class Unit {
-    constructor(unitName) {
-        this.unitName = unitName;
-
-        this.classDeclarations = [];
-    }
-
-    pushClassDeclaration(class_) {
-        assert(class_ instanceof Class);
-
-        this.classDeclarations.push(class_);
-    }
-}
+// ----------------------------------------------------------------------- //
+// STATEMENTS
+// ----------------------------------------------------------------------- //
 
 class Statement {
     constructor(span) {
@@ -154,24 +116,174 @@ class Assignment extends Statement {
         this.target = target;
         this.expression = expression;
     }
-
-    /*SourceSpan getFullSpan() const override { return SourceSpan::union_(target->getFullSpan(), expression->getFullSpan()); }
-
-     const NodeExpression* getExpression() const { return expression.get(); }
-     pool_ptr<NodeExpression> getExpression2() const { return expression; }
-     const NodeExpression* getTarget() const { return target.get(); }
-     pool_ptr<NodeExpression> getTarget2() const { return target; }
-
-     private:
-     const pool_ptr<NodeExpression> target, expression;*/
 }
 
+class ExpressionStatement extends Statement {
+    constructor(expression, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+
+        this.expression = expression;
+    }
+}
+
+class IfStatement extends Statement {
+    constructor(expression, body, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+        assert(body instanceof Block);
+
+        this.expression = expression;
+        this.body = body;
+    }
+}
+
+class ReturnStatement extends Statement {
+    constructor(expression, span) {
+        super(span);
+
+        assert((expression === null) || (expression instanceof Expression));
+
+        this.expression = expression;
+    }
+}
+
+// ----------------------------------------------------------------------- //
+// OTHER
+// ----------------------------------------------------------------------- //
+
+class ArgumentDeclList {
+    constructor(span) {
+        this.span = span;
+
+        this.arguments = [];
+    }
+
+    pushArgument(name, type, inputMode) {
+        assert(name instanceof Ident);
+        assert((type === null) || (type instanceof Ident));
+
+        this.arguments.push([name, type, inputMode]);
+    }
+}
+
+class ArgumentList {
+    constructor(span) {
+        this.span = span;
+
+        this.named = [];
+        this.positional = [];
+    }
+
+    pushNamed(name, expr, span) {
+        assert(name instanceof Ident);
+        assert(expr instanceof Expression);
+
+        this.named.push([name, expr, span]);
+    }
+
+    pushPositional(expr) {
+        assert(expr instanceof Expression);
+
+        this.positional.push(expr);
+    }
+}
+
+class Block {
+    constructor() {
+        this.statements = [];
+    }
+
+    pushStatement(statement) {
+        assert(statement instanceof Statement);
+
+        this.statements.push(statement);
+    }
+}
+
+class Class {
+    constructor(path) {
+        this.path = path;           // TODO: type check
+
+        this.classDeclarations = [];
+        this.procedures = [];
+        this.properties = [];
+        this.variables = [];
+    }
+
+    pushClassDeclaration(class_) {
+        assert(class_ instanceof Class);
+
+        this.classDeclarations.push(class_);
+    }
+
+    pushProcedure(proc) {
+        assert(proc instanceof Procedure);
+
+        this.procedures.push(proc);
+    }
+
+    pushPropertyDeclaration(name, value) {
+        assert(name instanceof Ident);
+        assert(value instanceof Expression);        // TODO: what are the limitations here?
+
+        this.properties.push([name, value]);
+    }
+
+    pushVariableDeclaration(name) {
+        assert(name instanceof Ident);
+
+        this.variables.push(name);
+    }
+}
+
+class Procedure {
+    constructor(name, arguments_, body) {
+        // TODO: do we want to have different ArgumentDeclList types for procs vs verbs?
+
+        assert(name instanceof Ident);
+        assert(arguments_ instanceof ArgumentDeclList);
+        assert(body instanceof Block);
+
+        this.name = name;
+        this.arguments = arguments_;
+        this.body = body;
+    }
+}
+
+class Unit {
+    constructor(unitName) {
+        this.unitName = unitName;
+
+        this.classDeclarations = [];
+        //this.procedures = [];
+    }
+
+    pushClassDeclaration(class_) {
+        assert(class_ instanceof Class);
+
+        this.classDeclarations.push(class_);
+    }
+}
+
+module.exports.ArgumentDeclList = ArgumentDeclList;
+module.exports.ArgumentList = ArgumentList;
 module.exports.Assignment = Assignment;
+module.exports.BinaryExpression = BinaryExpression;
+module.exports.Block = Block;
+module.exports.CallExpression = CallExpression;
 module.exports.Class = Class;
 module.exports.Expression = Expression;
+module.exports.ExpressionStatement = ExpressionStatement;
 module.exports.Ident = Ident;
+module.exports.IfStatement = IfStatement;
 module.exports.LiteralInteger = LiteralInteger;
 module.exports.LiteralString = LiteralString;
 module.exports.Path = Path;
+module.exports.Procedure = Procedure;
+module.exports.ReturnStatement = ReturnStatement;
+module.exports.UnaryExpression = UnaryExpression;
 module.exports.RootNamespace = RootNamespace;
 module.exports.Unit = Unit;

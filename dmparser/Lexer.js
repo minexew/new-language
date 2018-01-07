@@ -82,6 +82,8 @@ class Lexer {
             this.lastTokenWasNewline = true;
         }
         else {
+            this.lastTokenWasNewline = false;
+
             if (this.indent !== null) {
                 while (this.indent > this.lastIndent) {
                     this.tokenBacklog.push(new Token(Token.TOKEN_BLOCK_BEGIN));         // TODO: do we care about span?
@@ -91,10 +93,31 @@ class Lexer {
                 while (this.indent < this.lastIndent) {
                     this.tokenBacklog.push(new Token(Token.TOKEN_BLOCK_END));           // TODO: do we care about span?
                     this.lastIndent--;
+
+                    // FIXME: The following is a hack. First, consider the following example:
+                    //
+                    // if (expr)
+                    //     a()
+                    // b()
+                    //
+                    // In this example, after a(), NEWLINE will be emitted followed by BLOCK_END and IDENT('b').
+                    // However, the parser needs NEWLINEs to tell apart statements within a block. If the NEWLINE comes
+                    // before BLOCK_END, it will be eaten by the 'if' statement code, and the parser will reject the
+                    // following statement. (because it can't find a suitable separator)
+                    // To remedy this, we insert another dummy NEWLINE token after each BLOCK_END. This is not
+                    // necessary at the end of the file, because there are no further statements.
+                    //
+                    // A proper solution will involve some sort of look-ahead when emitting NEWLINES, so that the
+                    // BLOCK_END token comes as early as possible.
+                    // It might be sufficient to buffer newlines until another token is emitted, and if it is BLOCK_END,
+                    // swap the two.
+                    //
+                    // Another solution would be modifying Parser code for block(), so that it doesn't require NEWLINE
+                    // after block statements. That doesn't make much sense, though. The block really doesn't continue
+                    // past the newline.
+                    this.tokenBacklog.push(new Token(Token.TOKEN_NEWLINE));
                 }
             }
-
-            this.lastTokenWasNewline = false;
         }
 
         if (!coalescedNewline) {
@@ -234,17 +257,20 @@ class Lexer {
 
         const start = this.nextPoint;
 
-        // TODO: Ordered map should be used instead
+        // TODO: Ordered (prioritizing longer strings such as '..') map should be used instead
         const literalTokens = {
             TOKEN_BLOCK_BEGIN:  '{',
-            TOKEN_BLOCK_END:    '{',
+            TOKEN_BLOCK_END:    '}',
             TOKEN_COMMA:        ',',
             TOKEN_DOT:          '.',
             TOKEN_EQUAL:        '=',
             TOKEN_EXCLAMATION:  '!',
-            TOKEN_KEYWORD_AS:   'as',
-            TOKEN_KEYWORD_PROC: 'proc',
-            TOKEN_KEYWORD_VERB: 'verb',
+            TOKEN_KEYWORD_AS:       'as',
+            TOKEN_KEYWORD_IF:       'if',
+            TOKEN_KEYWORD_PROC:     'proc',
+            TOKEN_KEYWORD_RETURN:   'return',
+            TOKEN_KEYWORD_VAR:      'var',
+            TOKEN_KEYWORD_VERB:     'verb',
             TOKEN_NEWLINE:      ';',
             TOKEN_PAREN_L:      '(',
             TOKEN_PAREN_R:      ')',
