@@ -169,6 +169,20 @@ describe('basics', function() {
             ]);
         }
     });
+
+    it('should report correct line for diagnostic after preprocessing', async function() {
+        const diag = new DiagnosticsLogger();
+
+        try {
+            await new Dmparser(sfa, diag).lexUnit('test/correct-diagnostic-preprocessed/witch.dm');
+            assert.fail();
+        }
+        catch (err) {
+            assert.deepEqual(diag.events, [
+                ['error', 'Unexpected character', {unit: 'test/correct-diagnostic-preprocessed/witch.dm', line: 9, column: 5}]
+            ]);
+        }
+    });
 });
 
 describe('advanced', function() {
