@@ -39,6 +39,8 @@ class Lexer {
         this.indent = 0;
         this.lastIndent = 0;
 
+        this.indentUsed = undefined;
+        this.indentSpaces = undefined;
         this.lastTokenWasNewline = false;
     }
 
@@ -241,12 +243,39 @@ class Lexer {
                 return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
             }
             else if (this.readChar(' ')) {
-                if (this.indent !== null)
-                    this.parseError('Spaces are currently not allowed for indentation. Please use tabs.')
+                if (this.indent !== null) {
+                    if (this.indentUsed === '\t')
+                        this.parseError('Inconsistent indentation -- mixing tabs and spaces');
+                    else
+                        this.indentUsed = ' ';
+
+                    if (this.indentSpaces === undefined) {
+                        // Learn indentation depth
+
+                        this.indentSpaces = 1;
+
+                        while (this.readChar(' '))
+                            this.indentSpaces++;
+                    }
+                    else {
+                        for (let i = 1; i < this.indentSpaces; i++) {
+                            if (!this.readChar(' '))
+                                this.parseError('Inconsistent indentation');
+                        }
+                    }
+
+                    this.indent++;
+                }
             }
             else if (this.readChar('\t')) {
-                if (this.indent !== null)
+                if (this.indent !== null) {
+                    if (this.indentUsed === ' ')
+                        this.parseError('Inconsistent indentation -- mixing tabs and spaces');
+                    else
+                        this.indentUsed = '\t';
+
                     this.indent++;
+                }
             }
             else if (!this.readChar('\r'))
                 break;

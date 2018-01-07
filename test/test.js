@@ -93,6 +93,30 @@ describe('basics', function() {
             AstSerializer.serializeUnit(parsed));
     });
 
+    it('should parse Hello_World', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Hello_World/Hello_World.dme');
+    });
+
+    it('should parse Say', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Say/Say.dme');
+    });
+
+    it('should parse Turf', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Turf/Turf.dme');
+    });
+
+    it('should parse Turf2', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Turf2/Turf2.dme');
+    });
+
+    it('should parse Turf3', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Turf3/Turf3.dme');
+    });
+
+    it('should parse Verb', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Verbs/Verbs.dme');
+    });
+
     it('should report correct location for diagnostics in included file', async function() {
         const diag = new DiagnosticsLogger();
 
