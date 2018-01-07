@@ -11,10 +11,11 @@ class AstSerializer {
         if (node instanceof ast.ArgumentDeclList) {
             return {
                 type: 'ArgumentDeclList',
-                arguments: node.arguments.map(([name, type, inputType]) => ({
+                arguments: node.arguments.map(([name, type, inputType, inSet]) => ({
                     name: sn(name),
                     type: type ? sn(type) : null,
                     inputType: inputType ? sn(inputType) : null,
+                    inSet: inSet ? sn(inSet) : null,
                 })),
             };
         }
@@ -27,6 +28,14 @@ class AstSerializer {
                     span: ss(span),
                 })),
                 positional: node.positional.map((expr) => sn(expr)),
+            };
+        }
+        else if (node instanceof ast.AssignmentStatement) {
+            return {
+                type: 'AssignmentStatement',
+                span: ss(node.span),
+                target: sn(node.target),
+                expression: sn(node.expression),
             };
         }
         else if (node instanceof ast.BinaryExpression) {
@@ -71,11 +80,27 @@ class AstSerializer {
                 verbs: node.verbs.map((procedure) => sn(procedure)),
             };
         }
+        else if (node instanceof ast.DelStatement) {
+            return {
+                type: 'DelStatement',
+                span: ss(node.span),
+                expression: node.expression ? sn(node.expression) : null,
+            };
+        }
         else if (node instanceof ast.ExpressionStatement) {
             return {
                 type: 'ExpressionStatement',
                 span: ss(node.span),
                 expression: sn(node.expression),
+            };
+        }
+        else if (node instanceof ast.ForListStatement) {
+            return {
+                type: 'ForListStatement',
+                span: ss(node.span),
+                varDecl: sn(node.varDecl),
+                expression: sn(node.expression),
+                body: sn(node.body),
             };
         }
         else if (node instanceof ast.Ident) {
@@ -94,6 +119,22 @@ class AstSerializer {
         }
         else if (node instanceof ast.LiteralString) {
             return {type: 'LiteralString', span: ss(node.span), text: node.text, singleQuoted: node.singleQuoted};
+        }
+        else if (node instanceof ast.MemberExpression) {
+            return {
+                type: 'MemberExpression',
+                span: ss(node.span),
+                expression: sn(node.expression),
+                name: sn(node.name),
+            };
+        }
+        else if (node instanceof ast.NewExpression) {
+            return {
+                type: 'NewExpression',
+                span: ss(node.span),
+                className: sn(node.className),
+                arguments: sn(node.arguments),
+            };
         }
         else if (node instanceof ast.Path) {
             return {
@@ -118,8 +159,14 @@ class AstSerializer {
                 expression: node.expression ? sn(node.expression) : null,
             };
         }
+        else if (node instanceof ast.ReturnValueExpression) {
+            return {type: 'ReturnValueExpression', span: ss(node.span)};
+        }
         else if (node instanceof ast.RootNamespace) {
             return {type: 'RootNamespace', span: ss(node.span)};
+        }
+        else if (node instanceof ast.SuperMethodExpression) {
+            return {type: 'SuperMethodExpression', span: ss(node.span)};
         }
         else if (node instanceof ast.UnaryExpression) {
             return {
@@ -134,6 +181,14 @@ class AstSerializer {
                 type: 'Unit',
                 span: ss(node.span),
                 classes: node.classDeclarations.map((class_) => sn(class_))
+            };
+        }
+        else if (node instanceof ast.VarStatement) {
+            return {
+                type: 'VarStatement',
+                span: ss(node.span),
+                name: sn(node.name),
+                varType: sn(node.type),
             };
         }
         else

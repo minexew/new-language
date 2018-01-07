@@ -1,0 +1,422 @@
+{
+  "type": "Unit",
+  "span": null,
+  "classes": [
+    {
+      "type": "Class",
+      "span": null,
+      "path": {
+        "type": "Ident",
+        "span": "test/Your First World/main-e.dm;8;1;;8;3",
+        "value": "mob"
+      },
+      "classes": [
+        {
+          "type": "Class",
+          "span": null,
+          "path": {
+            "type": "Ident",
+            "span": ";9;2;;9;7",
+            "value": "player"
+          },
+          "classes": [],
+          "procedures": [],
+          "properties": [],
+          "variables": [],
+          "verbs": [
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";12;4;;12;6",
+                "value": "say"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";12;8;;12;10",
+                      "value": "msg"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";12;15;;12;18",
+                      "value": "text"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";13;15;;13;16",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";13;15;;13;16",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "CallExpression",
+                        "span": null,
+                        "callable": {
+                          "type": "Ident",
+                          "span": ";13;5;;13;8",
+                          "value": "view"
+                        },
+                        "arguments": {
+                          "type": "ArgumentList",
+                          "named": [],
+                          "positional": [
+                            {
+                              "type": "Ident",
+                              "span": ";13;10;;13;12",
+                              "value": "src"
+                            }
+                          ]
+                        }
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";13;18;;13;40",
+                        "text": "[src] says, \"[msg]\"",
+                        "singleQuoted": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";15;4;;15;8",
+                "value": "shout"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";15;10;;15;12",
+                      "value": "msg"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";15;17;;15;20",
+                      "value": "text"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";16;11;;16;12",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";16;11;;16;12",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "Ident",
+                        "span": ";16;5;;16;9",
+                        "value": "world"
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";16;14;;16;38",
+                        "text": "[src] shouts, \"[msg]\"",
+                        "singleQuoted": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";18;4;;18;10",
+                "value": "whisper"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";18;12;;18;14",
+                      "value": "msg"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";18;19;;18;22",
+                      "value": "text"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";19;13;;19;14",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";19;13;;19;14",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "CallExpression",
+                        "span": null,
+                        "callable": {
+                          "type": "Ident",
+                          "span": ";19;5;;19;8",
+                          "value": "view"
+                        },
+                        "arguments": {
+                          "type": "ArgumentList",
+                          "named": [],
+                          "positional": [
+                            {
+                              "type": "LiteralInteger",
+                              "span": ";19;10;;19;10",
+                              "value": 1
+                            }
+                          ]
+                        }
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";19;16;;19;42",
+                        "text": "[src] whispers, \"[msg]\"",
+                        "singleQuoted": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";21;4;;21;7",
+                "value": "tell"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";21;13;;21;13",
+                      "value": "m"
+                    },
+                    "type": {
+                      "type": "Ident",
+                      "span": ";21;9;;21;11",
+                      "value": "mob"
+                    },
+                    "inputType": null,
+                    "inSet": {
+                      "type": "Ident",
+                      "span": ";21;18;;21;22",
+                      "value": "world"
+                    }
+                  },
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";21;25;;21;27",
+                      "value": "msg"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";21;32;;21;35",
+                      "value": "text"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";22;9;;22;10",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";22;9;;22;10",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "Ident",
+                        "span": ";22;5;;22;7",
+                        "value": "src"
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";22;12;;22;36",
+                        "text": "You tell [m], \"[msg]\"",
+                        "singleQuoted": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "ExpressionStatement",
+                    "span": ";24;7;;24;8",
+                    "expression": {
+                      "type": "BinaryExpression",
+                      "span": ";24;7;;24;8",
+                      "binaryType": "<<",
+                      "left": {
+                        "type": "Ident",
+                        "span": ";24;5;;24;5",
+                        "value": "m"
+                      },
+                      "right": {
+                        "type": "LiteralString",
+                        "span": ";24;10;;24;37",
+                        "text": "[src] tells you, \"[msg]\"",
+                        "singleQuoted": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";31;4;;31;14",
+                "value": "change_name"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";31;16;;31;19",
+                      "value": "name"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";31;24;;31;27",
+                      "value": "text"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "AssignmentStatement",
+                    "span": ";32;14;;32;14",
+                    "target": {
+                      "type": "MemberExpression",
+                      "span": ";32;8;;32;8",
+                      "expression": {
+                        "type": "Ident",
+                        "span": ";32;5;;32;7",
+                        "value": "src"
+                      },
+                      "name": {
+                        "type": "Ident",
+                        "span": ";32;9;;32;12",
+                        "value": "name"
+                      }
+                    },
+                    "expression": {
+                      "type": "Ident",
+                      "span": ";32;16;;32;19",
+                      "value": "name"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Procedure",
+              "name": {
+                "type": "Ident",
+                "span": ";38;4;;38;14",
+                "value": "change_icon"
+              },
+              "arguments": {
+                "type": "ArgumentDeclList",
+                "arguments": [
+                  {
+                    "name": {
+                      "type": "Ident",
+                      "span": ";38;16;;38;19",
+                      "value": "icon"
+                    },
+                    "type": null,
+                    "inputType": {
+                      "type": "Ident",
+                      "span": ";38;24;;38;27",
+                      "value": "icon"
+                    },
+                    "inSet": null
+                  }
+                ]
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "AssignmentStatement",
+                    "span": ";39;14;;39;14",
+                    "target": {
+                      "type": "MemberExpression",
+                      "span": ";39;8;;39;8",
+                      "expression": {
+                        "type": "Ident",
+                        "span": ";39;5;;39;7",
+                        "value": "src"
+                      },
+                      "name": {
+                        "type": "Ident",
+                        "span": ";39;9;;39;12",
+                        "value": "icon"
+                      }
+                    },
+                    "expression": {
+                      "type": "Ident",
+                      "span": ";39;16;;39;19",
+                      "value": "icon"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "procedures": [],
+      "properties": [],
+      "variables": [],
+      "verbs": []
+    }
+  ]
+}

@@ -72,12 +72,25 @@ describe('basics', function() {
             AstSerializer.serializeUnit(parsed));
     });
 
-    it('should parse Your First World (main-c.dm)', async function() {
-        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-c.dm');
+    it('should correctly parse Your First World (main-c.dm)', async function() {
+        const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-c.dm');
+        //TestUtil.dumpJson('test/main-c.ast.json', AstSerializer.serializeUnit(parsed), true);
+        assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-c.ast.json'),
+            AstSerializer.serializeUnit(parsed));
     });
 
-    it('should parse Your First World (main-d.dm)', async function() {
-        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-d.dm');
+    it('should correctly parse Your First World (main-d.dm)', async function() {
+        const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-d.dm');
+        //TestUtil.dumpJson('test/main-d.ast.json', AstSerializer.serializeUnit(parsed), true);
+        assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-d.ast.json'),
+            AstSerializer.serializeUnit(parsed));
+    });
+
+    it('should correctly parse Your First World (main-e.dm)', async function() {
+        const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-e.dm');
+        //TestUtil.dumpJson('test/main-e.ast.json', AstSerializer.serializeUnit(parsed), true);
+        assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-e.ast.json'),
+            AstSerializer.serializeUnit(parsed));
     });
 
     it('should report correct location for diagnostics in included file', async function() {

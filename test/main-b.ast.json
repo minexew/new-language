@@ -121,7 +121,8 @@
                     "span": ";14;10;;14;12",
                     "value": "mob"
                   },
-                  "inputType": null
+                  "inputType": null,
+                  "inSet": null
                 }
               ]
             },
@@ -296,7 +297,8 @@
                         "span": ";44;8;;44;11",
                         "value": "atom"
                       },
-                      "inputType": null
+                      "inputType": null,
+                      "inSet": null
                     }
                   ]
                 },

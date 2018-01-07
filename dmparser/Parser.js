@@ -124,10 +124,17 @@ class Parser {
 
             const [name, type] = decl;
 
-            // TODO: handle "as"
-            const inputMode = null;
+            let inputMode = null;
+            let inSet = null;
 
-            list.pushArgument(name, type, inputMode);
+            if (this.consumeToken(Token.TOKEN_KEYWORD_AS)) {
+                inputMode = this.expectRule(this.identifier, 'input mode');
+            }
+            else if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
+                inSet = this.expectRule(this.identifier, 'set');
+            }
+
+            list.pushArgument(name, type, inputMode, inSet);
 
             if (!this.consumeToken(Token.TOKEN_COMMA))
                 break;
