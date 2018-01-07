@@ -1,5 +1,5 @@
-const Lexer = require('./Lexer');
-const Parser = require('./Parser');
+const Lexer = require('./dmparser/Lexer');
+const Parser = require('./dmparser/Parser');
 
 const cpp = require('./dependencies/cpp.js/cpp');
 
@@ -29,6 +29,7 @@ class Dmparser {
                     resumer(contents);
                 }).catch(err => {
                     // This records the underlying reason as well, which might (rarely) be non-trivial
+                    // FIXME: shouldn't we re-use passed-in `error`?
                     this.diagnosticsSink.errorGlobal(err.message);
 
                     resumer(null);

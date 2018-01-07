@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const Dmparser = require('./dmparser');
-const SimpleFileAccessor = require('./SimpleFileAccessor');
+const SimpleFileAccessor = require('./utility/SimpleFileAccessor');
 
 async function asyncMain() {
 	const parser = new Dmparser(new SimpleFileAccessor());

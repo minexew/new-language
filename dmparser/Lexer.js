@@ -50,7 +50,7 @@ class Lexer {
 
     hackConsumePreprocessorDirectives() {
         // A bit hacky, just like the C preprocessor itself
-        while (this.nextPoint.column == 1 && this.source[this.pos] == '#') {
+        while (this.nextPoint.column === 1 && this.source[this.pos] === '#') {
             let lineEndIndex = this.source.indexOf('\n', this.pos + 1);
 
             if (lineEndIndex === -1)
@@ -144,7 +144,7 @@ class Lexer {
                         depth++;
                     }
                     else if (this.readSequence('*/')) {
-                        if (--depth == 0)
+                        if (--depth === 0)
                             break;
                     }
 
@@ -193,7 +193,7 @@ class Lexer {
 
                 let wasEscapeNew = false;
 
-                if (this.source[this.pos] == '"' && !wasEscape) {
+                if (this.source[this.pos] === '"' && !wasEscape) {
                     this.read();
                     break;
                 }
@@ -224,7 +224,7 @@ class Lexer {
 
                 let wasEscapeNew = false;
 
-                if (this.source[this.pos] == "'" && !wasEscape) {
+                if (this.source[this.pos] === "'" && !wasEscape) {
                     this.read();
                     break;
                 }

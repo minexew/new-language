@@ -4,7 +4,7 @@ class TokenSerializer {
         let lastUnit;
 
         const formatUnit = (unit) => {
-            if (unit != lastUnit) {
+            if (unit !== lastUnit) {
                 if (unit.indexOf(';') !== -1)
                     throw Error("Forbidden character in unit name.");
 
@@ -16,9 +16,8 @@ class TokenSerializer {
         };
 
         const formatSpan = (span) => {
-            let str = formatUnit(span[0].unit) + ';' + span[0].line + ';' + span[0].column + ';' +
+            return formatUnit(span[0].unit) + ';' + span[0].line + ';' + span[0].column + ';' +
                     formatUnit(span[1].unit) + ';' + span[1].line + ';' + span[1].column;
-            return str;
         }
 
         return tokens.map((token) => {

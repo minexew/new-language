@@ -1,10 +1,10 @@
-const DiagnosticsDevNull = require('../DiagnosticsDevNull');
-const DiagnosticsLogger = require('../DiagnosticsLogger');
-const DiagnosticsPrinter = require('../DiagnosticsPrinter');
+const DiagnosticsDevNull = require('../utility/DiagnosticsDevNull');
+const DiagnosticsLogger = require('../utility/DiagnosticsLogger');
+const DiagnosticsPrinter = require('../utility/DiagnosticsPrinter');
 const Dmparser = require('../dmparser');
-const SimpleFileAccessor = require('../SimpleFileAccessor');
-const TestUtil = require('../TestUtil');
-const TokenSerializer = require('../TokenSerializer');
+const SimpleFileAccessor = require('../utility/SimpleFileAccessor');
+const TestUtil = require('../utility/TestUtil');
+const TokenSerializer = require('../utility/TokenSerializer');
 
 const assert = require('assert');
 
