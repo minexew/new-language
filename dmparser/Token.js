@@ -15,11 +15,11 @@ Token.TOKEN_EQUAL =         'EQUAL';
 Token.TOKEN_EXCLAMATION =   'EXCLAMATION';
 Token.TOKEN_IDENT =         'IDENT';
 Token.TOKEN_INTEGER =       'INTEGER';
-Token.TOKEN_NEWLINE =       'NEWLINE';              // not necessarily newline, can be also ';'
+Token.TOKEN_NEWLINE =       'NEWLINE';              // actual newline or ';'
 Token.TOKEN_PAREN_L =       'PAREN_L';
 Token.TOKEN_PAREN_R =       'PAREN_R';
 Token.TOKEN_SHIFT_L =       'SHIFT_L';
-Token.TOKEN_SLASH =         'SLASH';
+Token.TOKEN_SLASH =         'SLASH';                // TODO: as it turns out, not all slashes are equivalent (whitespace matters)
 Token.TOKEN_STRING_DQ =     'STRING_DQ';            // "string"
 Token.TOKEN_STRING_SQ =     'STRING_SQ';            // 'string'
 
