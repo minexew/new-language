@@ -384,9 +384,9 @@ class Parser {
             **
             * / %
             + -                 (expressionAddSub)
-            > < >= <=
+            > < >= <=           (expressionGreaterLess)
             << >>               (expressionShift)
-            == != <>
+            == != <>            (expressionEqualNotEqual)
             &
             ^
             |
@@ -461,6 +461,80 @@ class Parser {
             return relativePath;
     }
 
+    expressionEqualNotEqual() {
+        let expr = this.expressionShift();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const equal = this.consumeToken(Token.TOKEN_EQUAL_EQUAL);
+
+            if (equal) {
+                const right = this.expectRule(this.expressionShift, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.EQUAL, expr, right, equal.span);
+                continue;
+            }
+
+            const notEqual = this.consumeToken(Token.TOKEN_EQUAL_EQUAL);
+
+            if (notEqual) {
+                const right = this.expectRule(this.expressionShift, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.NOT_EQUAL, expr, right, notEqual.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
+    }
+
+    expressionGreaterLess() {
+        let expr = this.expressionAddSub();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const greater = this.consumeToken(Token.TOKEN_GREATER);
+
+            if (greater) {
+                const right = this.expectRule(this.expressionAddSub, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.GREATER_THAN, expr, right, greater.span);
+                continue;
+            }
+
+            const greaterEqual = this.consumeToken(Token.TOKEN_GREATER_EQUAL);
+
+            if (greaterEqual) {
+                const right = this.expectRule(this.expressionAddSub, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.GREATER_EQUAL, expr, right, greaterEqual.span);
+                continue;
+            }
+
+            const less = this.consumeToken(Token.TOKEN_LESS);
+
+            if (less) {
+                const right = this.expectRule(this.expressionAddSub, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.LESS_THAN, expr, right, less.span);
+                continue;
+            }
+
+            const lessEqual = this.consumeToken(Token.TOKEN_LESS_EQUAL);
+
+            if (lessEqual) {
+                const right = this.expectRule(this.expressionAddSub, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.LESS_EQUAL, expr, right, lessEqual.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
+    }
+
     expressionPath() {
         const new_ = this.consumeToken(Token.TOKEN_KEYWORD_NEW);
 
@@ -494,7 +568,7 @@ class Parser {
     }
 
     expressionLogicAnd() {
-        let expr = this.expressionShift();
+        let expr = this.expressionEqualNotEqual();
 
         if (!expr)
             return null;
@@ -503,7 +577,7 @@ class Parser {
             const logicAnd = this.consumeToken(Token.TOKEN_LOGIC_AND);
 
             if (logicAnd) {
-                const right = this.expectRule(this.expressionShift, 'expression');
+                const right = this.expectRule(this.expressionEqualNotEqual, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.LOGIC_AND, expr, right, logicAnd.span);
                 continue;
             }
@@ -536,7 +610,7 @@ class Parser {
     }
 
     expressionShift() {
-        let expr = this.expressionAddSub();
+        let expr = this.expressionGreaterLess();
 
         if (!expr)
             return null;
@@ -545,7 +619,7 @@ class Parser {
             const shift_l = this.consumeToken(Token.TOKEN_SHIFT_L);
 
             if (shift_l) {
-                const right = this.expectRule(this.expressionAddSub, 'expression');
+                const right = this.expectRule(this.expressionGreaterLess, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.SHIFT_L, expr, right, shift_l.span);
                 continue;
             }

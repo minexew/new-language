@@ -28,8 +28,14 @@ class BinaryExpression extends Expression {
 }
 
 BinaryExpression.ADD = '+';
+BinaryExpression.EQUAL = '==';
+BinaryExpression.GREATER_EQUAL = '>=';
+BinaryExpression.GREATER_THAN = '>';
+BinaryExpression.LESS_EQUAL = '<=';
+BinaryExpression.LESS_THAN = '<';
 BinaryExpression.LOGIC_AND = '&&';
 BinaryExpression.LOGIC_OR = '||';
+BinaryExpression.NOT_EQUAL = '!=';
 BinaryExpression.SHIFT_L = '<<';
 BinaryExpression.SUBTRACT = '-';
 
