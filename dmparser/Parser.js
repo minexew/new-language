@@ -22,7 +22,7 @@ class Parser {
 
         const head = this.lexed.tokens[this.pos];
         
-        //console.log(this.lexed.tokens[0].type, 'vs', type);
+        //console.log(this.lexed.tokens[this.pos].type, 'vs', type);
 
         if (head.type !== type)
             return null;
@@ -57,6 +57,11 @@ class Parser {
     finalCheck() {
         if (this.pos < this.lexed.tokens.length)
             this.syntaxError("Unparsed tokens remaining");
+    }
+
+    lookahead() {
+        // only use this for debugging
+        return this.lexed.tokens[this.pos];
     }
 
     restoreContext(context) {
@@ -112,28 +117,12 @@ class Parser {
         const list = new ast.ArgumentDeclList(start.span);
 
         for (;;) {
-            let type, name;
+            const decl = this.variableDeclarationBare();
 
-            const ident = this.identifier();
-
-            if (!ident)
+            if (!decl)
                 break;
 
-            if (this.consumeToken(Token.TOKEN_SLASH)) {
-                // type/name
-
-                type = ident;
-                name = this.identifier();
-
-                if (!name)
-                    this.syntaxError("Expected variable name");
-            }
-            else {
-                // just name
-
-                type = null;
-                name = ident;
-            }
+            const [name, type] = decl;
 
             // TODO: handle "as"
             const inputMode = null;
@@ -239,6 +228,29 @@ class Parser {
         for (;;) {
             this.consumeNewlines();
 
+            // proc
+            if (this.consumeToken(Token.TOKEN_KEYWORD_PROC)) {
+                this.consumeNewlines();
+                this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+
+                for (;;) {
+                    const method = this.procedure();
+
+                    if (!method)
+                        break;
+
+                    class_.pushProc(method, true);
+
+                    if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                        break;
+                }
+
+                this.consumeNewlines();
+                this.expectToken(Token.TOKEN_BLOCK_END);
+
+                continue;
+            }
+
             // var
             if (this.consumeToken(Token.TOKEN_KEYWORD_VAR)) {
                 if (this.consumeToken(Token.TOKEN_SLASH)) {
@@ -306,7 +318,7 @@ class Parser {
             const method = this.procedure();
 
             if (method) {
-                class_.pushProcedure(method);
+                class_.pushProc(method, false);
 
                 if (!this.consumeToken(Token.TOKEN_NEWLINE))
                     break;
@@ -386,6 +398,17 @@ class Parser {
     }
 
     expressionAtomic() {
+        const dot = this.consumeToken(Token.TOKEN_DOT);
+
+        if (dot) {
+            return new ast.ReturnValueExpression(dot.span);
+        }
+
+        const dotdot = this.consumeToken(Token.TOKEN_DOT_DOT);
+
+        if (dotdot)
+            return new ast.SuperMethodExpression(dotdot.span);
+
         const literal = this.literal();
 
         if (literal)
@@ -549,38 +572,43 @@ class Parser {
             return null;
         }
 
+        let body;
+
         this.consumeNewlines();
-        this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+        if (this.consumeToken(Token.TOKEN_BLOCK_BEGIN)) {
+            // Parse `set` directives
+            for (; ;) {
+                this.consumeNewlines();
 
-        // Parse `set` directives
-        for (;;) {
-            this.consumeNewlines();
+                if (this.consumeToken(Token.TOKEN_KEYWORD_SET)) {
+                    const name = this.expectRule(this.identifier);
 
-            if (this.consumeToken(Token.TOKEN_KEYWORD_SET)) {
-                const name = this.expectRule(this.identifier);
+                    if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
+                        const expr = this.expectRule(this.expression);
+                    }
+                    else {
+                        this.expectToken(Token.TOKEN_EQUAL);
 
-                if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
-                    const expr = this.expectRule(this.expression);
+                        this.syntaxError('Not implemented');
+                    }
+
+                    if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                        break;
+
+                    continue;
                 }
-                else {
-                    this.expectToken(Token.TOKEN_EQUAL);
 
-                    this.syntaxError('Not implemented');
-                }
-
-                if (!this.consumeToken(Token.TOKEN_NEWLINE))
-                    break;
-
-                continue;
+                break;
             }
 
-            break;
+            body = this.blockBare();
+
+            this.consumeNewlines();
+            this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
         }
-
-        const body = this.blockBare();
-
-        this.consumeNewlines();
-        this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
+        else {
+            body = new ast.Block();
+        }
 
         return new ast.Procedure(name, argList, body);
     }
@@ -691,14 +719,32 @@ class Parser {
         return unit;
     }
 
+    // var/type/name
+    // (type is optional)
     variableDeclaration() {
         const var_ = this.consumeToken(Token.TOKEN_KEYWORD_VAR);
 
         if (!var_)
             return null;
 
+        this.expectToken(Token.TOKEN_SLASH);
+
+        const [name, type] = this.expectRule(this.variableDeclarationBare, 'variable name');
+
+        return new ast.VarStatement(name, type, var_.span);
+    }
+
+    // type/type2/type3/name
+    // (type is optional)
+    variableDeclarationBare() {
         // For shit like var/atom/movable/o, the only way to parse is to buffer everything first and then analyze
-        const parts = [];
+
+        const ident = this.identifier();
+
+        if (!ident)
+            return null;
+
+        const parts = [[ident, null]];
 
         for (;;) {
             const slash = this.consumeToken(Token.TOKEN_SLASH);
@@ -706,13 +752,10 @@ class Parser {
             if (!slash)
                 break;
 
-            const ident = this.expectRule(this.identifier);
+            const next = this.expectRule(this.identifier);
 
-            parts.push([ident, slash.span]);
+            parts.push([next, slash.span]);
         }
-
-        if (parts.length < 1)
-            this.syntaxError('Expected variable name', var_.span);
 
         const [name, _] = parts.pop();
 
@@ -725,7 +768,7 @@ class Parser {
                 type = new ast.Path(type, part, span);
         }
 
-        return new ast.VarStatement(name, type, var_.span);
+        return [name, type];
     }
 }
 

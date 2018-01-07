@@ -1,5 +1,9 @@
 const assert = require('assert');
 
+function isValidPath(type) {
+    return (type instanceof Path) || (type instanceof Ident);
+}
+
 // ----------------------------------------------------------------------- //
 // EXPRESSIONS
 // ----------------------------------------------------------------------- //
@@ -87,6 +91,12 @@ class Literal extends Expression {
     }
 }
 
+class ReturnValueExpression extends Expression {
+    constructor(span) {
+        super(span);
+    }
+}
+
 class RootNamespace extends Expression {
     constructor(span) {
         super(span);
@@ -102,6 +112,12 @@ class Path extends Expression {
 
         this.namespace = namespace;
         this.member = member;
+    }
+}
+
+class SuperMethodExpression extends Expression {
+    constructor(span) {
+        super(span);
     }
 }
 
@@ -223,7 +239,7 @@ class ArgumentDeclList {
 
     pushArgument(name, type, inputMode) {
         assert(name instanceof Ident);
-        assert((type === null) || (type instanceof Ident));
+        assert((type === null) || isValidPath(type));
 
         this.arguments.push([name, type, inputMode]);
     }
@@ -280,10 +296,10 @@ class Class {
         this.classDeclarations.push(class_);
     }
 
-    pushProcedure(proc) {
+    pushProc(proc, declaredInProcBlock) {
         assert(proc instanceof Procedure);
 
-        this.procedures.push(proc);
+        this.procedures.push([proc, declaredInProcBlock]);
     }
 
     pushPropertyDeclaration(name, value) {
@@ -355,7 +371,9 @@ module.exports.NewExpression = NewExpression;
 module.exports.Path = Path;
 module.exports.Procedure = Procedure;
 module.exports.ReturnStatement = ReturnStatement;
+module.exports.ReturnValueExpression = ReturnValueExpression;
 module.exports.RootNamespace = RootNamespace;
+module.exports.SuperMethodExpression = SuperMethodExpression;
 module.exports.UnaryExpression = UnaryExpression;
 module.exports.Unit = Unit;
 module.exports.VarStatement = VarStatement;

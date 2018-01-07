@@ -58,7 +58,10 @@ class AstSerializer {
                 span: ss(node.span),
                 path: sn(node.path),
                 classes: node.classDeclarations.map((class_) => sn(class_)),
-                procedures: node.procedures.map((procedure) => sn(procedure)),
+                procedures: node.procedures.map(([procedure, declaredInProcBlock]) => ({
+                    procedure: sn(procedure),
+                    declaredInProcBlock: declaredInProcBlock,
+                })),
                 properties: node.properties.map(([name, expression, span]) => ({
                     name: sn(name),
                     expression: sn(expression),
