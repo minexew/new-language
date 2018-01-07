@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 class Expression {
     constructor(span) {
         this.span = span;
@@ -27,11 +29,8 @@ class Path extends Expression {
     constructor(namespace, member, span) {
         super(span);
 
-        if (!(namespace instanceof RootNamespace) && !(namespace instanceof Path) && !(namespace instanceof Ident))
-            throw Error('BUG: invalid namespace');
-
-        if (!(member instanceof Ident))
-            throw Error('BUG: invalid member');
+        assert(namespace instanceof RootNamespace || namespace instanceof Path || namespace instanceof Ident);
+        assert(member instanceof Ident);
 
         this.namespace = namespace;
         this.member = member;
@@ -112,10 +111,15 @@ class Class {
     }
 
     pushClassDeclaration(class_) {
+        assert(class_ instanceof Class);
+
         this.classDeclarations.push(class_);
     }
 
     pushVariableDeclaration(name, value) {
+        assert(name instanceof Ident);
+        assert(value instanceof Expression);        // TODO: what are the limitations here?
+
         this.variableDeclarations.push([name, value]);
     }
 }
@@ -128,6 +132,8 @@ class Unit {
     }
 
     pushClassDeclaration(class_) {
+        assert(class_ instanceof Class);
+
         this.classDeclarations.push(class_);
     }
 }
@@ -142,11 +148,8 @@ class Assignment extends Statement {
     constructor(target, expression, span) {
         super(span);
 
-        if (!(target instanceof Ident))
-            throw Error('BUG: invalid target');
-
-        if (!(expression instanceof Expression))
-            throw Error('BUG: invalid expression');
+        assert(target instanceof Ident);
+        assert(expression instanceof Expression);
 
         this.target = target;
         this.expression = expression;
