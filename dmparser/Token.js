@@ -11,6 +11,7 @@ Token.TOKEN_BLOCK_END =     'BLOCK_END';            // indent decrease or '}'
 Token.TOKEN_COMMA =         'COMMA';
 Token.TOKEN_COMMENT =       'COMMENT';              // not emitted at this point (should be optional)
 Token.TOKEN_DOT =           'DOT';
+Token.TOKEN_DOT_DOT =       'DOT_DOT';
 Token.TOKEN_EQUAL =         'EQUAL';
 Token.TOKEN_EXCLAMATION =   'EXCLAMATION';
 Token.TOKEN_IDENT =         'IDENT';

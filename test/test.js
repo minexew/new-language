@@ -58,10 +58,6 @@ describe('basics', function() {
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
-    it('should parse Your First World (main-c.dm)', async function() {
-        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-c.dm');
-    });
-
     it('should correctly parse Your First World (main-a.dm)', async function() {
         const parsed = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-a.dm');
         //TestUtil.dumpJson('test/main-a.ast.json', AstSerializer.serializeUnit(parsed), true);
@@ -74,6 +70,14 @@ describe('basics', function() {
         //TestUtil.dumpJson('test/main-b.ast.json', AstSerializer.serializeUnit(parsed), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-b.ast.json'),
             AstSerializer.serializeUnit(parsed));
+    });
+
+    it('should parse Your First World (main-c.dm)', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-c.dm');
+    });
+
+    it('should parse Your First World (main-d.dm)', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-d.dm');
     });
 
     it('should report correct location for diagnostics in included file', async function() {

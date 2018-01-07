@@ -256,40 +256,43 @@ class Lexer {
             return null;
 
         const start = this.nextPoint;
+        
+        const literalTokens = new Map([
+            // keywords
+            [Token.TOKEN_KEYWORD_AS,        'as'],
+            [Token.TOKEN_KEYWORD_CONST,     'const'],
+            [Token.TOKEN_KEYWORD_DEL,       'del'],
+            [Token.TOKEN_KEYWORD_FOR,       'for'],
+            [Token.TOKEN_KEYWORD_IF,        'if'],
+            [Token.TOKEN_KEYWORD_IN,        'in'],
+            [Token.TOKEN_KEYWORD_NEW,       'new'],
+            [Token.TOKEN_KEYWORD_PROC,      'proc'],
+            [Token.TOKEN_KEYWORD_RETURN,    'return'],
+            [Token.TOKEN_KEYWORD_SET,       'set'],
+            [Token.TOKEN_KEYWORD_TMP,       'tmp'],
+            [Token.TOKEN_KEYWORD_VAR,       'var'],
+            [Token.TOKEN_KEYWORD_VERB,      'verb'],
 
-        // TODO: Ordered (prioritizing longer strings such as '..') map should be used instead
-        const literalTokens = {
-            TOKEN_BLOCK_BEGIN:  '{',
-            TOKEN_BLOCK_END:    '}',
-            TOKEN_COMMA:        ',',
-            TOKEN_DOT:          '.',
-            TOKEN_EQUAL:        '=',
-            TOKEN_EXCLAMATION:  '!',
-            TOKEN_KEYWORD_AS:       'as',
-            TOKEN_KEYWORD_CONST:    'const',
-            TOKEN_KEYWORD_DEL:      'del',
-            TOKEN_KEYWORD_FOR:      'for',
-            TOKEN_KEYWORD_IF:       'if',
-            TOKEN_KEYWORD_IN:       'in',
-            TOKEN_KEYWORD_NEW:      'new',
-            TOKEN_KEYWORD_PROC:     'proc',
-            TOKEN_KEYWORD_RETURN:   'return',
-            TOKEN_KEYWORD_SET:      'set',
-            TOKEN_KEYWORD_TMP:      'tmp',
-            TOKEN_KEYWORD_VAR:      'var',
-            TOKEN_KEYWORD_VERB:     'verb',
-            TOKEN_NEWLINE:      ';',
-            TOKEN_PAREN_L:      '(',
-            TOKEN_PAREN_R:      ')',
-            TOKEN_SHIFT_L:      '<<',
-            TOKEN_SLASH:        '/',
-        };
+            // multi-character tokens
+            [Token.TOKEN_DOT_DOT,           '..'],
+            [Token.TOKEN_SHIFT_L,           '<<'],
 
-        for (const type in literalTokens) {
-            if (literalTokens.hasOwnProperty(type)) {
-                if (this.readSequence(literalTokens[type]))
-                    return this.emitToken(Token[type], [start, this.point]);
-            }
+            // single-character tokens
+            [Token.TOKEN_BLOCK_BEGIN,       '{'],
+            [Token.TOKEN_BLOCK_END,         '}'],
+            [Token.TOKEN_COMMA,             ','],
+            [Token.TOKEN_DOT,               '.'],
+            [Token.TOKEN_EQUAL,             '='],
+            [Token.TOKEN_EXCLAMATION,       '!'],
+            [Token.TOKEN_NEWLINE,           ';'],
+            [Token.TOKEN_PAREN_L,           '('],
+            [Token.TOKEN_PAREN_R,           ')'],
+            [Token.TOKEN_SLASH,             '/'],
+        ]);
+
+        for (const type of literalTokens.keys()) {
+            if (this.readSequence(literalTokens.get(type)))
+                return this.emitToken(type, [start, this.point]);
         }
 
         // String literal
