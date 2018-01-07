@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/minexew/dmparser#readme",
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^4.1.0"
   }
 }
