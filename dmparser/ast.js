@@ -107,11 +107,16 @@ class Class {
     constructor(path) {
         this.path = path;           // TODO: type check
 
-        this.declarations = [];
+        this.classDeclarations = [];
+        this.variableDeclarations = [];
     }
 
-    pushDeclaration(declaration) {
-        this.declarations.push(declaration);
+    pushClassDeclaration(class_) {
+        this.classDeclarations.push(class_);
+    }
+
+    pushVariableDeclaration(name, value) {
+        this.variableDeclarations.push([name, value]);
     }
 }
 
@@ -119,11 +124,11 @@ class Unit {
     constructor(unitName) {
         this.unitName = unitName;
 
-        this.declarations = [];
+        this.classDeclarations = [];
     }
 
-    pushDeclaration(declaration) {
-        this.declarations.push(declaration);
+    pushClassDeclaration(class_) {
+        this.classDeclarations.push(class_);
     }
 }
 
@@ -139,6 +144,9 @@ class Assignment extends Statement {
 
         if (!(target instanceof Ident))
             throw Error('BUG: invalid target');
+
+        if (!(expression instanceof Expression))
+            throw Error('BUG: invalid expression');
 
         this.target = target;
         this.expression = expression;

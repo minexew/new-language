@@ -8,6 +8,8 @@ class Parser {
         this.lexed = lexed;
         this.fileAccessor = fileAccessor;
         this.diag = diagnosticsSink;
+
+        this.pos = 0;
     }
 
     consumeNewlines() {
@@ -16,25 +18,24 @@ class Parser {
     }
 
     consumeToken(type) {
-        if (this.lexed.tokens.length < 1)
+        if (this.pos >= this.lexed.tokens.length)
             return null;
 
+        const head = this.lexed.tokens[this.pos];
+        
         //console.log(this.lexed.tokens[0].type, 'vs', type);
 
-        if (this.lexed.tokens[0].type !== type)
+        if (head.type !== type)
             return null;
 
         //console.log('Consume', this.lexed.tokens[0]);
 
-        if (this.lexed.tokens[0].span)
-            this.lastGoodSpan = this.lexed.tokens[0].span;
+        if (head.span)
+            this.lastGoodSpan = head.span;
 
-        return this.lexed.tokens.splice(0, 1)[0];
+        this.pos++;
+        return head;
     }
-
-    /*eof() {
-        return this.lexed.tokens.length == 0;
-    }*/
 
     expectToken(type, errorMessage) {
         if (!this.consumeToken(type))
@@ -42,16 +43,22 @@ class Parser {
     }
 
     finalCheck() {
-        if (this.lexed.tokens.length > 0)
+        if (this.pos < this.lexed.tokens.length)
             this.syntaxError("Unparsed tokens remaining");
     }
 
-    syntaxError(what, pointOrSpan) {
-        if (!pointOrSpan) {
-            if (this.lexed.tokens.length < 1)
-                throw new Error('FIXME');
+    restoreContext(context) {
+        this.pos = context;
+    }
 
-            const token = this.lexed.tokens[0];
+    saveContext() {
+        // Save parsing context for look-ahead
+        return this.pos;
+    }
+
+    syntaxError(what, pointOrSpan) {
+        if (!pointOrSpan && this.pos < this.lexed.tokens.length) {
+            const token = this.lexed.tokens[this.pos];
             pointOrSpan = token.span;      // might still be null
         }
 
@@ -81,68 +88,77 @@ class Parser {
         return fullPath;
     }
 
-    classDeclarationBody(class_) {
-        for (;;) {
-            this.consumeNewlines();
-
-            /*const identifier = this.identifier();
-
-            if (!identifier)
-                break;
-
-            else {
-                // Could be anything
-            }*/
-
-            const declaration = this.declaration();
-
-            if (!declaration)
-                break;
-
-            class_.pushDeclaration(declaration);
-        }
-    }
-
-    declaration() {
-        // x
-        // x = ...
-        // x/y
-        // x/y/z(a, b, c)
-
+    class_() {
         const path = this.relativePath();
         //console.log('decl path', path);
 
         if (!path)
             return null;
 
-        const assignment = this.consumeToken(Token.TOKEN_EQUAL, null);
-
-        if (assignment) {
-            // Definitely a member variable assignment
-
-            const expr = this.expression();
-
-            if (!expr)
-                this.syntaxError("Expected expression after '='");
-
-            return new ast.Assignment(path, expr, assignment.span);
-        }
-
-        // TODO: check if function declaration
-
-        // Otherwise, class declaration
-        this.consumeNewlines();
-
         const class_ = new ast.Class(path);
 
+        this.consumeNewlines();
         if (this.consumeToken(Token.TOKEN_BLOCK_BEGIN)) {
-            this.classDeclarationBody(class_);
+            this.classBody(class_);
 
             this.consumeNewlines();
-            this.expectToken(Token.TOKEN_BLOCK_END);
+            this.expectToken(Token.TOKEN_BLOCK_END, "Expected variable, method or class declaration");
         }
 
         return class_;
+    }
+
+    classBody(class_) {
+        for (;;) {
+            this.consumeNewlines();
+
+            // Variable declaration
+            const variableDeclaration = this.classVariableDeclaration();
+
+            if (variableDeclaration) {
+                const [name, expression, span] = variableDeclaration;
+                class_.pushVariableDeclaration(name, expression, span);
+                continue;
+            }
+
+            // Method declaration
+            // TODO
+
+            // Subclass declaration
+            const classDeclaration = this.class_();
+
+            if (classDeclaration) {
+                class_.pushClassDeclaration(classDeclaration);
+                continue;
+            }
+
+            break;
+        }
+    }
+
+    classVariableDeclaration() {
+        const saved = this.saveContext();
+
+        const name = this.identifier();
+
+        if (!name) {
+            this.restoreContext(saved);
+            return null;
+        }
+
+        const assignment = this.consumeToken(Token.TOKEN_EQUAL, null);
+
+        if (!assignment) {
+            this.restoreContext(saved);
+            return null;
+        }
+
+        const expression = this.expression();
+
+        if (!expression)
+            this.syntaxError("Expected expression after '='");
+
+        return [name, expression, assignment.span];
     }
 
     expression() {
@@ -215,12 +231,12 @@ class Parser {
         const unit = new ast.Unit(this.lexed.unitName);
 
         for (;;) {
-            let declaration;
+            let class_;
 
             this.consumeNewlines();
 
-            if (declaration = this.declaration()) {
-                unit.pushDeclaration(declaration);
+            if (class_ = this.class_()) {
+                unit.pushClassDeclaration(class_);
             }
             else
                 break;
