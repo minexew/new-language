@@ -5,184 +5,9 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "world",
     "test/Your First World/main-a.dm;36;1;;36;5"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -208,16 +33,6 @@
     "STRING",
     "Your First World",
     ";38;16;;38;33"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -253,46 +68,6 @@
     "IDENT",
     "player",
     ";41;20;;41;25"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -355,11 +130,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -393,46 +163,6 @@
     "STRING2",
     "rat.dmi",
     ";55;24;;55;32"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -500,11 +230,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -545,26 +270,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "density",
     ";74;17;;74;23"
@@ -585,16 +290,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "opacity",
     ";77;17;;77;23"
@@ -608,41 +303,6 @@
     "IDENT",
     "1",
     ";77;27;;77;27"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -710,11 +370,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -755,46 +410,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -823,11 +438,6 @@
     "IDENT",
     "outside",
     ";100;9;;100;15"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",

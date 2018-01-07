@@ -19,12 +19,16 @@ function isident(c) {
 }
 
 class Lexer {
-    constructor(unitName, source, diagnosticsSink) {
+    constructor(unitName, source, diagnosticsSink, options) {
         this.unitName = unitName;
         this.source = source;
         this.diag = diagnosticsSink;
 
-        // Sometimes we need to emit more or less than one token, so to be general, everything goes through this FIFO
+        this.options = Object.assign({
+            coalesceNewlines: false,
+        }, options);
+
+        // Sometimes we need to emit more or less than one token, so to be general, everything goes through a FIFO queue
         this.tokenBacklog = [];
 
         this.pos = 0;
@@ -41,6 +45,8 @@ class Lexer {
         // to lastIndent, BLOCK_BEGIN/END is emitted and lastIndent is updated
         this.indent = 0;
         this.lastIndent = 0;
+
+        this.lastTokenWasNewline = false;
     }
 
     consumePreprocessorDirectives() {
@@ -68,14 +74,19 @@ class Lexer {
     }
 
     emitToken(type, span, value) {
+        let coalescedNewline = false;
+
         if (type === Token.TOKEN_NEWLINE) {
             // Newline is a special snowflake. It never begins/ends a block on its own, its span is set to null
             // (at least for now), and it resets indent to zero.
 
-            // Handling it here is a bit dirty, but causes the least code ugliness.
+            // Handling it here is a bit dirty, but seems to cause the least code ugliness.
 
-            // TODO: option to omit repeated TOKEN_NEWLINE
-            // As long as its span is always set to null, it shouldn't make a functional difference
+            if (this.options.coalesceNewlines && this.lastTokenWasNewline) {
+                coalescedNewline = true;
+            }
+
+            this.lastTokenWasNewline = true;
         }
         else {
             if (this.indent !== null) {
@@ -89,13 +100,18 @@ class Lexer {
                     this.lastIndent--;
                 }
             }
+
+            this.lastTokenWasNewline = false;
         }
 
-        const token = new Token(type, value, span);
-        //console.log(token.type, token.span);
-        //console.log('(indent', token.this.indent, ')', token.value);
+        if (!coalescedNewline) {
+            const token = new Token(type, value, span);
+            //console.log(token.type, token.span);
+            //console.log('(indent', token.this.indent, ')', token.value);
 
-        this.tokenBacklog.push(token);
+            this.tokenBacklog.push(token);
+        }
+
         this.indent = null;
     }
 

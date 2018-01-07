@@ -5,31 +5,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "obj",
     "test/Your First World/main-c.dm;7;1;;7;3"
@@ -73,36 +48,6 @@
     "PAREN_R",
     null,
     ";9;21;;9;21"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -155,11 +100,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "usr",
     ";18;25;;18;27"
@@ -173,16 +113,6 @@
     "STRING",
     "You get [src].",
     ";18;32;;18;47"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -208,11 +138,6 @@
     "PAREN_R",
     null,
     ";21;33;;21;33"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -270,11 +195,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "Move",
     ";26;25;;26;28"
@@ -303,11 +223,6 @@
     "PAREN_R",
     null,
     ";26;37;;26;37"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -353,11 +268,6 @@
     "STRING",
     "It is quite smelly.",
     ";29;24;;29;44"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -425,11 +335,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "suffix",
     ";35;33;;35;38"
@@ -443,11 +348,6 @@
     "STRING",
     "(nibbled)",
     ";35;42;;35;52"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -498,11 +398,6 @@
     "STRING",
     "It looks to be rather old.",
     ";38;24;;38;51"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -570,16 +465,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "new",
     ";45;33;;45;35"
@@ -635,11 +520,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "usr",
     ";47;33;;47;35"
@@ -660,16 +540,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "del",
     ";50;33;;50;35"
@@ -678,11 +548,6 @@
     "IDENT",
     "src",
     ";50;37;;50;39"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -760,11 +625,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "Stat",
     ";56;17;;56;20"
@@ -818,11 +678,6 @@
     "PAREN_R",
     null,
     ";57;56;;57;56"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -888,11 +743,6 @@
     "STRING",
     "You see...",
     ";61;40;;61;51"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -993,11 +843,6 @@
     "STRING",
     "[o].  [o.desc]",
     ";64;48;;64;63"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",

@@ -5,21 +5,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "obj",
     "test/Your First World/main-d.dm;5;1;;5;3"
@@ -70,31 +55,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_BEGIN",
     null,
     null
@@ -128,11 +88,6 @@
     "PAREN_R",
     null,
     ";13;32;;13;32"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -280,41 +235,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -353,11 +273,6 @@
     "IDENT",
     "proc",
     ";25;9;;25;12"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -408,11 +323,6 @@
     "PAREN_R",
     null,
     ";27;43;;27;43"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -495,31 +405,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_BEGIN",
     null,
     null
@@ -543,36 +428,6 @@
     "PAREN_R",
     null,
     ";37;28;;37;28"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -608,11 +463,6 @@
     "PAREN_R",
     null,
     ";44;44;;44;44"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -715,11 +565,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "dir",
     ";50;25;;50;27"
@@ -758,11 +603,6 @@
     "PAREN_R",
     null,
     ";50;50;;50;50"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",

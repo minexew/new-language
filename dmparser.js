@@ -62,11 +62,11 @@ class Dmparser {
         })
     }
 
-    async lexUnit(unitName) {
+    async lexUnit(unitName, options) {
         const source = await this.getPreprocessedUnit(unitName);
         //console.log('parseUnit source', source);
 
-        const lexer = new Lexer(unitName, source, this.diagnosticsSink);
+        const lexer = new Lexer(unitName, source, this.diagnosticsSink, options);
 
         // TODO: is it ok/preferable to return array vs returning a generator?
         const tokens = [];

@@ -5,46 +5,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "area",
     "test/Your First World/main-b.dm;10;1;;10;4"
@@ -85,11 +45,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -123,36 +78,6 @@
     "PAREN_R",
     null,
     ";14;22;;14;22"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -225,31 +150,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -268,11 +168,6 @@
     "IDENT",
     "desc",
     ";28;22;;28;25"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -345,11 +240,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -390,11 +280,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "music",
     ";35;17;;35;21"
@@ -408,11 +293,6 @@
     "STRING2",
     "jazzy.mid",
     ";35;25;;35;35"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -460,11 +340,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "music",
     ";40;17;;40;21"
@@ -478,11 +353,6 @@
     "STRING2",
     "cavern.mid",
     ";40;25;;40;36"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -583,11 +453,6 @@
     "STRING",
     "You bump into [obstacle].",
     ";45;32;;45;58"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",

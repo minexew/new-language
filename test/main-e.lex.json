@@ -5,36 +5,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "mob",
     "test/Your First World/main-e.dm;8;1;;8;3"
@@ -68,11 +38,6 @@
     "IDENT",
     "verb",
     ";10;17;;10;20"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -160,11 +125,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "BLOCK_END",
     null,
     null
@@ -223,11 +183,6 @@
     "STRING",
     "[src] shouts, \"[msg]\"",
     ";16;42;;16;66"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -308,11 +263,6 @@
     "STRING",
     "[src] whispers, \"[msg]\"",
     ";19;44;;19;70"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -415,11 +365,6 @@
     null
   ],
   [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
     "IDENT",
     "m",
     ";24;33;;24;33"
@@ -433,36 +378,6 @@
     "STRING",
     "[src] tells you, \"[msg]\"",
     ";24;38;;24;65"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
@@ -538,31 +453,6 @@
     "IDENT",
     "name",
     ";32;44;;32;47"
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
-  ],
-  [
-    "NEWLINE",
-    null,
-    null
   ],
   [
     "NEWLINE",
