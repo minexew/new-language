@@ -163,3 +163,9 @@ describe('basics', function() {
         }
     });
 });
+
+describe('advanced', function() {
+    it('should parse Step BYOND', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Step BYOND/main.dm');
+    });
+});
