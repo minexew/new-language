@@ -270,8 +270,8 @@
     null
   ],
   [
-    "IDENT",
-    "proc",
+    "KEYWORD_PROC",
+    null,
     ";25;2;;25;5"
   ],
   [

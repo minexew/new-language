@@ -234,6 +234,31 @@ class Lexer {
 
         const start = this.nextPoint;
 
+        // TODO: Ordered map should be used instead
+        const literalTokens = {
+            TOKEN_BLOCK_BEGIN:  '{',
+            TOKEN_BLOCK_END:    '{',
+            TOKEN_COMMA:        ',',
+            TOKEN_DOT:          '.',
+            TOKEN_EQUAL:        '=',
+            TOKEN_EXCLAMATION:  '!',
+            TOKEN_KEYWORD_AS:   'as',
+            TOKEN_KEYWORD_PROC: 'proc',
+            TOKEN_KEYWORD_VERB: 'verb',
+            TOKEN_NEWLINE:      ';',
+            TOKEN_PAREN_L:      '(',
+            TOKEN_PAREN_R:      ')',
+            TOKEN_SHIFT_L:      '<<',
+            TOKEN_SLASH:        '/',
+        };
+
+        for (const type in literalTokens) {
+            if (literalTokens.hasOwnProperty(type)) {
+                if (this.readSequence(literalTokens[type]))
+                    return this.emitToken(Token[type], [start, this.point]);
+            }
+        }
+
         // String literal
         if (this.readChar('"')) {
             let literal = '';
@@ -321,28 +346,6 @@ class Lexer {
             }
 
             return this.emitToken(Token.TOKEN_IDENT, [start, this.point], ident);
-        }
-
-        // TODO: Map should be used instead
-        const literalTokens = {
-            TOKEN_BLOCK_BEGIN:  '{',
-            TOKEN_BLOCK_END:    '{',
-            TOKEN_COMMA:        ',',
-            TOKEN_DOT:          '.',
-            TOKEN_EQUAL:        '=',
-            TOKEN_EXCLAMATION:  '!',
-            TOKEN_NEWLINE:      ';',
-            TOKEN_PAREN_L:      '(',
-            TOKEN_PAREN_R:      ')',
-            TOKEN_SHIFT_L:      '<<',
-            TOKEN_SLASH:        '/',
-        };
-
-        for (const type in literalTokens) {
-            if (literalTokens.hasOwnProperty(type)) {
-                if (this.readSequence(literalTokens[type]))
-                    return this.emitToken(Token[type], [start, this.point]);
-            }
         }
 
         this.parseError('Unexpected character', start);
