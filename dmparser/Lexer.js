@@ -315,6 +315,7 @@ class Lexer {
             [Token.TOKEN_SHIFT_L,           '<<'],
 
             // single-character tokens
+            [Token.TOKEN_AND,               '&'],
             [Token.TOKEN_BLOCK_BEGIN,       '{'],
             [Token.TOKEN_BLOCK_END,         '}'],
             [Token.TOKEN_COMMA,             ','],
@@ -327,6 +328,7 @@ class Lexer {
             [Token.TOKEN_NEWLINE,           ';'],
             [Token.TOKEN_PAREN_L,           '('],
             [Token.TOKEN_PAREN_R,           ')'],
+            [Token.TOKEN_PIPE,              '|'],
             [Token.TOKEN_PLUS,              '+'],
             [Token.TOKEN_SLASH,             '/'],
         ]);

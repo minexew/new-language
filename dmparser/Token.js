@@ -6,6 +6,7 @@ class Token {
     }
 }
 
+Token.TOKEN_AND =           'AND';
 Token.TOKEN_BLOCK_BEGIN =   'BLOCK_BEGIN';          // indent increase or '{'
 Token.TOKEN_BLOCK_END =     'BLOCK_END';            // indent decrease or '}'
 Token.TOKEN_COMMA =         'COMMA';
@@ -29,6 +30,7 @@ Token.TOKEN_NEWLINE =       'NEWLINE';              // actual newline or ';'
 Token.TOKEN_NOT_EQUAL =     'NOT_EQUAL';
 Token.TOKEN_PAREN_L =       'PAREN_L';
 Token.TOKEN_PAREN_R =       'PAREN_R';
+Token.TOKEN_PIPE =          'PIPE';
 Token.TOKEN_PLUS =          'PLUS';
 Token.TOKEN_PLUS_PLUS =     'PLUS_PLUS';
 Token.TOKEN_SHIFT_L =       'SHIFT_L';

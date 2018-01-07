@@ -389,7 +389,7 @@ class Parser {
             == != <>            (expressionEqualNotEqual)
             &
             ^
-            |
+            |                   (expressionBitwiseOr)
             &&                  (expressionLogicAnd)
             ||                  (expressionLogicOr)
             ?
@@ -459,6 +459,27 @@ class Parser {
 
         if (relativePath)
             return relativePath;
+    }
+
+    expressionBitwiseOr() {
+        let expr = this.expressionEqualNotEqual();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const bitwiseOr = this.consumeToken(Token.TOKEN_PIPE);
+
+            if (bitwiseOr) {
+                const right = this.expectRule(this.expressionEqualNotEqual, 'expression');
+                expr = new ast.BinaryExpression(ast.BinaryExpression.BITWISE_OR, expr, right, bitwiseOr.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
     }
 
     expressionEqualNotEqual() {
@@ -568,7 +589,7 @@ class Parser {
     }
 
     expressionLogicAnd() {
-        let expr = this.expressionEqualNotEqual();
+        let expr = this.expressionBitwiseOr();
 
         if (!expr)
             return null;
@@ -577,7 +598,7 @@ class Parser {
             const logicAnd = this.consumeToken(Token.TOKEN_LOGIC_AND);
 
             if (logicAnd) {
-                const right = this.expectRule(this.expressionEqualNotEqual, 'expression');
+                const right = this.expectRule(this.expressionBitwiseOr, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.LOGIC_AND, expr, right, logicAnd.span);
                 continue;
             }

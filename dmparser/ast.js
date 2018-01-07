@@ -27,17 +27,20 @@ class BinaryExpression extends Expression {
     }
 }
 
-BinaryExpression.ADD = '+';
-BinaryExpression.EQUAL = '==';
-BinaryExpression.GREATER_EQUAL = '>=';
-BinaryExpression.GREATER_THAN = '>';
-BinaryExpression.LESS_EQUAL = '<=';
-BinaryExpression.LESS_THAN = '<';
-BinaryExpression.LOGIC_AND = '&&';
-BinaryExpression.LOGIC_OR = '||';
-BinaryExpression.NOT_EQUAL = '!=';
-BinaryExpression.SHIFT_L = '<<';
-BinaryExpression.SUBTRACT = '-';
+BinaryExpression.ADD =              '+';
+BinaryExpression.BITWISE_AND =      '&';
+BinaryExpression.BITWISE_OR =       '|';
+BinaryExpression.BITWISE_XOR =      '^';
+BinaryExpression.EQUAL =            '==';
+BinaryExpression.GREATER_EQUAL =    '>=';
+BinaryExpression.GREATER_THAN =     '>';
+BinaryExpression.LESS_EQUAL =       '<=';
+BinaryExpression.LESS_THAN =        '<';
+BinaryExpression.LOGIC_AND =        '&&';
+BinaryExpression.LOGIC_OR =         '||';
+BinaryExpression.NOT_EQUAL =        '!=';
+BinaryExpression.SHIFT_L =          '<<';
+BinaryExpression.SUBTRACT =         '-';
 
 class CallExpression extends Expression {
     constructor(callable, arguments_) {
