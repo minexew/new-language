@@ -16,7 +16,7 @@ const diagPrint = new DiagnosticsPrinter(sfa);
 const defaultOptions = {coalesceNewlines: true};
 
 describe('basics', function() {
-    it('should correctly lex Your First World and NOT coalesce newlines', async function() {
+    it('should correctly lex Your First World and NOT coalesce newlines when not told to', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/Your First World.dme', {});
         //TestUtil.dumpJson('test/Your First World.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/Your First World.lex.json'),
@@ -91,6 +91,13 @@ describe('basics', function() {
         //TestUtil.dumpJson('test/main-e.ast.json', AstSerializer.serializeUnit(parsed), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-e.ast.json'),
             AstSerializer.serializeUnit(parsed));
+    });
+
+    it('should produce identical AST whether or not newline coalescing is used', async function() {
+        const parsed1 = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-e.dm', {});
+        const parsed2 = await new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-e.dm', defaultOptions);
+
+        assert.deepEqual(AstSerializer.serializeUnit(parsed1), AstSerializer.serializeUnit(parsed2));
     });
 
     it('should parse Hello_World', async function() {

@@ -83,8 +83,8 @@ class Dmparser {
         return {'unitName': unitName, 'tokens': tokens};
     }
 
-    async parseUnit(unitName) {
-        const lexed = await this.lexUnit(unitName);
+    async parseUnit(unitName, lexerOptions) {
+        const lexed = await this.lexUnit(unitName, lexerOptions || {coalesceNewlines: true});
 
         const parser = new Parser(lexed, this.fileAccessor, this.diagnosticsSink);
         const ast = parser.unit();
