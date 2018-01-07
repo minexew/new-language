@@ -1,541 +1,801 @@
 [
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "obj",
     "test/Your First World/main-d.dm;5;1;;5;3"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "cheese",
     ";6;9;;6;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "Move",
     ";7;17;;7;20"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";7;21;;7;21"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";7;22;;7;22"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "DOT",
-    3,
     null,
     ";13;25;;13;25"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";13;27;;13;27"
   ],
   [
     "DOT",
-    null,
     null,
     ";13;29;;13;29"
   ],
   [
     "DOT",
     null,
-    null,
     ";13;30;;13;30"
   ],
   [
     "PAREN_L",
-    null,
     null,
     ";13;31;;13;31"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";13;32;;13;32"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "for",
     ";15;25;;15;27"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";15;28;;15;28"
   ],
   [
     "IDENT",
-    null,
     "var",
     ";15;29;;15;31"
   ],
   [
     "SLASH",
     null,
-    null,
     ";15;32;;15;32"
   ],
   [
     "IDENT",
-    null,
     "mob",
     ";15;33;;15;35"
   ],
   [
     "SLASH",
     null,
-    null,
     ";15;36;;15;36"
   ],
   [
     "IDENT",
-    null,
     "rat",
     ";15;37;;15;39"
   ],
   [
     "SLASH",
     null,
-    null,
     ";15;40;;15;40"
   ],
   [
     "IDENT",
-    null,
     "rat",
     ";15;41;;15;43"
   ],
   [
     "IDENT",
-    null,
     "in",
     ";15;45;;15;46"
   ],
   [
     "IDENT",
-    null,
     "view",
     ";15;48;;15;51"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";15;52;;15;52"
   ],
   [
     "IDENT",
-    null,
     "loc",
     ";15;53;;15;55"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";15;56;;15;56"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";15;57;;15;57"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    4,
     "walk_to",
     ";16;33;;16;39"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";16;40;;16;40"
   ],
   [
     "IDENT",
-    null,
     "rat",
     ";16;41;;16;43"
   ],
   [
     "COMMA",
     null,
-    null,
     ";16;44;;16;44"
   ],
   [
     "IDENT",
-    null,
     "loc",
     ";16;46;;16;48"
   ],
   [
     "COMMA",
     null,
-    null,
     ";16;49;;16;49"
   ],
   [
     "IDENT",
-    null,
     "1",
     ";16;51;;16;51"
   ],
   [
     "COMMA",
     null,
-    null,
     ";16;52;;16;52"
   ],
   [
     "IDENT",
-    null,
     "5",
     ";16;54;;16;54"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";16;55;;16;55"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "atom",
     ";24;1;;24;4"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "proc",
     ";25;9;;25;12"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "Bumped",
     ";27;17;;27;22"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";27;23;;27;23"
   ],
   [
     "IDENT",
-    null,
     "atom",
     ";27;24;;27;27"
   ],
   [
     "SLASH",
     null,
-    null,
     ";27;28;;27;28"
   ],
   [
     "IDENT",
-    null,
     "movable",
     ";27;29;;27;35"
   ],
   [
     "SLASH",
     null,
-    null,
     ";27;36;;27;36"
   ],
   [
     "IDENT",
-    null,
     "bumper",
     ";27;37;;27;42"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";27;43;;27;43"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "mob",
     ";29;1;;29;3"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "player",
     ";30;9;;30;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "Bump",
     ";31;17;;31;20"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";31;21;;31;21"
   ],
   [
     "IDENT",
-    null,
     "atom",
     ";31;22;;31;25"
   ],
   [
     "SLASH",
     null,
-    null,
     ";31;26;;31;26"
   ],
   [
     "IDENT",
-    null,
     "obstacle",
     ";31;27;;31;34"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";31;35;;31;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "DOT",
-    3,
     null,
     ";37;25;;37;25"
   ],
   [
     "DOT",
     null,
-    null,
     ";37;26;;37;26"
   ],
   [
     "PAREN_L",
-    null,
     null,
     ";37;27;;37;27"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";37;28;;37;28"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "obstacle",
     ";44;25;;44;32"
   ],
   [
     "DOT",
     null,
-    null,
     ";44;33;;44;33"
   ],
   [
     "IDENT",
-    null,
     "Bumped",
     ";44;34;;44;39"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";44;40;;44;40"
   ],
   [
     "IDENT",
-    null,
     "src",
     ";44;41;;44;43"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";44;44;;44;44"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "rat",
     ";46;9;;46;11"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "Bumped",
     ";47;17;;47;22"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";47;23;;47;23"
   ],
   [
     "IDENT",
-    null,
     "atom",
     ";47;24;;47;27"
   ],
   [
     "SLASH",
     null,
-    null,
     ";47;28;;47;28"
   ],
   [
     "IDENT",
-    null,
     "movable",
     ";47;29;;47;35"
   ],
   [
     "SLASH",
     null,
-    null,
     ";47;36;;47;36"
   ],
   [
     "IDENT",
-    null,
     "bumper",
     ";47;37;;47;42"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";47;43;;47;43"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "bumper",
     ";48;25;;48;30"
   ],
   [
     "SHIFT_L",
     null,
-    null,
     ";48;32;;48;33"
   ],
   [
     "STRING",
-    null,
     "The giant rat defends its territory ferociously!",
     ";48;35;;48;84"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "dir",
     ";50;25;;50;27"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";50;29;;50;29"
   ],
   [
     "IDENT",
-    null,
     "get_dir",
     ";50;31;;50;37"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";50;38;;50;38"
   ],
   [
     "IDENT",
-    null,
     "src",
     ";50;39;;50;41"
   ],
   [
     "COMMA",
     null,
-    null,
     ";50;42;;50;42"
   ],
   [
     "IDENT",
-    null,
     "bumper",
     ";50;44;;50;49"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";50;50;;50;50"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "flick",
     ";52;25;;52;29"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";52;30;;52;30"
   ],
   [
     "STRING",
-    null,
     "fight",
     ";52;31;;52;37"
   ],
   [
     "COMMA",
     null,
-    null,
     ";52;38;;52;38"
   ],
   [
     "IDENT",
-    null,
     "src",
     ";52;40;;52;42"
   ],
   [
     "PAREN_R",
-    null,
     null,
     ";52;43;;52;43"
   ]

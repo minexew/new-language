@@ -1,367 +1,611 @@
 [
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "area",
     "test/Your First World/main-b.dm;10;1;;10;4"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "var",
     ";11;9;;11;11"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "music",
     ";12;17;;12;21"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "Entered",
     ";14;9;;14;15"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";14;16;;14;16"
   ],
   [
     "IDENT",
-    null,
     "mob",
     ";14;17;;14;19"
   ],
   [
     "SLASH",
     null,
-    null,
     ";14;20;;14;20"
   ],
   [
     "IDENT",
-    null,
     "m",
     ";14;21;;14;21"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";14;22;;14;22"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "if",
     ";21;17;;21;18"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";21;19;;21;19"
   ],
   [
     "EXCLAMATION",
     null,
-    null,
     ";21;20;;21;20"
   ],
   [
     "IDENT",
-    null,
     "ismob",
     ";21;21;;21;25"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";21;26;;21;26"
   ],
   [
     "IDENT",
-    null,
     "m",
     ";21;27;;21;27"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";21;28;;21;28"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";21;29;;21;29"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "return",
     ";22;25;;22;30"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "m",
     ";28;17;;28;17"
   ],
   [
     "SHIFT_L",
     null,
-    null,
     ";28;19;;28;20"
   ],
   [
     "IDENT",
-    null,
     "desc",
     ";28;22;;28;25"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "m",
     ";30;17;;30;17"
   ],
   [
     "SHIFT_L",
     null,
-    null,
     ";30;19;;30;20"
   ],
   [
     "IDENT",
-    null,
     "sound",
     ";30;22;;30;26"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";30;27;;30;27"
   ],
   [
     "IDENT",
-    null,
     "music",
     ";30;28;;30;32"
   ],
   [
     "COMMA",
     null,
-    null,
     ";30;33;;30;33"
   ],
   [
     "IDENT",
-    null,
     "1",
     ";30;35;;30;35"
   ],
   [
     "COMMA",
     null,
-    null,
     ";30;36;;30;36"
   ],
   [
     "IDENT",
-    null,
     "channel",
     ";30;38;;30;44"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";30;46;;30;46"
   ],
   [
     "IDENT",
-    null,
     "1",
     ";30;48;;30;48"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";30;49;;30;49"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "outside",
     ";32;9;;32;15"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "desc",
     ";33;17;;33;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";33;22;;33;22"
   ],
   [
     "STRING",
-    null,
     "Nice and jazzy, here...",
     ";33;24;;33;48"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "music",
     ";35;17;;35;21"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";35;23;;35;23"
   ],
   [
     "STRING2",
-    null,
     "jazzy.mid",
     ";35;25;;35;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "cave",
     ";37;9;;37;12"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "desc",
     ";38;17;;38;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";38;22;;38;22"
   ],
   [
     "STRING",
-    null,
     "Watch out for the giant rat!",
     ";38;24;;38;53"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "music",
     ";40;17;;40;21"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";40;23;;40;23"
   ],
   [
     "STRING2",
-    null,
     "cavern.mid",
     ";40;25;;40;36"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "mob",
     ";42;1;;42;3"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "player",
     ";43;9;;43;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "Bump",
     ";44;17;;44;20"
   ],
   [
     "PAREN_L",
     null,
-    null,
     ";44;21;;44;21"
   ],
   [
     "IDENT",
-    null,
     "atom",
     ";44;22;;44;25"
   ],
   [
     "SLASH",
     null,
-    null,
     ";44;26;;44;26"
   ],
   [
     "IDENT",
-    null,
     "obstacle",
     ";44;27;;44;34"
   ],
   [
     "PAREN_R",
     null,
-    null,
     ";44;35;;44;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "src",
     ";45;25;;45;27"
   ],
   [
     "SHIFT_L",
     null,
-    null,
     ";45;29;;45;30"
   ],
   [
     "STRING",
-    null,
     "You bump into [obstacle].",
     ";45;32;;45;58"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    3,
     "src",
     ";47;25;;47;27"
   ],
   [
     "SHIFT_L",
     null,
-    null,
     ";47;29;;47;30"
   ],
   [
     "STRING2",
-    null,
     "ouch.wav",
     ";47;32;;47;41"
   ]

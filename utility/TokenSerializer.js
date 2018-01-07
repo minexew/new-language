@@ -16,12 +16,16 @@ class TokenSerializer {
         };
 
         const formatSpan = (span) => {
-            return formatUnit(span[0].unit) + ';' + span[0].line + ';' + span[0].column + ';' +
+            // TODO: might want to enforce that span is at least `null`, but not `undefined`
+            if (!span)
+                return null;
+            else
+                return formatUnit(span[0].unit) + ';' + span[0].line + ';' + span[0].column + ';' +
                     formatUnit(span[1].unit) + ';' + span[1].line + ';' + span[1].column;
         }
 
         return tokens.map((token) => {
-            return [token.type, token.indent, token.value, formatSpan(token.span)];
+            return [token.type, token.value, formatSpan(token.span)];
         });
     }
 }

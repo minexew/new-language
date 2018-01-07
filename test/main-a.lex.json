@@ -1,277 +1,841 @@
 [
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "world",
     "test/Your First World/main-a.dm;36;1;;36;5"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "name",
     ";38;9;;38;12"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";38;14;;38;14"
   ],
   [
     "STRING",
-    null,
     "Your First World",
     ";38;16;;38;33"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "mob",
     ";41;9;;41;11"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";41;13;;41;13"
   ],
   [
     "SLASH",
     null,
-    null,
     ";41;15;;41;15"
   ],
   [
     "IDENT",
-    null,
     "mob",
     ";41;16;;41;18"
   ],
   [
     "SLASH",
     null,
-    null,
     ";41;19;;41;19"
   ],
   [
     "IDENT",
-    null,
     "player",
     ";41;20;;41;25"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "mob",
     ";50;1;;50;3"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "player",
     ";51;9;;51;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";52;17;;52;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";52;22;;52;22"
   ],
   [
     "STRING2",
-    null,
     "player.dmi",
     ";52;24;;52;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "rat",
     ";54;9;;54;11"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";55;17;;55;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";55;22;;55;22"
   ],
   [
     "STRING2",
-    null,
     "rat.dmi",
     ";55;24;;55;32"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "turf",
     ";64;1;;64;4"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "floor",
     ";65;9;;65;13"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";66;17;;66;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";66;22;;66;22"
   ],
   [
     "STRING2",
-    null,
     "floor.dmi",
     ";66;24;;66;34"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "wall",
     ";68;9;;68;12"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";69;17;;69;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";69;22;;69;22"
   ],
   [
     "STRING2",
-    null,
     "wall.dmi",
     ";69;24;;69;33"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "density",
     ";74;17;;74;23"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";74;25;;74;25"
   ],
   [
     "IDENT",
-    null,
     "1",
     ";74;27;;74;27"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "opacity",
     ";77;17;;77;23"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";77;25;;77;25"
   ],
   [
     "IDENT",
-    null,
     "1",
     ";77;27;;77;27"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "obj",
     ";85;1;;85;3"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "cheese",
     ";86;9;;86;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";87;17;;87;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";87;22;;87;22"
   ],
   [
     "STRING2",
-    null,
     "cheese.dmi",
     ";87;24;;87;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "scroll",
     ";89;9;;89;14"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    2,
     "icon",
     ";90;17;;90;20"
   ],
   [
     "EQUAL",
     null,
-    null,
     ";90;22;;90;22"
   ],
   [
     "STRING2",
-    null,
     "scroll.dmi",
     ";90;24;;90;35"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
+    "BLOCK_END",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    0,
     "area",
     ";99;1;;99;4"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "BLOCK_BEGIN",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "outside",
     ";100;9;;100;15"
   ],
   [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
+    "NEWLINE",
+    null,
+    null
+  ],
+  [
     "IDENT",
-    1,
     "cave",
     ";102;9;;102;12"
   ]

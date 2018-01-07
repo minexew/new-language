@@ -15,37 +15,42 @@ const diagPrint = new DiagnosticsPrinter(sfa);
 describe('basics', function() {
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/Your First World.dme');
+        //TestUtil.dumpJson('test/Your First World.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/Your First World.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-a.dm');
-        //TestUtil.dumpJson('test/main-a.lex.json', TokenSerializer.serializeList(tokens), true);
+        //TestUtil.dumpJson('test/main-a.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-a.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-b.dm');
+        //TestUtil.dumpJson('test/main-b.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-b.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-c.dm');
+        //TestUtil.dumpJson('test/main-c.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-c.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-d.dm');
+        //TestUtil.dumpJson('test/main-d.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-d.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
     it('should correctly lex Your First World', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/Your First World/main-e.dm');
+        //TestUtil.dumpJson('test/main-e.lex.json', TokenSerializer.serializeList(lexed.tokens), true);
         assert.deepEqual(await TestUtil.loadJsonFromFile('test/main-e.lex.json'),
                 TokenSerializer.serializeList(lexed.tokens));
     });
