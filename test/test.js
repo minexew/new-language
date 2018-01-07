@@ -58,8 +58,8 @@ describe('basics', function() {
                 TokenSerializer.serializeList(lexed.tokens));
     });
 
-    it('should parse Your First World (main-a.dm)', async function() {
-        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-a.dm');
+    it('should parse Your First World (main-c.dm)', async function() {
+        return new Dmparser(sfa, diagPrint).parseUnit('test/Your First World/main-c.dm');
     });
 
     it('should correctly parse Your First World (main-a.dm)', async function() {

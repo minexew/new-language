@@ -65,6 +65,7 @@ class AstSerializer {
                     span: ss(span),
                 })),
                 variables: node.variables.map((variable) => sn(variable)),
+                verbs: node.verbs.map((procedure) => sn(procedure)),
             };
         }
         else if (node instanceof ast.ExpressionStatement) {

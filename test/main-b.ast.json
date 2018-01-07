@@ -51,7 +51,8 @@
               "span": null
             }
           ],
-          "variables": []
+          "variables": [],
+          "verbs": []
         },
         {
           "type": "Class",
@@ -93,7 +94,8 @@
               "span": null
             }
           ],
-          "variables": []
+          "variables": [],
+          "verbs": []
         }
       ],
       "procedures": [
@@ -247,7 +249,8 @@
           "span": ";12;3;;12;7",
           "value": "music"
         }
-      ]
+      ],
+      "verbs": []
     },
     {
       "type": "Class",
@@ -341,12 +344,14 @@
             }
           ],
           "properties": [],
-          "variables": []
+          "variables": [],
+          "verbs": []
         }
       ],
       "procedures": [],
       "properties": [],
-      "variables": []
+      "variables": [],
+      "verbs": []
     }
   ]
 }

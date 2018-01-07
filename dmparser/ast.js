@@ -37,6 +37,30 @@ class CallExpression extends Expression {
     }
 }
 
+class MemberExpression extends Expression {
+    constructor(expression, name, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+        assert(name instanceof Ident);
+
+        this.expression = expression;
+        this.name = name;
+    }
+}
+
+class NewExpression extends Expression {
+    constructor(className, arguments_, span) {
+        super(span);
+
+        assert(className instanceof Expression);
+        assert(arguments_ instanceof ArgumentList);
+
+        this.className = className;
+        this.arguments = arguments_;
+    }
+}
+
 class UnaryExpression extends Expression {
     constructor(type, right, span) {
         super(span);
@@ -106,14 +130,24 @@ class Statement {
     }
 }
 
-class Assignment extends Statement {
+class AssignmentStatement extends Statement {
     constructor(target, expression, span) {
         super(span);
 
-        assert(target instanceof Ident);
+        assert(target instanceof Expression);
         assert(expression instanceof Expression);
 
         this.target = target;
+        this.expression = expression;
+    }
+}
+
+class DelStatement extends Statement {
+    constructor(expression, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+
         this.expression = expression;
     }
 }
@@ -125,6 +159,20 @@ class ExpressionStatement extends Statement {
         assert(expression instanceof Expression);
 
         this.expression = expression;
+    }
+}
+
+class ForListStatement extends Statement {
+    constructor(varDecl, expression, body, span) {
+        super(span);
+
+        assert(varDecl instanceof VarStatement);
+        assert(expression instanceof Expression);
+        assert(body instanceof Block);
+
+        this.varDecl = varDecl;
+        this.expression = expression;
+        this.body = body;
     }
 }
 
@@ -147,6 +195,18 @@ class ReturnStatement extends Statement {
         assert((expression === null) || (expression instanceof Expression));
 
         this.expression = expression;
+    }
+}
+
+class VarStatement extends Statement {
+    constructor(name, type, span) {
+        super(span);
+
+        assert(name instanceof Ident);
+        assert((type === null) || (type instanceof Expression));
+
+        this.name = name;
+        this.type = type;
     }
 }
 
@@ -211,6 +271,7 @@ class Class {
         this.procedures = [];
         this.properties = [];
         this.variables = [];
+        this.verbs = [];
     }
 
     pushClassDeclaration(class_) {
@@ -236,6 +297,12 @@ class Class {
         assert(name instanceof Ident);
 
         this.variables.push(name);
+    }
+
+    pushVerb(verb) {
+        assert(verb instanceof Procedure);
+
+        this.verbs.push(verb);
     }
 }
 
@@ -270,20 +337,25 @@ class Unit {
 
 module.exports.ArgumentDeclList = ArgumentDeclList;
 module.exports.ArgumentList = ArgumentList;
-module.exports.Assignment = Assignment;
+module.exports.AssignmentStatement = AssignmentStatement;
 module.exports.BinaryExpression = BinaryExpression;
 module.exports.Block = Block;
 module.exports.CallExpression = CallExpression;
 module.exports.Class = Class;
+module.exports.DelStatement = DelStatement;
 module.exports.Expression = Expression;
 module.exports.ExpressionStatement = ExpressionStatement;
+module.exports.ForListStatement = ForListStatement;
 module.exports.Ident = Ident;
 module.exports.IfStatement = IfStatement;
 module.exports.LiteralInteger = LiteralInteger;
 module.exports.LiteralString = LiteralString;
+module.exports.MemberExpression = MemberExpression;
+module.exports.NewExpression = NewExpression;
 module.exports.Path = Path;
 module.exports.Procedure = Procedure;
 module.exports.ReturnStatement = ReturnStatement;
-module.exports.UnaryExpression = UnaryExpression;
 module.exports.RootNamespace = RootNamespace;
+module.exports.UnaryExpression = UnaryExpression;
 module.exports.Unit = Unit;
+module.exports.VarStatement = VarStatement;

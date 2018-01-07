@@ -39,8 +39,12 @@ class Parser {
     expectRule(method, displayName) {
         const node = method.apply(this);
 
-        if (!node)
+        if (!node) {
+            if (!displayName)
+                displayName = method.name;
+
             this.syntaxError('Expected ' + displayName);
+        }
 
         return node;
     }
@@ -112,6 +116,9 @@ class Parser {
 
             const ident = this.identifier();
 
+            if (!ident)
+                break;
+
             if (this.consumeToken(Token.TOKEN_SLASH)) {
                 // type/name
 
@@ -180,6 +187,15 @@ class Parser {
         this.consumeNewlines();
         this.expectToken(Token.TOKEN_BLOCK_BEGIN);
 
+        const block = this.blockBare();
+
+        this.consumeNewlines();
+        this.expectToken(Token.TOKEN_BLOCK_END);
+
+        return block;
+    }
+
+    blockBare() {
         const block = new ast.Block();
 
         for (;;) {
@@ -195,9 +211,6 @@ class Parser {
             if (!this.consumeToken(Token.TOKEN_NEWLINE))
                 break;
         }
-
-        this.consumeNewlines();
-        this.expectToken(Token.TOKEN_BLOCK_END);
 
         return block;
     }
@@ -216,7 +229,7 @@ class Parser {
             this.classBody(class_);
 
             this.consumeNewlines();
-            this.expectToken(Token.TOKEN_BLOCK_END, "Expected variable, method, property or class declaration");
+            this.expectToken(Token.TOKEN_BLOCK_END, "Expected var, verb, proc, property or class declaration");
         }
 
         return class_;
@@ -226,6 +239,7 @@ class Parser {
         for (;;) {
             this.consumeNewlines();
 
+            // var
             if (this.consumeToken(Token.TOKEN_KEYWORD_VAR)) {
                 if (this.consumeToken(Token.TOKEN_SLASH)) {
                 }
@@ -248,6 +262,29 @@ class Parser {
                     this.consumeNewlines();
                     this.expectToken(Token.TOKEN_BLOCK_END);
                 }
+
+                continue;
+            }
+
+            // verb
+            if (this.consumeToken(Token.TOKEN_KEYWORD_VERB)) {
+                this.consumeNewlines();
+                this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+
+                for (;;) {
+                    const method = this.procedure();
+
+                    if (!method)
+                        break;
+
+                    class_.pushVerb(method);
+
+                    if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                        break;
+                }
+
+                this.consumeNewlines();
+                this.expectToken(Token.TOKEN_BLOCK_END);
 
                 continue;
             }
@@ -322,7 +359,8 @@ class Parser {
     expression() {
         /*
         Order of operations (from BYOND guide):
-            . : /               (expressionPath)
+            literals, /         (expressionAtomic)
+            new . : /               (expressionPath)    -- this shouldn't actually include : / right?
             ( ) ! ~ ++ -- -     (expressionUnaryOrCall)
             **
             * / %
@@ -347,7 +385,12 @@ class Parser {
         return expr;
     }
 
-    expressionPath() {
+    expressionAtomic() {
+        const literal = this.literal();
+
+        if (literal)
+            return literal;
+
         const absolutePath = this.absolutePath();
 
         if (absolutePath)
@@ -357,8 +400,38 @@ class Parser {
 
         if (relativePath)
             return relativePath;
+    }
 
-        return this.literal();
+    expressionPath() {
+        const new_ = this.consumeToken(Token.TOKEN_KEYWORD_NEW);
+
+        if (new_) {
+            // TODO: should be this.path
+            const className = this.expectRule(this.expressionAtomic, 'class name');
+            const arguments_ = this.expectRule(this.argumentList, 'argument list');
+
+            return new ast.NewExpression(className, arguments_, new_.span);
+        }
+
+        let expr = this.expressionAtomic();
+
+        if (!expr)
+            return null;
+
+        for (;;) {
+            const dot = this.consumeToken(Token.TOKEN_DOT);
+
+            if (dot) {
+                const varName = this.expectRule(this.identifier);
+
+                expr = new ast.MemberExpression(expr, varName, dot.span);
+                continue;
+            }
+
+            break;
+        }
+
+        return expr;
     }
 
     expressionShift() {
@@ -476,7 +549,38 @@ class Parser {
             return null;
         }
 
-        const body = this.block();
+        this.consumeNewlines();
+        this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+
+        // Parse `set` directives
+        for (;;) {
+            this.consumeNewlines();
+
+            if (this.consumeToken(Token.TOKEN_KEYWORD_SET)) {
+                const name = this.expectRule(this.identifier);
+
+                if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
+                    const expr = this.expectRule(this.expression);
+                }
+                else {
+                    this.expectToken(Token.TOKEN_EQUAL);
+
+                    this.syntaxError('Not implemented');
+                }
+
+                if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                    break;
+
+                continue;
+            }
+
+            break;
+        }
+
+        const body = this.blockBare();
+
+        this.consumeNewlines();
+        this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
 
         return new ast.Procedure(name, argList, body);
     }
@@ -509,6 +613,28 @@ class Parser {
     }
 
     statement() {
+        const del_ = this.consumeToken(Token.TOKEN_KEYWORD_DEL);
+
+        if (del_) {
+            const expression = this.expectRule(this.expression);
+
+            return new ast.DelStatement(expression, del_.span);
+        }
+
+        const for_ = this.consumeToken(Token.TOKEN_KEYWORD_FOR);
+
+        if (for_) {
+            this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
+            const varDecl = this.expectRule(this.variableDeclaration, 'variable declaration');
+            this.expectToken(Token.TOKEN_KEYWORD_IN);
+            const expression = this.expectRule(this.expression);
+            this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+
+            const body = this.block();
+
+            return new ast.ForListStatement(varDecl, expression, body, for_.span);
+        }
+
         const if_ = this.consumeToken(Token.TOKEN_KEYWORD_IF);
 
         if (if_) {
@@ -530,20 +656,19 @@ class Parser {
             return new ast.ReturnStatement(expression, return_.span);
         }
 
+        // TODO: var
+
         const expr = this.expression();
 
         if (expr) {
-            /*if ( Token* tok = accept( Token_assignment ) )
-            {
-                auto span = tok->span;
-                auto right = parseAddSubExpression();
+            const assignment = this.consumeToken(Token.TOKEN_EQUAL);
 
-                if (!right)
-                    syntaxError("Expected expression after '='");
+            if (assignment) {
+                const value = this.expectRule(this.expression);
 
-                statement = make_pooled<AstNodeAssignment>(move(expr), move(right), span);
+                return new ast.AssignmentStatement(expr, value, assignment.span);
             }
-            else */
+            else
                 return new ast.ExpressionStatement(expr, expr.span);
         }
     }
@@ -564,6 +689,43 @@ class Parser {
         }
 
         return unit;
+    }
+
+    variableDeclaration() {
+        const var_ = this.consumeToken(Token.TOKEN_KEYWORD_VAR);
+
+        if (!var_)
+            return null;
+
+        // For shit like var/atom/movable/o, the only way to parse is to buffer everything first and then analyze
+        const parts = [];
+
+        for (;;) {
+            const slash = this.consumeToken(Token.TOKEN_SLASH);
+
+            if (!slash)
+                break;
+
+            const ident = this.expectRule(this.identifier);
+
+            parts.push([ident, slash.span]);
+        }
+
+        if (parts.length < 1)
+            this.syntaxError('Expected variable name', var_.span);
+
+        const [name, _] = parts.pop();
+
+        let type = null;
+
+        for (const [part, span] of parts) {
+            if (!type)
+                type = part;
+            else
+                type = new ast.Path(type, part, span);
+        }
+
+        return new ast.VarStatement(name, type, var_.span);
     }
 }
 
