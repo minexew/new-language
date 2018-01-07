@@ -11,14 +11,25 @@ function nthIndex(str, pat, n){
 function getSpanPreview(start, end, fileAccessor) {
     const source = fileAccessor.getFileContentsAsStringCached(start.unit);
 
-    const lineStart = (start.line > 1) ? nthIndex(source, '\n', start.line - 1) : 0;
+    const lineStart = (start.line > 1) ? (nthIndex(source, '\n', start.line - 1) + 1) : 0;
     const lineEnd = source.indexOf('\n', lineStart + 1);
 
     const line = source.slice((lineStart >= 0) ? lineStart : 0,
             (lineEnd >= 0 ? lineEnd : source.length));
 
-    // FIXME: This is wrong. Tab needs to be counted as 1 column and repeat counts in this function must be adjusted.
-    const lineWithoutTab = line.replace('\t', '        ');
+    let indent = '';
+
+    // Copy whitespace from beginning of line until start of span to achieve proper alignment
+    // Tabs & spaces are kept, everything else is replaced with spaces
+
+    // We can't do the same for the carets; while '\t' = TabWidth * ' ', there is no way to encode TabWidth * '^'
+
+    for (let i = 0; 1 + i < start.column; i++) {
+        if (line[i] === '\t' || line[i] === ' ')
+            indent += line[i];
+        else
+            indent += ' ';
+    }
 
     let numColumns;
 
@@ -27,7 +38,7 @@ function getSpanPreview(start, end, fileAccessor) {
     else
         numColumns = 1;
 
-    return [lineWithoutTab, ' '.repeat(start.column - 1) + '^'.repeat(numColumns)];
+    return [line, indent + '^'.repeat(numColumns)];
 }
 
 class DiagnosticsPrinter {

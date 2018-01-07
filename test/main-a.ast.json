@@ -15,12 +15,12 @@
         {
           "name": {
             "type": "Ident",
-            "span": ";38;9;;38;12",
+            "span": ";38;2;;38;5",
             "value": "name"
           },
           "expression": {
             "type": "LiteralString",
-            "span": ";38;16;;38;33",
+            "span": ";38;9;;38;26",
             "text": "Your First World",
             "singleQuoted": false
           },
@@ -29,28 +29,28 @@
         {
           "name": {
             "type": "Ident",
-            "span": ";41;9;;41;11",
+            "span": ";41;2;;41;4",
             "value": "mob"
           },
           "expression": {
             "type": "Path",
-            "span": ";41;20;;41;25",
+            "span": ";41;13;;41;18",
             "namespace": {
               "type": "Path",
-              "span": ";41;16;;41;18",
+              "span": ";41;9;;41;11",
               "namespace": {
                 "type": "RootNamespace",
-                "span": ";41;15;;41;15"
+                "span": ";41;8;;41;8"
               },
               "member": {
                 "type": "Ident",
-                "span": ";41;16;;41;18",
+                "span": ";41;9;;41;11",
                 "value": "mob"
               }
             },
             "member": {
               "type": "Ident",
-              "span": ";41;20;;41;25",
+              "span": ";41;13;;41;18",
               "value": "player"
             }
           },
@@ -72,7 +72,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";51;9;;51;14",
+            "span": ";51;2;;51;7",
             "value": "player"
           },
           "classes": [],
@@ -80,12 +80,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";52;17;;52;20",
+                "span": ";52;3;;52;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";52;24;;52;35",
+                "span": ";52;10;;52;21",
                 "text": "player.dmi",
                 "singleQuoted": true
               },
@@ -98,7 +98,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";54;9;;54;11",
+            "span": ";54;2;;54;4",
             "value": "rat"
           },
           "classes": [],
@@ -106,12 +106,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";55;17;;55;20",
+                "span": ";55;3;;55;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";55;24;;55;32",
+                "span": ";55;10;;55;18",
                 "text": "rat.dmi",
                 "singleQuoted": true
               },
@@ -136,7 +136,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";65;9;;65;13",
+            "span": ";65;2;;65;6",
             "value": "floor"
           },
           "classes": [],
@@ -144,12 +144,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";66;17;;66;20",
+                "span": ";66;3;;66;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";66;24;;66;34",
+                "span": ";66;10;;66;20",
                 "text": "floor.dmi",
                 "singleQuoted": true
               },
@@ -162,7 +162,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";68;9;;68;12",
+            "span": ";68;2;;68;5",
             "value": "wall"
           },
           "classes": [],
@@ -170,12 +170,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";69;17;;69;20",
+                "span": ";69;3;;69;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";69;24;;69;33",
+                "span": ";69;10;;69;19",
                 "text": "wall.dmi",
                 "singleQuoted": true
               },
@@ -184,12 +184,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";74;17;;74;23",
+                "span": ";74;3;;74;9",
                 "value": "density"
               },
               "expression": {
                 "type": "LiteralInteger",
-                "span": ";74;27;;74;27",
+                "span": ";74;13;;74;13",
                 "value": 1
               },
               "span": null
@@ -197,12 +197,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";77;17;;77;23",
+                "span": ";77;3;;77;9",
                 "value": "opacity"
               },
               "expression": {
                 "type": "LiteralInteger",
-                "span": ";77;27;;77;27",
+                "span": ";77;13;;77;13",
                 "value": 1
               },
               "span": null
@@ -226,7 +226,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";86;9;;86;14",
+            "span": ";86;2;;86;7",
             "value": "cheese"
           },
           "classes": [],
@@ -234,12 +234,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";87;17;;87;20",
+                "span": ";87;3;;87;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";87;24;;87;35",
+                "span": ";87;10;;87;21",
                 "text": "cheese.dmi",
                 "singleQuoted": true
               },
@@ -252,7 +252,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";89;9;;89;14",
+            "span": ";89;2;;89;7",
             "value": "scroll"
           },
           "classes": [],
@@ -260,12 +260,12 @@
             {
               "name": {
                 "type": "Ident",
-                "span": ";90;17;;90;20",
+                "span": ";90;3;;90;6",
                 "value": "icon"
               },
               "expression": {
                 "type": "LiteralString",
-                "span": ";90;24;;90;35",
+                "span": ";90;10;;90;21",
                 "text": "scroll.dmi",
                 "singleQuoted": true
               },
@@ -290,7 +290,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";100;9;;100;15",
+            "span": ";100;2;;100;8",
             "value": "outside"
           },
           "classes": [],
@@ -301,7 +301,7 @@
           "span": null,
           "path": {
             "type": "Ident",
-            "span": ";102;9;;102;12",
+            "span": ";102;2;;102;5",
             "value": "cave"
           },
           "classes": [],

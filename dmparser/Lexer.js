@@ -129,7 +129,7 @@ class Lexer {
             this.nextPoint = new SourcePoint(
                     this.nextPoint.unit,
                     this.nextPoint.line,
-                    this.nextPoint.column + (this.source[this.pos] === '\t' ? 8 : 1));
+                    this.nextPoint.column + 1);
         }
 
         return this.source[this.pos++];
