@@ -300,7 +300,7 @@ class Class {
     constructor(path) {
         this.path = path;           // TODO: type check
 
-        this.classDeclarations = [];
+        this.classes = [];
         this.procedures = [];
         this.properties = [];
         this.variables = [];
@@ -310,7 +310,7 @@ class Class {
     pushClassDeclaration(class_) {
         assert(class_ instanceof Class);
 
-        this.classDeclarations.push(class_);
+        this.classes.push(class_);
     }
 
     pushProc(proc, declaredInProcBlock) {
@@ -357,14 +357,14 @@ class Unit {
     constructor(unitName) {
         this.unitName = unitName;
 
-        this.classDeclarations = [];
+        this.classes = [];
         //this.procedures = [];
     }
 
     pushClassDeclaration(class_) {
         assert(class_ instanceof Class);
 
-        this.classDeclarations.push(class_);
+        this.classes.push(class_);
     }
 }
 

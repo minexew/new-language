@@ -66,7 +66,7 @@ class AstSerializer {
                 type: 'Class',
                 span: ss(node.span),
                 path: sn(node.path),
-                classes: node.classDeclarations.map((class_) => sn(class_)),
+                classes: node.classes.map((class_) => sn(class_)),
                 procedures: node.procedures.map(([procedure, declaredInProcBlock]) => ({
                     procedure: sn(procedure),
                     declaredInProcBlock: declaredInProcBlock,
@@ -180,7 +180,7 @@ class AstSerializer {
             return {
                 type: 'Unit',
                 span: ss(node.span),
-                classes: node.classDeclarations.map((class_) => sn(class_))
+                classes: node.classes.map((class_) => sn(class_))
             };
         }
         else if (node instanceof ast.VarStatement) {
