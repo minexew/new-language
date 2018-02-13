@@ -55,8 +55,14 @@ class Parser {
     }
 
     expectToken(type, errorMessage) {
-        if (!this.consumeToken(type))
-            this.syntaxError(errorMessage ? errorMessage : "Unexpected token");
+        if (!this.consumeToken(type)) {
+            if (errorMessage)
+                this.syntaxError(errorMessage);
+            else if (this.pos < this.lexed.tokens.length && this.lexed.tokens[this.pos].type == Token.TOKEN_NEWLINE)
+                this.syntaxError("Expected token " + type);
+            else
+                this.syntaxError("Unexpected token");
+        }
     }
 
     finalCheck() {
