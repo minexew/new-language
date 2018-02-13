@@ -331,6 +331,8 @@ class Lexer {
             [Token.TOKEN_PIPE,              '|'],
             [Token.TOKEN_PLUS,              '+'],
             [Token.TOKEN_SLASH,             '/'],
+            [Token.TOKEN_SQ_BRACKET_L,      '['],
+            [Token.TOKEN_SQ_BRACKET_R,      ']'],
         ]);
 
         for (const type of literalTokens.keys()) {

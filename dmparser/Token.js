@@ -35,6 +35,8 @@ Token.TOKEN_PLUS =          'PLUS';
 Token.TOKEN_PLUS_PLUS =     'PLUS_PLUS';
 Token.TOKEN_SHIFT_L =       'SHIFT_L';
 Token.TOKEN_SLASH =         'SLASH';                // TODO: as it turns out, not all slashes are equivalent (whitespace matters)
+Token.TOKEN_SQ_BRACKET_L =  'TOKEN_SQ_BRACKET_L';
+Token.TOKEN_SQ_BRACKET_R =  'TOKEN_SQ_BRACKET_R';
 Token.TOKEN_STRING_DQ =     'STRING_DQ';            // "string"
 Token.TOKEN_STRING_SQ =     'STRING_SQ';            // 'string'
 
