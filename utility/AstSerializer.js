@@ -188,7 +188,9 @@ class AstSerializer {
                 type: 'VarStatement',
                 span: ss(node.span),
                 name: sn(node.name),
-                varType: sn(node.type),
+                varType: node.type ? sn(node.type) : null,
+                value: node.value ? sn(node.value) : null,
+                isTmp: node.isTmp,
             };
         }
         else

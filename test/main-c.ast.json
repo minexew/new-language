@@ -523,7 +523,9 @@
                           "span": ";63;18;;63;24",
                           "value": "movable"
                         }
-                      }
+                      },
+                      "value": null,
+                      "isTmp": false
                     },
                     "expression": {
                       "type": "CallExpression",

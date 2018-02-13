@@ -16,6 +16,11 @@ class Parser {
         }
     }
 
+    /**
+     * If a token of the specified type is at the head of token stream, remove and return it.
+     * @param type
+     * @returns {?Token}
+     */
     consumeToken(type) {
         if (this.pos >= this.lexed.tokens.length)
             return null;
@@ -261,20 +266,17 @@ class Parser {
             // var
             if (this.consumeToken(Token.TOKEN_KEYWORD_VAR)) {
                 if (this.consumeToken(Token.TOKEN_SLASH)) {
+                    if (!this.classVariableDeclaration(class_, true)) {
+                        this.syntaxError('Expected variable declaration');
+                    }
                 }
                 else {
                     this.consumeNewlines();
                     this.expectToken(Token.TOKEN_BLOCK_BEGIN);
 
                     for (;;) {
-                        const ident = this.identifier();
-
-                        if (!ident)
-                            break;
-
-                        class_.pushVariableDeclaration(ident);
-
-                        if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                        if (!this.classVariableDeclaration(class_, false)
+                                || !this.consumeToken(Token.TOKEN_NEWLINE))
                             break;
                     }
 
@@ -309,7 +311,7 @@ class Parser {
             }
 
             // Property declaration
-            const property = this.classVariableDeclaration();
+            const property = this.classPropertyDeclaration();
 
             if (property) {
                 const [name, value, span] = property;
@@ -350,7 +352,7 @@ class Parser {
         }
     }
 
-    classVariableDeclaration() {
+    classPropertyDeclaration() {
         const saved = this.saveContext();
 
         const name = this.identifier();
@@ -360,19 +362,42 @@ class Parser {
             return null;
         }
 
-        const assignment = this.consumeToken(Token.TOKEN_EQUAL, null);
+        const assignment = this.consumeToken(Token.TOKEN_EQUAL);
 
         if (!assignment) {
             this.restoreContext(saved);
             return null;
         }
 
-        const value = this.expression();
-
-        if (!value)
-            this.syntaxError("Expected expression after '='");
+        const value = this.expectRule(this.expression);
 
         return [name, value, assignment.span];
+    }
+
+    classVariableDeclaration(class_, isInline) {
+        let value = null;
+        let isTmp = false;
+
+        const tmp = this.consumeToken(Token.TOKEN_KEYWORD_TMP);
+
+        if (tmp) {
+            isTmp = true;
+            this.expectToken(Token.TOKEN_SLASH);
+        }
+
+        const ident = this.identifier();
+
+        if (!ident)
+            return false;
+
+        const assignment = this.consumeToken(Token.TOKEN_EQUAL);
+
+        if (assignment) {
+            value = this.expectRule(this.expression);
+        }
+
+        class_.pushVariableDeclaration(new ast.VarStatement(ident, null, value, isTmp, ident.span));
+        return true;
     }
 
     expression() {
@@ -918,7 +943,8 @@ class Parser {
 
         const [name, type] = this.expectRule(this.variableDeclarationBare, 'variable name');
 
-        return new ast.VarStatement(name, type, var_.span);
+        const isTmp = false;
+        return new ast.VarStatement(name, type, null, isTmp, var_.span);
     }
 
     // type/type2/type3/name

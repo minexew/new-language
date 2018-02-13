@@ -249,9 +249,16 @@
       "properties": [],
       "variables": [
         {
-          "type": "Ident",
+          "type": "VarStatement",
           "span": ";12;3;;12;7",
-          "value": "music"
+          "name": {
+            "type": "Ident",
+            "span": ";12;3;;12;7",
+            "value": "music"
+          },
+          "varType": null,
+          "value": null,
+          "isTmp": false
         }
       ],
       "verbs": []

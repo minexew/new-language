@@ -230,14 +230,18 @@ class ReturnStatement extends Statement {
 }
 
 class VarStatement extends Statement {
-    constructor(name, type, span) {
+    constructor(name, type, value, isTmp, span) {
         super(span);
 
         assert(name instanceof Ident);
         assert((type === null) || (type instanceof Expression));
+        assert((value === null) || (value instanceof Expression));
+        assert(isTmp === true || isTmp === false);
 
         this.name = name;
         this.type = type;
+        this.value = value;
+        this.isTmp = isTmp;
     }
 }
 
@@ -326,10 +330,10 @@ class Class {
         this.properties.push([name, value]);
     }
 
-    pushVariableDeclaration(name) {
-        assert(name instanceof Ident);
+    pushVariableDeclaration(declaration) {
+        assert(declaration instanceof VarStatement);
 
-        this.variables.push(name);
+        this.variables.push(declaration);
     }
 
     pushVerb(verb) {
