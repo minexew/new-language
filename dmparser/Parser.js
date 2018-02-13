@@ -242,23 +242,30 @@ class Parser {
 
             // proc
             if (this.consumeToken(Token.TOKEN_KEYWORD_PROC)) {
-                this.consumeNewlines();
-                this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+                if (this.consumeToken(Token.TOKEN_SLASH)) {
+                    const method = this.expectRule(this.procedure);
 
-                for (;;) {
-                    const method = this.procedure();
-
-                    if (!method)
-                        break;
-
-                    class_.pushProc(method, true);
-
-                    if (!this.consumeToken(Token.TOKEN_NEWLINE))
-                        break;
+                    class_.pushProc(method, false);
                 }
+                else {
+                    this.consumeNewlines();
+                    this.expectToken(Token.TOKEN_BLOCK_BEGIN);
 
-                this.consumeNewlines();
-                this.expectToken(Token.TOKEN_BLOCK_END);
+                    for (;;) {
+                        const method = this.procedure();
+
+                        if (!method)
+                            break;
+
+                        class_.pushProc(method, true);
+
+                        if (!this.consumeToken(Token.TOKEN_NEWLINE))
+                            break;
+                    }
+
+                    this.consumeNewlines();
+                    this.expectToken(Token.TOKEN_BLOCK_END);
+                }
 
                 continue;
             }
@@ -375,7 +382,6 @@ class Parser {
     }
 
     classVariableDeclaration(class_, isInline) {
-        let value = null;
         let isTmp = false;
 
         const tmp = this.consumeToken(Token.TOKEN_KEYWORD_TMP);
@@ -390,6 +396,7 @@ class Parser {
         if (!ident)
             return false;
 
+        let value = null;
         const assignment = this.consumeToken(Token.TOKEN_EQUAL);
 
         if (assignment) {
@@ -403,20 +410,20 @@ class Parser {
     expression() {
         /*
         Order of operations (from BYOND guide):
-            literals, /         (expressionAtomic)
+            literals, /             (expressionAtomic)
             new . : /               (expressionPath)    -- this shouldn't actually include : / right?
-            ( ) ! ~ ++ -- -     (expressionUnaryOrCall)
+            ( ) [ ] ! ~ ++ -- -     (expressionUnaryOrCall)
             **
             * / %
-            + -                 (expressionAddSub)
-            > < >= <=           (expressionGreaterLess)
-            << >>               (expressionShift)
-            == != <>            (expressionEqualNotEqual)
+            + -                     (expressionAddSub)
+            > < >= <=               (expressionGreaterLess)
+            << >>                   (expressionShift)
+            == != <>                (expressionEqualNotEqual)
             &
             ^
-            |                   (expressionBitwiseOr)
-            &&                  (expressionLogicAnd)
-            ||                  (expressionLogicOr)
+            |                       (expressionBitwiseOr)
+            &&                      (expressionLogicAnd)
+            ||                      (expressionLogicOr)
             ?
             = += -= etc.
         */
@@ -522,7 +529,7 @@ class Parser {
                 continue;
             }
 
-            const notEqual = this.consumeToken(Token.TOKEN_EQUAL_EQUAL);
+            const notEqual = this.consumeToken(Token.TOKEN_NOT_EQUAL);
 
             if (notEqual) {
                 const right = this.expectRule(this.expressionShift, 'expression');
@@ -865,7 +872,7 @@ class Parser {
 
         if (for_) {
             this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
-            const varDecl = this.expectRule(this.variableDeclaration, 'variable declaration');
+            const varDecl = this.expectRule(this.varStatement, 'variable declaration');
             this.expectToken(Token.TOKEN_KEYWORD_IN);
             const expression = this.expectRule(this.expression);
             this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
@@ -896,7 +903,11 @@ class Parser {
             return new ast.ReturnStatement(expression, return_.span);
         }
 
-        // TODO: var
+        const var_ = this.varStatement();
+
+        if (var_) {
+            return var_;
+        }
 
         const expr = this.expression();
 
@@ -933,7 +944,7 @@ class Parser {
 
     // var/type/name
     // (type is optional)
-    variableDeclaration() {
+    varStatement() {
         const var_ = this.consumeToken(Token.TOKEN_KEYWORD_VAR);
 
         if (!var_)
@@ -943,8 +954,15 @@ class Parser {
 
         const [name, type] = this.expectRule(this.variableDeclarationBare, 'variable name');
 
+        let value = null;
+        const assignment = this.consumeToken(Token.TOKEN_EQUAL);
+
+        if (assignment) {
+            value = this.expectRule(this.expression);
+        }
+
         const isTmp = false;
-        return new ast.VarStatement(name, type, null, isTmp, var_.span);
+        return new ast.VarStatement(name, type, value, isTmp, var_.span);
     }
 
     // type/type2/type3/name
