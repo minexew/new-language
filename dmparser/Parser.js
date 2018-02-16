@@ -943,7 +943,6 @@ class Parser {
             const saved = this.saveContext();
 
             this.consumeNewlines();
-            console.log('test for else:', this.lookahead());
             const else_ = this.consumeToken(Token.TOKEN_KEYWORD_ELSE);
 
             if (else_) {
@@ -992,8 +991,24 @@ class Parser {
 
                 return new ast.AssignmentStatement(expr, value, assignment.span);
             }
-            else
-                return new ast.ExpressionStatement(expr, expr.span);
+
+            const minusAssignment = this.consumeToken(Token.TOKEN_MINUS_EQUAL);
+
+            if (minusAssignment) {
+                const value = this.expectRule(this.expression);
+
+                return new ast.MinusAssignmentStatement(expr, value, minusAssignment.span);
+            }
+
+            const plusAssignment = this.consumeToken(Token.TOKEN_PLUS_EQUAL);
+
+            if (plusAssignment) {
+                const value = this.expectRule(this.expression);
+
+                return new ast.PlusAssignmentStatement(expr, value, plusAssignment.span);
+            }
+
+            return new ast.ExpressionStatement(expr, expr.span);
         }
     }
 

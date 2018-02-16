@@ -221,6 +221,30 @@ class IfStatement extends Statement {
     }
 }
 
+class MinusAssignmentStatement extends Statement {
+    constructor(target, expression, span) {
+        super(span);
+
+        assert(target instanceof Expression);
+        assert(expression instanceof Expression);
+
+        this.target = target;
+        this.expression = expression;
+    }
+}
+
+class PlusAssignmentStatement extends Statement {
+    constructor(target, expression, span) {
+        super(span);
+
+        assert(target instanceof Expression);
+        assert(expression instanceof Expression);
+
+        this.target = target;
+        this.expression = expression;
+    }
+}
+
 class ReturnStatement extends Statement {
     constructor(expression, span) {
         super(span);
@@ -402,8 +426,10 @@ module.exports.IfStatement = IfStatement;
 module.exports.LiteralInteger = LiteralInteger;
 module.exports.LiteralString = LiteralString;
 module.exports.MemberExpression = MemberExpression;
+module.exports.MinusAssignmentStatement = MinusAssignmentStatement;
 module.exports.NewExpression = NewExpression;
 module.exports.Path = Path;
+module.exports.PlusAssignmentStatement = PlusAssignmentStatement;
 module.exports.Procedure = Procedure;
 module.exports.ReturnStatement = ReturnStatement;
 module.exports.ReturnValueExpression = ReturnValueExpression;
