@@ -2,6 +2,8 @@ const ast = require('./ast');
 const SourcePoint = require('./SourcePoint');
 const Token = require('./Token');
 
+// FIXME: unexpected nesting in procedure just throws up "Unexpected token"; better diagnostic is needed
+
 class Parser {
     constructor(lexed, fileAccessor, diagnosticsSink) {
         this.lexed = lexed;
@@ -715,14 +717,14 @@ class Parser {
             const minusMinus = this.consumeToken(Token.TOKEN_MINUS_MINUS);
 
             if (minusMinus) {
-                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_DECREMENT, expression, minusMinus.span);
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_DECREMENT, expr, minusMinus.span);
                 continue;
             }
 
             const plusPlus = this.consumeToken(Token.TOKEN_PLUS_PLUS);
 
             if (plusPlus) {
-                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_INCREMENT, expression, plusPlus.span);
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_INCREMENT, expr, plusPlus.span);
                 continue;
             }
 

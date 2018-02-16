@@ -112,7 +112,7 @@ class AstSerializer {
                 span: ss(node.span),
                 expression: sn(node.expression),
                 body: sn(node.body),
-                elseBody: sn(node.elseBody),
+                elseBody: node.elseBody ? sn(node.elseBody) : null,
             };
         }
         else if (node instanceof ast.LiteralInteger) {
