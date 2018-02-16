@@ -285,9 +285,10 @@ class Lexer {
             return null;
 
         const start = this.nextPoint;
-        
-        const literalTokens = new Map([
-            // keywords
+
+        // keywords
+        // TODO: plain old assoc array will be more than enough for this
+        const keywords = new Map([
             [Token.TOKEN_KEYWORD_AS,        'as'],
             [Token.TOKEN_KEYWORD_CONST,     'const'],
             [Token.TOKEN_KEYWORD_DEL,       'del'],
@@ -303,7 +304,9 @@ class Lexer {
             [Token.TOKEN_KEYWORD_TMP,       'tmp'],
             [Token.TOKEN_KEYWORD_VAR,       'var'],
             [Token.TOKEN_KEYWORD_VERB,      'verb'],
+        ]);
 
+        const literalTokens = new Map([
             // multi-character tokens
             [Token.TOKEN_DOT_DOT,           '..'],
             [Token.TOKEN_EQUAL_EQUAL,       '=='],
@@ -338,6 +341,36 @@ class Lexer {
             [Token.TOKEN_SQ_BRACKET_L,      '['],
             [Token.TOKEN_SQ_BRACKET_R,      ']'],
         ]);
+
+        // Numeric
+        if (isnumeric(this.source[this.pos])) {
+            let integer = "";
+
+            while (this.pos < this.end && (isnumeric(this.source[this.pos]) || this.source[this.pos] === '.')) {
+                if (this.source[this.pos] === '.')
+                    this.parseError("Decimals are not yet supported");
+
+                integer += this.read();
+            }
+
+            return this.emitToken(Token.TOKEN_INTEGER, [start, this.point], parseInt(integer));
+        }
+
+        // Identifier
+        if (isident(this.source[this.pos])) {
+            let ident = "";
+
+            while (this.pos < this.end && isident(this.source[this.pos])) {
+                ident += this.read();
+            }
+
+            for (const type of keywords.keys()) {
+                if (ident === keywords.get(type))
+                    return this.emitToken(type, [start, this.point]);
+            }
+
+            return this.emitToken(Token.TOKEN_IDENT, [start, this.point], ident);
+        }
 
         for (const type of literalTokens.keys()) {
             if (this.readSequence(literalTokens.get(type)))
@@ -406,31 +439,6 @@ class Lexer {
             }
 
             return this.emitToken(Token.TOKEN_STRING_SQ, [start, this.point], literal);
-        }
-
-        // Numeric
-        if (isnumeric(this.source[this.pos])) {
-            let integer = "";
-
-            while (this.pos < this.end && (isnumeric(this.source[this.pos]) || this.source[this.pos] === '.')) {
-                if (this.source[this.pos] === '.')
-                    this.parseError("Decimals are not yet supported");
-
-                integer += this.read();
-            }
-
-            return this.emitToken(Token.TOKEN_INTEGER, [start, this.point], parseInt(integer));
-        }
-
-        // Identifier
-        if (isident(this.source[this.pos])) {
-            let ident = "";
-
-            while (this.pos < this.end && isident(this.source[this.pos])) {
-                ident += this.read();
-            }
-
-            return this.emitToken(Token.TOKEN_IDENT, [start, this.point], ident);
         }
 
         this.parseError('Unexpected character', start);
