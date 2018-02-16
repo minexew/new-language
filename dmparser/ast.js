@@ -197,7 +197,7 @@ class ForListStatement extends Statement {
     constructor(varDecl, expression, body, span) {
         super(span);
 
-        assert(varDecl instanceof VarStatement);
+        assert((varDecl instanceof VarStatement) || (varDecl instanceof Ident));    // TODO: I don't like this hybridism one bit
         assert(expression instanceof Expression);
         assert(body instanceof Block);
 

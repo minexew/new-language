@@ -878,14 +878,32 @@ class Parser {
 
         if (for_) {
             this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
-            const varDecl = this.expectRule(this.varStatement, 'variable declaration');
+
+            let loopVariable;       // loopVariable is a bit too polymorphic for my liking, substitution coul be a solution
+                                    // but we'd need to allow returning multiple statements at once
+            const varDecl = this.varStatement();
+
+            if (varDecl) {
+                loopVariable = varDecl;
+            }
+            else {
+                const ident = this.identifier();
+
+                if (ident) {
+                    loopVariable = ident;
+                }
+                else {
+                    this.syntaxError("Expected variable declaration or name");
+                }
+            }
+
             this.expectToken(Token.TOKEN_KEYWORD_IN);
             const expression = this.expectRule(this.expression);
             this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
 
             const body = this.block();
 
-            return new ast.ForListStatement(varDecl, expression, body, for_.span);
+            return new ast.ForListStatement(loopVariable, expression, body, for_.span);
         }
 
         const if_ = this.consumeToken(Token.TOKEN_KEYWORD_IF);
