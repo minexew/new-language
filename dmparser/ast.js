@@ -274,7 +274,7 @@ class ArgumentDeclList {
         assert(name instanceof Ident);
         assert((type === null) || isValidPath(type));
         assert((inputMode === null) || (inputMode instanceof Ident));
-        assert((inSet === null) || (inSet instanceof Ident));
+        assert((inSet === null) || (inSet instanceof Expression));      // TODO: too broad
 
         this.arguments.push([name, type, inputMode, inSet]);
     }

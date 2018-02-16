@@ -143,8 +143,9 @@ class Parser {
             if (this.consumeToken(Token.TOKEN_KEYWORD_AS)) {
                 inputMode = this.expectRule(this.identifier, 'input mode');
             }
-            else if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
-                inSet = this.expectRule(this.identifier, 'set');
+            if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
+                // FIXME: this is most certainly NOT a general expression
+                inSet = this.expectRule(this.expression, 'set');
             }
 
             list.pushArgument(name, type, inputMode, inSet);
@@ -222,6 +223,24 @@ class Parser {
         }
 
         return block;
+    }
+
+    blockOrSingleStatement() {
+        const statement = this.statement();
+
+        if (statement) {
+            // Wrap statement in a Block
+            const block = new ast.Block();
+            block.pushStatement(statement);
+            return block;
+        }
+
+        const block = this.block();
+
+        if (block)
+            return block;
+
+        return null;
     }
 
     class_() {
@@ -928,7 +947,7 @@ class Parser {
             const else_ = this.consumeToken(Token.TOKEN_KEYWORD_ELSE);
 
             if (else_) {
-                elseBody = this.block();
+                elseBody = this.expectRule(this.blockOrSingleStatement, 'statement or block');
             }
             else
                 this.restoreContext(saved);
