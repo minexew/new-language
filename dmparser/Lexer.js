@@ -298,6 +298,7 @@ class Lexer {
             [Token.TOKEN_KEYWORD_PROC,      'proc'],
             [Token.TOKEN_KEYWORD_RETURN,    'return'],
             [Token.TOKEN_KEYWORD_SET,       'set'],
+            [Token.TOKEN_KEYWORD_SPAWN,     'spawn'],
             [Token.TOKEN_KEYWORD_TMP,       'tmp'],
             [Token.TOKEN_KEYWORD_VAR,       'var'],
             [Token.TOKEN_KEYWORD_VERB,      'verb'],
