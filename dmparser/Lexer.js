@@ -311,9 +311,11 @@ class Lexer {
             [Token.TOKEN_LESS_EQUAL,        '<='],
             [Token.TOKEN_LOGIC_AND,         '&&'],
             [Token.TOKEN_LOGIC_OR,          '||'],
+            [Token.TOKEN_MINUS_EQUAL,       '-='],
             [Token.TOKEN_MINUS_MINUS,       '--'],
             [Token.TOKEN_NOT_EQUAL,         '!='],
             [Token.TOKEN_PLUS_PLUS,         '++'],
+            [Token.TOKEN_PLUS_EQUAL,        '+='],
             [Token.TOKEN_SHIFT_L,           '<<'],
 
             // single-character tokens
