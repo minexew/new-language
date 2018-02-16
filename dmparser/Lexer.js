@@ -291,6 +291,7 @@ class Lexer {
             [Token.TOKEN_KEYWORD_AS,        'as'],
             [Token.TOKEN_KEYWORD_CONST,     'const'],
             [Token.TOKEN_KEYWORD_DEL,       'del'],
+            [Token.TOKEN_KEYWORD_ELSE,      'else'],
             [Token.TOKEN_KEYWORD_FOR,       'for'],
             [Token.TOKEN_KEYWORD_IF,        'if'],
             [Token.TOKEN_KEYWORD_IN,        'in'],
