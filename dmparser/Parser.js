@@ -897,7 +897,23 @@ class Parser {
 
             const body = this.block();
 
-            return new ast.IfStatement(expression, body, if_.span);
+            let elseBody = null;
+
+            // Doesn't seem right at all that we have to save/restore here.
+            // It's due to `block` expecting a newline after statement
+            const saved = this.saveContext();
+
+            this.consumeNewlines();
+            console.log('test for else:', this.lookahead());
+            const else_ = this.consumeToken(Token.TOKEN_KEYWORD_ELSE);
+
+            if (else_) {
+                elseBody = this.block();
+            }
+            else
+                this.restoreContext(saved);
+
+            return new ast.IfStatement(expression, body, elseBody, if_.span);
         }
 
         const return_ = this.consumeToken(Token.TOKEN_KEYWORD_RETURN);
@@ -907,6 +923,18 @@ class Parser {
             const expression = this.expression();
 
             return new ast.ReturnStatement(expression, return_.span);
+        }
+
+        const spawn = this.consumeToken(Token.TOKEN_KEYWORD_SPAWN);
+
+        if (spawn) {
+            this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
+            const expression = this.expectRule(this.expression, "expression");
+            this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+
+            const body = this.block();
+
+            return new ast.SpawnStatement(expression, body, spawn.span);
         }
 
         const var_ = this.varStatement();

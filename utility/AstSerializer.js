@@ -112,6 +112,7 @@ class AstSerializer {
                 span: ss(node.span),
                 expression: sn(node.expression),
                 body: sn(node.body),
+                elseBody: sn(node.elseBody),
             };
         }
         else if (node instanceof ast.LiteralInteger) {
@@ -164,6 +165,14 @@ class AstSerializer {
         }
         else if (node instanceof ast.RootNamespace) {
             return {type: 'RootNamespace', span: ss(node.span)};
+        }
+        else if (node instanceof ast.SpawnStatement) {
+            return {
+                type: 'SpawnStatement',
+                span: ss(node.span),
+                expression: sn(node.expression),
+                body: sn(node.body),
+            };
         }
         else if (node instanceof ast.SuperMethodExpression) {
             return {type: 'SuperMethodExpression', span: ss(node.span)};

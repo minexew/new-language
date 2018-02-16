@@ -208,14 +208,16 @@ class ForListStatement extends Statement {
 }
 
 class IfStatement extends Statement {
-    constructor(expression, body, span) {
+    constructor(expression, body, elseBody, span) {
         super(span);
 
         assert(expression instanceof Expression);
         assert(body instanceof Block);
+        assert(elseBody === null || (elseBody instanceof Block));
 
         this.expression = expression;
         this.body = body;
+        this.elseBody = elseBody;
     }
 }
 
@@ -226,6 +228,18 @@ class ReturnStatement extends Statement {
         assert((expression === null) || (expression instanceof Expression));
 
         this.expression = expression;
+    }
+}
+
+class SpawnStatement extends Statement {
+    constructor(expression, body, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+        assert(body instanceof Block);
+
+        this.expression = expression;
+        this.body = body;
     }
 }
 
@@ -394,6 +408,7 @@ module.exports.Procedure = Procedure;
 module.exports.ReturnStatement = ReturnStatement;
 module.exports.ReturnValueExpression = ReturnValueExpression;
 module.exports.RootNamespace = RootNamespace;
+module.exports.SpawnStatement = SpawnStatement;
 module.exports.SuperMethodExpression = SuperMethodExpression;
 module.exports.UnaryExpression = UnaryExpression;
 module.exports.Unit = Unit;
