@@ -166,7 +166,8 @@
                         "expression": null
                       }
                     ]
-                  }
+                  },
+                  "elseBody": null
                 },
                 {
                   "type": "ExpressionStatement",

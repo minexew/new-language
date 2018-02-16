@@ -1,3 +1,3 @@
 # dmparser
 
-![Image](https://travis-ci.org/minexew/dmparser.svg?branch=master)
+![Image](https://travis-ci.org/byojs/dmparser.svg?branch=master)
