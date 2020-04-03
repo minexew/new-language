@@ -9,6 +9,41 @@ function isValidType(type) {
 }
 
 // ----------------------------------------------------------------------- //
+// TYPE EXPRESSIONS
+// ----------------------------------------------------------------------- //
+
+class TypeExpression {
+    constructor(span) {
+        this.span = span;
+    }
+}
+
+class PointerType extends TypeExpression {
+    constructor(restOfType, span) {
+        super(span);
+
+        assert(restOfType instanceof TypeExpression);
+
+        this.restOfType = restOfType;
+    }
+}
+
+class TupleType extends TypeExpression {
+    constructor(items, span) {
+        super(span);
+
+        this.items = items;
+    }
+}
+
+class TypeName extends TypeExpression {
+    constructor(value, span) {
+        super(span);
+        this.value = value;
+    }
+}
+
+// ----------------------------------------------------------------------- //
 // EXPRESSIONS
 // ----------------------------------------------------------------------- //
 
@@ -58,15 +93,27 @@ class CallExpression extends Expression {
     }
 }
 
-class MemberExpression extends Expression {
-    constructor(expression, name, span) {
+class IndexExpression extends Expression {
+    constructor(expression, index, span) {
         super(span);
 
         assert(expression instanceof Expression);
-        assert(name instanceof Ident);
+        assert((index === null) || (index instanceof Expression));
 
         this.expression = expression;
-        this.name = name;
+        this.index = index;
+    }
+}
+
+class MemberExpression extends Expression {
+    constructor(expression, member, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+        assert(member instanceof Ident);
+
+        this.expression = expression;
+        this.member = member;
     }
 }
 
@@ -79,6 +126,30 @@ class NewExpression extends Expression {
 
         this.className = className;
         this.arguments = arguments_;
+    }
+}
+
+class SliceExpression extends Expression {
+    constructor(left, right, span) {
+        super(span);
+
+        assert(left instanceof Expression);
+        assert(right instanceof Expression);
+
+        this.left = left;
+        this.right = right;
+    }
+}
+
+class TypeCastExpression extends Expression {
+    constructor(expression, type, span) {
+        super(span);
+
+        assert(expression instanceof Expression);
+        assert(type instanceof TypeExpression);
+
+        this.expression = expression;
+        this.type = type;
     }
 }
 
@@ -211,6 +282,23 @@ class ForListStatement extends Statement {
     }
 }
 
+class FunctionStatement extends Statement {
+    constructor(name, inputTuple, outputTuple, attributes, body, span) {
+        super(span);
+
+        assert(name instanceof Ident);
+        assert(inputTuple instanceof TupleType);
+        assert(outputTuple instanceof TupleType);
+        assert((body === null) || (body instanceof Block));
+
+        this.name = name;
+        this.inputTuple = inputTuple;
+        this.outputTuple = outputTuple;
+        this.attributes = attributes;
+        this.body = body;
+    }
+}
+
 class IfStatement extends Statement {
     constructor(expression, body, elseBody, span) {
         super(span);
@@ -271,19 +359,27 @@ class SpawnStatement extends Statement {
     }
 }
 
+class TypeDeclarationStatement extends Statement {
+    constructor(name, expression, span) {
+        super(span);
+
+        assert(name instanceof TypeName);
+        assert((expression === null) || (expression instanceof TypeExpression));
+
+        this.name = name;
+        this.expression = expression;
+    }
+}
+
 class VarStatement extends Statement {
-    constructor(name, type, value, isTmp, span) {
+    constructor(name, value, span) {
         super(span);
 
         assert(name instanceof Ident);
-        assert((type === null) || (type instanceof Expression));
         assert((value === null) || (value instanceof Expression));
-        assert(isTmp === true || isTmp === false);
 
         this.name = name;
-        this.type = type;
         this.value = value;
-        this.isTmp = isTmp;
     }
 }
 
@@ -291,20 +387,20 @@ class VarStatement extends Statement {
 // OTHER
 // ----------------------------------------------------------------------- //
 
-class ArgumentDeclList {
-    constructor(span) {
-        this.span = span;
+// class ArgumentDeclList {
+//     constructor(span) {
+//         this.span = span;
 
-        this.arguments = [];
-    }
+//         this.arguments = [];
+//     }
 
-    pushArgument(name, type) {
-        assert(name instanceof Ident);
-        assert((type === null) || isValidType(type));
+//     pushArgument(name, type) {
+//         assert(name instanceof Ident);
+//         assert((type === null) || isValidType(type));
 
-        this.arguments.push([name, type]);
-    }
-}
+//         this.arguments.push([name, type]);
+//     }
+// }
 
 class ArgumentList {
     constructor(span) {
@@ -340,92 +436,55 @@ class Block {
     }
 }
 
-// class Class {
-//     constructor(path) {
-//         this.path = path;           // TODO: type check
-
-//         this.classes = [];
-//         this.procedures = [];
-//         this.properties = [];
-//         this.variables = [];
-//         this.verbs = [];
-//     }
-
-//     pushClassDeclaration(class_) {
-//         assert(class_ instanceof Class);
-
-//         this.classes.push(class_);
-//     }
-
-//     pushProc(proc, declaredInProcBlock) {
-//         assert(proc instanceof Procedure);
-
-//         this.procedures.push([proc, declaredInProcBlock]);
-//     }
-
-//     pushPropertyDeclaration(name, value) {
+// class Struct {
+//     constructor(name, fields) {
 //         assert(name instanceof Ident);
-//         assert(value instanceof Expression);        // TODO: what are the limitations here?
 
-//         this.properties.push([name, value]);
-//     }
-
-//     pushVariableDeclaration(declaration) {
-//         assert(declaration instanceof VarStatement);
-
-//         this.variables.push(declaration);
-//     }
-
-//     pushVerb(verb) {
-//         assert(verb instanceof Procedure);
-
-//         this.verbs.push(verb);
+//         this.name = name;
+//         this.fields = fields;
 //     }
 // }
 
-class Function {
-    constructor(name, inputs, outputs, attributes, body) {
-        assert(name instanceof Ident);
-        assert(inputs instanceof ArgumentDeclList);
-        assert(outputs instanceof ArgumentDeclList);
-        assert((body === null) || (body instanceof Block));
+// class Scope {
+//     constructor() {
+//         this.functions = [];
+//         this.types = [];
+//     }
 
-        this.name = name;
-        this.inputs = inputs;
-        this.outputs = outputs;
-        this.attributes = attributes;
+//     addFunctionDeclaration(func) {
+//         assert(func instanceof Function);
+
+//         this.functions.push(func);
+//     }
+
+//     addTypeDeclaration(decl) {
+//         assert(decl instanceof TypeDeclaration);
+
+//         this.types.push(decl);
+//     }
+// }
+
+class Unit {
+    constructor(unitName, body) {
+        this.unitName = unitName;
         this.body = body;
     }
 }
 
-class Unit {
-    constructor(unitName) {
-        this.unitName = unitName;
-
-        this.functions = [];
-    }
-
-    pushFunctionDeclaration(class_) {
-        assert(class_ instanceof Function);
-
-        this.functions.push(class_);
-    }
-}
-
-module.exports.ArgumentDeclList = ArgumentDeclList;
+// module.exports.ArgumentDeclList = ArgumentDeclList;
 module.exports.ArgumentList = ArgumentList;
 module.exports.AssignmentStatement = AssignmentStatement;
 module.exports.BinaryExpression = BinaryExpression;
 module.exports.Block = Block;
 module.exports.CallExpression = CallExpression;
-// module.exports.Class = Class;
 module.exports.DelStatement = DelStatement;
 module.exports.Expression = Expression;
 module.exports.ExpressionStatement = ExpressionStatement;
 module.exports.ForListStatement = ForListStatement;
-module.exports.Function = Function;
+module.exports.FunctionStatement = FunctionStatement;
 module.exports.Ident = Ident;
 module.exports.IfStatement = IfStatement;
+module.exports.IndexExpression = IndexExpression;
 module.exports.LiteralInteger = LiteralInteger;
 module.exports.LiteralString = LiteralString;
 module.exports.MemberExpression = MemberExpression;
@@ -433,11 +492,18 @@ module.exports.MinusAssignmentStatement = MinusAssignmentStatement;
 module.exports.NewExpression = NewExpression;
 module.exports.Path = Path;
 module.exports.PlusAssignmentStatement = PlusAssignmentStatement;
+module.exports.PointerType = PointerType;
 module.exports.ReturnStatement = ReturnStatement;
 module.exports.ReturnValueExpression = ReturnValueExpression;
 module.exports.RootNamespace = RootNamespace;
+module.exports.SliceExpression = SliceExpression;
 module.exports.SpawnStatement = SpawnStatement;
+// module.exports.Struct = Struct;
 module.exports.SuperMethodExpression = SuperMethodExpression;
+module.exports.TupleType = TupleType;
+module.exports.TypeCastExpression = TypeCastExpression;
+module.exports.TypeDeclarationStatement = TypeDeclarationStatement;
+module.exports.TypeName = TypeName;
 module.exports.UnaryExpression = UnaryExpression;
 module.exports.Unit = Unit;
 module.exports.VarStatement = VarStatement;

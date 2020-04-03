@@ -1,0 +1,39 @@
+type Enum1 = enum:
+	ONE
+	TWO
+	THREE
+
+// type Enum1 = (ONE, TWO, THREE)
+
+// maybe later:
+// type Enum = enum: ONE; TWO; THREE
+
+type MachineWord = I64
+type MachineArray = [4] MachineWord
+
+type String = [] U8
+
+// type HexDigit = Integer[0..15]
+
+// Parses as TypeDeclaration(name=HexDigit,
+// 						     expr=TypeSpecialization(generic_type=Ident("Integer"),
+//                                                   arguments=[RangeExpression(IntegerLiteral(0), IntegerLiteral(15))]
+//                                                   )
+//                          )
+
+type HexDigit = Integer(0..15)
+
+// type MyTuple = (MachineWord, HexDigit[4]) -- not allowed for now
+
+// Named tuple -- also known as a struct!
+
+type histent = (
+	next: *histent
+	text: String
+)
+
+type MyTuple2 = (word: MachineWord, hex_priority: [4] HexDigit)
+
+// type histent = struct:
+//     next: &histent?
+//     text: String

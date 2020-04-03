@@ -8,16 +8,7 @@ class AstSerializer {
         const sn = (node) => this.serializeNode(node, spanSerializer);
         const ss = (span) => spanSerializer.serializeSpan(span);
 
-        if (node instanceof ast.ArgumentDeclList) {
-            return {
-                type: 'ArgumentDeclList',
-                arguments: node.arguments.map(([name, type, inputType, inSet]) => ({
-                    name: sn(name),
-                    type: type ? sn(type) : null
-                })),
-            };
-        }
-        else if (node instanceof ast.ArgumentList) {
+        if (node instanceof ast.ArgumentList) {
             return {
                 type: 'ArgumentList',
                 named: node.named.map(([name, expr, span]) => ({
@@ -101,12 +92,12 @@ class AstSerializer {
                 body: sn(node.body),
             };
         }
-        else if (node instanceof ast.Function) {
+        else if (node instanceof ast.FunctionStatement) {
             return {
-                type: 'Function',
+                type: 'FunctionStatement',
                 name: sn(node.name),
-                inputs: sn(node.inputs),
-                outputs: sn(node.outputs),
+                inputTuple: sn(node.inputTuple),
+                outputTuple: sn(node.outputTuple),
                 attributes: node.attributes.map((attribute) => sn(attribute)),
                 body: node.body ? sn(node.body) : null,
             };
@@ -123,6 +114,14 @@ class AstSerializer {
                 elseBody: node.elseBody ? sn(node.elseBody) : null,
             };
         }
+        else if (node instanceof ast.IndexExpression) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                expression: sn(node.expression),
+                index: node.index ? sn(node.index) : null,
+            };
+        }
         else if (node instanceof ast.LiteralInteger) {
             return {type: 'LiteralInteger', span: ss(node.span), value: node.value};
         }
@@ -134,7 +133,7 @@ class AstSerializer {
                 type: 'MemberExpression',
                 span: ss(node.span),
                 expression: sn(node.expression),
-                name: sn(node.name),
+                member: sn(node.member),
             };
         }
         else if (node instanceof ast.NewExpression) {
@@ -153,6 +152,13 @@ class AstSerializer {
                 member: sn(node.member),
             };
         }
+        else if (node instanceof ast.PointerType) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                restOfType: sn(node.restOfType),
+            };
+        }
         else if (node instanceof ast.ReturnStatement) {
             return {
                 type: 'ReturnStatement',
@@ -166,6 +172,14 @@ class AstSerializer {
         else if (node instanceof ast.RootNamespace) {
             return {type: 'RootNamespace', span: ss(node.span)};
         }
+        else if (node instanceof ast.SliceExpression) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                left: sn(node.left),
+                right: sn(node.right),
+            };
+        }
         else if (node instanceof ast.SpawnStatement) {
             return {
                 type: 'SpawnStatement',
@@ -174,8 +188,34 @@ class AstSerializer {
                 body: sn(node.body),
             };
         }
-        else if (node instanceof ast.SuperMethodExpression) {
-            return {type: 'SuperMethodExpression', span: ss(node.span)};
+        if (node instanceof ast.TupleType) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                items: node.items.map(([name, type]) => ({
+                    name: name ? sn(name) : null,
+                    type: sn(type),
+                })),
+            };
+        }
+        else if (node instanceof ast.TypeCastExpression) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                expression: sn(node.expression),
+                type: sn(node.type),
+            };
+        }
+        else if (node instanceof ast.TypeDeclarationStatement) {
+            return {
+                type: node.constructor.name,
+                span: ss(node.span),
+                name: sn(node.name),
+                expression: node.expression ? sn(node.expression) : null,
+            };
+        }
+        else if (node instanceof ast.TypeName) {
+            return {type: node.constructor.name, span: ss(node.span), value: node.value};
         }
         else if (node instanceof ast.UnaryExpression) {
             return {
@@ -188,8 +228,8 @@ class AstSerializer {
         else if (node instanceof ast.Unit) {
             return {
                 type: 'Unit',
-                span: ss(node.span),
-                functions: node.functions.map((function_) => sn(function_))
+                name: node.name,
+                body: sn(node.body),
             };
         }
         else if (node instanceof ast.VarStatement) {
@@ -197,9 +237,7 @@ class AstSerializer {
                 type: 'VarStatement',
                 span: ss(node.span),
                 name: sn(node.name),
-                varType: node.type ? sn(node.type) : null,
                 value: node.value ? sn(node.value) : null,
-                isTmp: node.isTmp,
             };
         }
         else

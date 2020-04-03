@@ -1,5 +1,6 @@
 const Lexer = require('./dmparser/Lexer');
 const Parser = require('./dmparser/Parser');
+const SemanticCompiler = require('./dmparser/SemanticCompiler');
 
 class Dmparser {
     constructor(fileAccessor, diagnosticsSink) {
@@ -37,6 +38,13 @@ class Dmparser {
         parser.finalCheck();
 
         return ast;
+    }
+
+    async compileUnit(unitName) {
+        const ast = this.parseUnit(unitName);
+
+        const sema = new SemanticCompiler();
+        const program = sema.compileUnit(ast);
     }
 }
 

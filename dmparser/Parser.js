@@ -60,7 +60,7 @@ class Parser {
         if (!this.consumeToken(type)) {
             if (errorMessage)
                 this.syntaxError(errorMessage);
-            else if (this.pos < this.lexed.tokens.length && this.lexed.tokens[this.pos].type == Token.TOKEN_NEWLINE)
+            else if (this.pos < this.lexed.tokens.length && this.lexed.tokens[this.pos].type == Token.TOKEN_NEWLINE)    // what?
                 this.syntaxError("Expected token " + type);
             else
                 this.syntaxError("Unexpected token");
@@ -121,31 +121,31 @@ class Parser {
         return fullPath;
     }
 
-    argumentDeclList() {
-        const start = this.consumeToken(Token.TOKEN_PAREN_L);
+    // argumentDeclList() {
+    //     const start = this.consumeToken(Token.TOKEN_PAREN_L);
 
-        if (!start)
-            return null;
+    //     if (!start)
+    //         return null;
 
-        const list = new ast.ArgumentDeclList(start.span);
+    //     const list = new ast.ArgumentDeclList(start.span);
 
-        for (;;) {
-            const arg = this.nameAndType();
+    //     for (;;) {
+    //         const arg = this.nameAndType();
 
-            if (!arg)
-                break;
+    //         if (!arg)
+    //             break;
 
-            const [name, type] = arg;
+    //         const [name, type] = arg;
 
-            list.pushArgument(name, type);
+    //         list.pushArgument(name, type);
 
-            if (!this.consumeToken(Token.TOKEN_COMMA))
-                break;
-        }
+    //         if (!this.consumeToken(Token.TOKEN_COMMA))
+    //             break;
+    //     }
 
-        this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
-        return list;
-    }
+    //     this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+    //     return list;
+    // }
 
     argumentList() {
         const start = this.consumeToken(Token.TOKEN_PAREN_L);
@@ -425,26 +425,26 @@ class Parser {
 
     expression() {
         /*
-        Order of operations (from BYOND guide):
-            literals, /             (expressionAtomic)
-            new . : /               (expressionPath)    -- this shouldn't actually include : / right?
-            ( ) [ ] ! ~ ++ -- -     (expressionUnaryOrCall)
-            **
-            * / %
+        Operator precedence (per https://en.cppreference.com/w/c/language/operator_precedence):
+            literals                (expressionAtomic)
+            ( ) [ ]                 (expressionIndexOrCall)
+            ++ -- + - ! ~           (expressionUnary)
+            * / %                   (expressionMulDivRem)
             + -                     (expressionAddSub)
-            > < >= <=               (expressionGreaterLess)
             << >>                   (expressionShift)
+            as                      (expressionAs)
+            > < >= <=               (expressionGreaterLess)
             == != <>                (expressionEqualNotEqual)
             &
             ^
             |                       (expressionBitwiseOr)
             &&                      (expressionLogicAnd)
             ||                      (expressionLogicOr)
-            ?
+            ..                      (expressionSlice)
             = += -= etc.
         */
 
-        const expr = this.expressionLogicOr();
+        const expr = this.expressionSlice();
 
         if (!expr)
             return null;
@@ -453,7 +453,7 @@ class Parser {
     }
 
     expressionAddSub() {
-        let expr = this.expressionUnaryOrCall();
+        let expr = this.expressionMulDivRem();
 
         if (!expr)
             return null;
@@ -462,7 +462,7 @@ class Parser {
             const minus = this.consumeToken(Token.TOKEN_MINUS);
 
             if (minus) {
-                const right = this.expectRule(this.expressionUnaryOrCall, 'expression');
+                const right = this.expectRule(this.expressionMulDivRem, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.SUBTRACT, expr, right, minus.span);
                 continue;
             }
@@ -470,7 +470,7 @@ class Parser {
             const plus = this.consumeToken(Token.TOKEN_PLUS);
 
             if (plus) {
-                const right = this.expectRule(this.expressionUnaryOrCall, 'expression');
+                const right = this.expectRule(this.expressionMulDivRem, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.ADD, expr, right, plus.span);
                 continue;
             }
@@ -481,32 +481,63 @@ class Parser {
         return expr;
     }
 
-    expressionAtomic() {
-        const dot = this.consumeToken(Token.TOKEN_DOT);
+    expressionAs() {
+        let expr = this.expressionShift();
 
-        if (dot) {
-            return new ast.ReturnValueExpression(dot.span);
+        if (!expr)
+            return null;
+
+        const as = this.consumeToken(Token.TOKEN_KEYWORD_AS);
+
+        if (as) {
+            const newType = this.expectRule(this.typeExpression, 'a type');
+            expr = new ast.TypeCastExpression(expr, newType, as.span);
         }
 
-        const dotdot = this.consumeToken(Token.TOKEN_DOT_DOT);
+        return expr;
+    }
 
-        if (dotdot)
-            return new ast.SuperMethodExpression(dotdot.span);
+    expressionAtomic() {
+        // const dot = this.consumeToken(Token.TOKEN_DOT);
+
+        // if (dot) {
+        //     return new ast.ReturnValueExpression(dot.span);
+        // }
+
+        // const dotdot = this.consumeToken(Token.TOKEN_DOT_DOT);
+
+        // if (dotdot)
+        //     return new ast.SuperMethodExpression(dotdot.span);
+
+        const ident = this.identifier();
+
+        if (ident)
+            return ident;
 
         const literal = this.literal();
 
         if (literal)
             return literal;
 
-        const absolutePath = this.absolutePath();
+        const paren = this.consumeToken(Token.TOKEN_PAREN_L);
 
-        if (absolutePath)
-            return absolutePath;
+        if (paren) {
+            const expr = this.expectRule(this.expression);
+            this.expectToken(Token.TOKEN_PAREN_R);
+            return expr;
+        }
 
-        const relativePath = this.relativePath();
+        // const absolutePath = this.absolutePath();
 
-        if (relativePath)
-            return relativePath;
+        // if (absolutePath)
+        //     return absolutePath;
+
+        // const relativePath = this.relativePath();
+
+        // if (relativePath)
+        //     return relativePath;
+
+        return null;
     }
 
     expressionBitwiseOr() {
@@ -531,7 +562,7 @@ class Parser {
     }
 
     expressionEqualNotEqual() {
-        let expr = this.expressionShift();
+        let expr = this.expressionGreaterLess();
 
         if (!expr)
             return null;
@@ -540,7 +571,7 @@ class Parser {
             const equal = this.consumeToken(Token.TOKEN_EQUAL_EQUAL);
 
             if (equal) {
-                const right = this.expectRule(this.expressionShift, 'expression');
+                const right = this.expectRule(this.expressionGreaterLess, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.EQUAL, expr, right, equal.span);
                 continue;
             }
@@ -548,7 +579,7 @@ class Parser {
             const notEqual = this.consumeToken(Token.TOKEN_NOT_EQUAL);
 
             if (notEqual) {
-                const right = this.expectRule(this.expressionShift, 'expression');
+                const right = this.expectRule(this.expressionGreaterLess, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.NOT_EQUAL, expr, right, notEqual.span);
                 continue;
             }
@@ -560,7 +591,7 @@ class Parser {
     }
 
     expressionGreaterLess() {
-        let expr = this.expressionAddSub();
+        let expr = this.expressionAs();
 
         if (!expr)
             return null;
@@ -569,7 +600,7 @@ class Parser {
             const greater = this.consumeToken(Token.TOKEN_GREATER);
 
             if (greater) {
-                const right = this.expectRule(this.expressionAddSub, 'expression');
+                const right = this.expectRule(this.expressionAs, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.GREATER_THAN, expr, right, greater.span);
                 continue;
             }
@@ -577,7 +608,7 @@ class Parser {
             const greaterEqual = this.consumeToken(Token.TOKEN_GREATER_EQUAL);
 
             if (greaterEqual) {
-                const right = this.expectRule(this.expressionAddSub, 'expression');
+                const right = this.expectRule(this.expressionAs, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.GREATER_EQUAL, expr, right, greaterEqual.span);
                 continue;
             }
@@ -585,7 +616,7 @@ class Parser {
             const less = this.consumeToken(Token.TOKEN_LESS);
 
             if (less) {
-                const right = this.expectRule(this.expressionAddSub, 'expression');
+                const right = this.expectRule(this.expressionAs, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.LESS_THAN, expr, right, less.span);
                 continue;
             }
@@ -593,7 +624,7 @@ class Parser {
             const lessEqual = this.consumeToken(Token.TOKEN_LESS_EQUAL);
 
             if (lessEqual) {
-                const right = this.expectRule(this.expressionAddSub, 'expression');
+                const right = this.expectRule(this.expressionAs, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.LESS_EQUAL, expr, right, lessEqual.span);
                 continue;
             }
@@ -604,29 +635,49 @@ class Parser {
         return expr;
     }
 
-    expressionPath() {
-        const new_ = this.consumeToken(Token.TOKEN_KEYWORD_NEW);
-
-        if (new_) {
-            // TODO: should be this.path
-            const className = this.expectRule(this.expressionAtomic, 'class name');
-            const arguments_ = this.expectRule(this.argumentList, 'argument list');
-
-            return new ast.NewExpression(className, arguments_, new_.span);
-        }
-
+    expressionIndexOrCall() {
         let expr = this.expressionAtomic();
 
         if (!expr)
             return null;
 
         for (;;) {
+            const arguments_ = this.argumentList();
+
+            if (arguments_) {
+                expr = new ast.CallExpression(expr, arguments_);
+                continue;
+            }
+
             const dot = this.consumeToken(Token.TOKEN_DOT);
 
             if (dot) {
-                const varName = this.expectRule(this.identifier);
+                const ident = this.expectRule(this.identifier);
+                expr = new ast.MemberExpression(expr, ident, dot.span);
+                continue;
+            }
 
-                expr = new ast.MemberExpression(expr, varName, dot.span);
+            const squareBracket = this.consumeToken(Token.TOKEN_SQ_BRACKET_L);
+
+            if (squareBracket) {
+                const maybeIndex = this.expression();
+
+                this.expectToken(Token.TOKEN_SQ_BRACKET_R);
+                expr = new ast.IndexExpression(expr, maybeIndex, squareBracket.span);
+                continue;
+            }
+
+            const minusMinus = this.consumeToken(Token.TOKEN_MINUS_MINUS);
+
+            if (minusMinus) {
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_DECREMENT, expr, minusMinus.span);
+                continue;
+            }
+
+            const plusPlus = this.consumeToken(Token.TOKEN_PLUS_PLUS);
+
+            if (plusPlus) {
+                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_INCREMENT, expr, plusPlus.span);
                 continue;
             }
 
@@ -635,6 +686,38 @@ class Parser {
 
         return expr;
     }
+
+    // expressionPath() {
+    //     const new_ = this.consumeToken(Token.TOKEN_KEYWORD_NEW);
+
+    //     if (new_) {
+    //         // TODO: should be this.path
+    //         const className = this.expectRule(this.expressionAtomic, 'class name');
+    //         const arguments_ = this.expectRule(this.argumentList, 'argument list');
+
+    //         return new ast.NewExpression(className, arguments_, new_.span);
+    //     }
+
+    //     let expr = this.expressionAtomic();
+
+    //     if (!expr)
+    //         return null;
+
+    //     for (;;) {
+    //         const dot = this.consumeToken(Token.TOKEN_DOT);
+
+    //         if (dot) {
+    //             const varName = this.expectRule(this.identifier);
+
+    //             expr = new ast.MemberExpression(expr, varName, dot.span);
+    //             continue;
+    //         }
+
+    //         break;
+    //     }
+
+    //     return expr;
+    // }
 
     expressionLogicAnd() {
         let expr = this.expressionBitwiseOr();
@@ -678,8 +761,12 @@ class Parser {
         return expr;
     }
 
+    expressionMulDivRem() {
+        return this.expressionUnary();
+    }
+
     expressionShift() {
-        let expr = this.expressionGreaterLess();
+        let expr = this.expressionAddSub();
 
         if (!expr)
             return null;
@@ -688,7 +775,7 @@ class Parser {
             const shift_l = this.consumeToken(Token.TOKEN_SHIFT_L);
 
             if (shift_l) {
-                const right = this.expectRule(this.expressionGreaterLess, 'expression');
+                const right = this.expectRule(this.expressionAddSub, 'expression');
                 expr = new ast.BinaryExpression(ast.BinaryExpression.SHIFT_L, expr, right, shift_l.span);
                 continue;
             }
@@ -699,7 +786,23 @@ class Parser {
         return expr;
     }
 
-    expressionUnaryOrCall() {
+    expressionSlice() {
+        let expr = this.expressionLogicOr();
+
+        if (!expr)
+            return null;
+
+        const slice = this.consumeToken(Token.TOKEN_DOT_DOT);
+
+        if (slice) {
+            const end = this.expectRule(this.expressionLogicOr, 'expression');
+            expr = new ast.SliceExpression(expr, end, slice.span);
+        }
+
+        return expr;
+    }
+
+    expressionUnary() {
         // Logical negation
         const exclamation = this.consumeToken(Token.TOKEN_EXCLAMATION);
 
@@ -709,48 +812,20 @@ class Parser {
             return new ast.UnaryExpression(ast.UnaryExpression.NOT, expression, exclamation.span);
         }
 
-        let expr = this.expressionPath();
-
-        if (!expr)
-            return null;
-
-        for (;;) {
-            const arguments_ = this.argumentList();
-
-            if (arguments_) {
-                expr = new ast.CallExpression(expr, arguments_);
-                continue;
-            }
-
-            const minusMinus = this.consumeToken(Token.TOKEN_MINUS_MINUS);
-
-            if (minusMinus) {
-                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_DECREMENT, expr, minusMinus.span);
-                continue;
-            }
-
-            const plusPlus = this.consumeToken(Token.TOKEN_PLUS_PLUS);
-
-            if (plusPlus) {
-                expr = new ast.UnaryExpression(ast.UnaryExpression.POSTFIX_INCREMENT, expr, plusPlus.span);
-                continue;
-            }
-
-            break;
-        }
-
-        return expr;
+        return this.expressionIndexOrCall();
     }
 
     function_() {
-        if (!this.consumeToken(Token.TOKEN_KEYWORD_FUNC)) {
+        const func = this.consumeToken(Token.TOKEN_KEYWORD_FUNC);
+
+        if (!func) {
             return null;
         }
 
         const name = this.expectRule(this.identifier);
-        const inputList = this.expectRule(this.argumentDeclList);
+        const inputTuple = this.expectRule(this.tupleTypeExpression);
         this.expectToken(Token.TOKEN_ARROW);
-        const outputList = this.expectRule(this.argumentDeclList);
+        const outputTuple = this.expectRule(this.tupleTypeExpression);
         const attributes = [];
 
         while (this.consumeToken(Token.TOKEN_KEYWORD_ATTRIBUTE)) {
@@ -776,7 +851,7 @@ class Parser {
             this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
         }
 
-        return new ast.Function(name, inputList, outputList, attributes, body);
+        return new ast.FunctionStatement(name, inputTuple, outputTuple, attributes, body, func.span);
     }
 
     identifier() {
@@ -807,17 +882,37 @@ class Parser {
         return null;
     }
 
-    nameAndType() {
-        const ident = this.identifier();
+    typeWithOptionalName() {
+        // 2 possibilities:
+        // typeExpression
+        // identifier: typeExpression
 
-        if (!ident)
+        // Distinguishing is not straightforward, as both start with the same token, but interpret it differently
+        // (Ident x TypeName)
+        // However, the syntactic benefit is worth it here, so we go out of our way to make it work.
+
+        const saved = this.saveContext();
+
+        let maybeType = this.typeExpression();
+
+        if (!maybeType) {
+            this.restoreContext(saved);
             return null;
+        }
 
-        this.expectToken(Token.TOKEN_COLON);
+        if (this.consumeToken(Token.TOKEN_COLON)) {
+            this.restoreContext(saved);
 
-        const type = this.expectRule(this.identifier);
+            const name = this.expectRule(this.identifier);
+            this.expectToken(Token.TOKEN_COLON);
+            const type = this.expectRule(this.typeExpression, "a type");
 
-        return [ident, type];
+            return [name, type];
+        }
+        else {
+            const type = maybeType;
+            return [null, type];
+        }
     }
 
     namedArgumentName() {
@@ -902,28 +997,28 @@ class Parser {
     // a/b
     // a/b/c
     // a/b/.../y/z
-    relativePath(namespace) {
-        const identifier = this.identifier();
+    // relativePath(namespace) {
+    //     const identifier = this.identifier();
 
-        if (!identifier)
-            return null;
+    //     if (!identifier)
+    //         return null;
 
-        let path = namespace ? new ast.Path(namespace, identifier, identifier.span) : identifier;
+    //     let path = namespace ? new ast.Path(namespace, identifier, identifier.span) : identifier;
 
-        for (;;) {
-            if (!this.consumeToken(Token.TOKEN_SLASH))
-                break;
+    //     for (;;) {
+    //         if (!this.consumeToken(Token.TOKEN_SLASH))
+    //             break;
 
-            const nextIdentifier = this.identifier();
+    //         const nextIdentifier = this.identifier();
 
-            if (!nextIdentifier)
-                this.syntaxError("Expected identifier after '/'");
+    //         if (!nextIdentifier)
+    //             this.syntaxError("Expected identifier after '/'");
 
-            path = new ast.Path(path, nextIdentifier, nextIdentifier.span);
-        }
+    //         path = new ast.Path(path, nextIdentifier, nextIdentifier.span);
+    //     }
 
-        return path;
-    }
+    //     return path;
+    // }
 
     statement() {
         const del_ = this.consumeToken(Token.TOKEN_KEYWORD_DEL);
@@ -966,12 +1061,19 @@ class Parser {
             return new ast.ForListStatement(loopVariable, expression, body, for_.span);
         }
 
+        const func = this.function_();
+
+        if (func) {
+            return func;
+        }
+
         const if_ = this.consumeToken(Token.TOKEN_KEYWORD_IF);
 
         if (if_) {
-            this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
+            // this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
             const expression = this.expectRule(this.expression, "expression");
-            this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+            // this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+            this.expectToken(Token.TOKEN_COLON);
 
             const body = this.block();
 
@@ -1014,6 +1116,12 @@ class Parser {
             return new ast.SpawnStatement(expression, body, spawn.span);
         }
 
+        const typeDecl = this.typeDeclaration();
+
+        if (typeDecl) {
+            return typeDecl;
+        }
+
         const var_ = this.varStatement();
 
         if (var_) {
@@ -1051,34 +1159,111 @@ class Parser {
         }
     }
 
-    unit() {
-        const unit = new ast.Unit(this.lexed.unitName);
+    tupleTypeExpression() {
+        const begin = this.consumeToken(Token.TOKEN_PAREN_L)
 
-        // for (;;) {
-        //     let class_;
-
-        //     this.consumeNewlines();
-
-        //     if (class_ = this.class_()) {
-        //         unit.pushClassDeclaration(class_);
-        //     }
-        //     else
-        //         break;
-        // }
-
-        for (;;) {
-            let class_;
-
-            this.consumeNewlines();
-
-            if (class_ = this.function_()) {
-                unit.pushFunctionDeclaration(class_);
-            }
-            else
-                break;
+        if (!begin) {
+            return null;
         }
 
-        return unit;
+        const items = [];
+
+        if (this.consumeToken(Token.TOKEN_NEWLINE)) {
+            // Multi-line declaration
+            this.expectToken(Token.TOKEN_BLOCK_BEGIN);
+
+            for (;;) {
+                this.consumeNewlines();
+
+                const item = this.typeWithOptionalName();
+
+                if (!item)
+                    break;
+
+                items.push(item);
+
+                this.expectToken(Token.TOKEN_NEWLINE, "Expected declaration or ')'");
+            }
+
+            this.expectToken(Token.TOKEN_BLOCK_END);
+            // FIXME: Eat the fake newline produced by Lexer after TOKEN_BLOCK_END (fix this hack)
+            this.consumeNewlines();
+        }
+        else {
+            for (;;) {
+                this.consumeNewlines();
+
+                const item = this.typeWithOptionalName();
+
+                if (!item)
+                    break;
+
+                items.push(item);
+
+                this.consumeNewlines();
+
+                if (!this.consumeToken(Token.TOKEN_COMMA))
+                    break;
+            }
+        }
+
+        this.expectToken(Token.TOKEN_PAREN_R);
+
+        return new ast.TupleType(items, begin.span);
+    }
+
+    typeDeclaration() {
+        const type = this.consumeToken(Token.TOKEN_KEYWORD_TYPE);
+
+        if (!type) {
+            return null;
+        }
+
+        const name = this.expectRule(this.typeName, 'type name');
+
+        let expr = null;
+
+        if (this.consumeToken(Token.TOKEN_EQUAL)) {
+            expr = this.expectRule(this.typeDeclarationExpression, 'type specification');
+        }
+
+        return new ast.TypeDeclarationStatement(name, expr, type.span);
+    }
+
+    typeDeclarationExpression() {
+        const tuple = this.tupleTypeExpression();
+
+        if (tuple) {
+            return tuple;
+        }
+
+        return null;
+    }
+
+    typeExpression() {
+        const pointer = this.consumeToken(Token.TOKEN_AND) || this.consumeToken(Token.TOKEN_ASTERISK);
+
+        if (pointer) {
+            const restOfType = this.expectRule(this.typeExpression);
+            return new ast.PointerType(restOfType, pointer.span);
+        }
+
+        return this.typeName();
+    }
+
+    typeName() {
+        const tok = this.consumeToken(Token.TOKEN_IDENT);
+
+        if (tok)
+            return new ast.TypeName(tok.value, tok.span);
+
+        return null;
+    }
+
+    unit() {
+        const body = this.blockBare();
+
+        return new ast.Unit(this.lexed.unitName, body);
     }
 
     // var/type/name
@@ -1089,19 +1274,13 @@ class Parser {
         if (!var_)
             return null;
 
-        this.expectToken(Token.TOKEN_SLASH);
+        const name = this.expectRule(this.identifier);
 
-        const [name, type] = this.expectRule(this.variableDeclarationBare, 'variable name');
+        this.expectToken(Token.TOKEN_EQUAL);
 
-        let value = null;
-        const assignment = this.consumeToken(Token.TOKEN_EQUAL);
+        const value = this.expectRule(this.expression);
 
-        if (assignment) {
-            value = this.expectRule(this.expression);
-        }
-
-        const isTmp = false;
-        return new ast.VarStatement(name, type, value, isTmp, var_.span);
+        return new ast.VarStatement(name, value, var_.span);
     }
 
     // type/type2/type3/name

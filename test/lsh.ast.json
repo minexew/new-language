@@ -1,0 +1,515 @@
+{
+  "type": "Unit",
+  "unitName": "test/lsh.newlang",
+  "body": {
+    "type": "Block",
+    "statements": [
+      {
+        "type": "TypeDeclarationStatement",
+        "span": "test/lsh.newlang;1;1;;1;4",
+        "name": {
+          "type": "TypeName",
+          "span": ";1;6;;1;12",
+          "value": "Histent"
+        },
+        "expression": null
+      },
+      {
+        "type": "TypeDeclarationStatement",
+        "span": ";3;1;;3;4",
+        "name": {
+          "type": "TypeName",
+          "span": ";3;6;;3;12",
+          "value": "Histent"
+        },
+        "expression": {
+          "type": "TupleType",
+          "span": ";3;16;;3;16",
+          "items": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";4;5;;4;8",
+                "value": "next"
+              },
+              "type": {
+                "type": "PointerType",
+                "span": ";4;11;;4;11",
+                "restOfType": {
+                  "type": "TypeName",
+                  "span": ";4;12;;4;18",
+                  "value": "Histent"
+                }
+              }
+            },
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";5;5;;5;8",
+                "value": "text"
+              },
+              "type": {
+                "type": "TypeName",
+                "span": ";5;11;;5;16",
+                "value": "String"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "VarStatement",
+        "span": ";8;1;;8;3",
+        "name": {
+          "type": "Ident",
+          "span": ";8;5;;8;11",
+          "value": "history"
+        },
+        "value": {
+          "type": {
+            "type": "PointerType",
+            "span": ";8;23;;8;23",
+            "restOfType": {
+              "type": "TypeName",
+              "span": ";8;24;;8;30",
+              "value": "Histent"
+            }
+          },
+          "span": ";8;20;;8;21",
+          "expression": {
+            "type": "Ident",
+            "span": ";8;15;;8;18",
+            "value": "null"
+          }
+        }
+      },
+      {
+        "type": "FunctionStatement",
+        "name": {
+          "type": "Ident",
+          "span": ";10;6;;10;16",
+          "value": "LoadHistory"
+        },
+        "inputTuple": {
+          "type": "TupleType",
+          "span": ";10;18;;10;18",
+          "items": []
+        },
+        "outputTuple": {
+          "type": "TupleType",
+          "span": ";10;24;;10;24",
+          "items": [
+            {
+              "name": null,
+              "type": {
+                "type": "TypeName",
+                "span": ";10;25;;10;28",
+                "value": "Bool"
+              }
+            }
+          ]
+        },
+        "attributes": [],
+        "body": {
+          "type": "Block",
+          "statements": [
+            {
+              "type": "AssignmentStatement",
+              "span": ";11;13;;11;13",
+              "target": {
+                "type": "Ident",
+                "span": ";11;5;;11;11",
+                "value": "history"
+              },
+              "expression": {
+                "type": "Ident",
+                "span": ";11;15;;11;18",
+                "value": "null"
+              }
+            },
+            {
+              "type": "ReturnStatement",
+              "span": ";12;5;;12;10",
+              "expression": {
+                "type": "Ident",
+                "span": ";12;12;;12;15",
+                "value": "true"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "FunctionStatement",
+        "name": {
+          "type": "Ident",
+          "span": ";14;6;;14;16",
+          "value": "HistoryPush"
+        },
+        "inputTuple": {
+          "type": "TupleType",
+          "span": ";14;18;;14;18",
+          "items": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";14;19;;14;22",
+                "value": "line"
+              },
+              "type": {
+                "type": "TypeName",
+                "span": ";14;25;;14;30",
+                "value": "String"
+              }
+            }
+          ]
+        },
+        "outputTuple": {
+          "type": "TupleType",
+          "span": ";14;36;;14;36",
+          "items": []
+        },
+        "attributes": [],
+        "body": {
+          "type": "Block",
+          "statements": [
+            {
+              "type": "IfStatement",
+              "span": ";15;5;;15;6",
+              "expression": {
+                "type": "BinaryExpression",
+                "span": ";15;20;;15;21",
+                "binaryType": "==",
+                "left": {
+                  "type": "MemberExpression",
+                  "span": ";15;12;;15;12",
+                  "expression": {
+                    "type": "Ident",
+                    "span": ";15;8;;15;11",
+                    "value": "line"
+                  },
+                  "member": {
+                    "type": "Ident",
+                    "span": ";15;13;;15;18",
+                    "value": "length"
+                  }
+                },
+                "right": {
+                  "type": "LiteralInteger",
+                  "span": ";15;23;;15;23",
+                  "value": 0
+                }
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ReturnStatement",
+                    "span": ";16;9;;16;14",
+                    "expression": null
+                  }
+                ]
+              },
+              "elseBody": null
+            },
+            {
+              "type": "IfStatement",
+              "span": ";18;5;;18;6",
+              "expression": {
+                "type": "BinaryExpression",
+                "span": ";18;24;;18;25",
+                "binaryType": "&&",
+                "left": {
+                  "type": "BinaryExpression",
+                  "span": ";18;16;;18;17",
+                  "binaryType": "!=",
+                  "left": {
+                    "type": "Ident",
+                    "span": ";18;8;;18;14",
+                    "value": "history"
+                  },
+                  "right": {
+                    "type": "Ident",
+                    "span": ";18;19;;18;22",
+                    "value": "null"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "span": ";18;42;;18;43",
+                  "binaryType": "==",
+                  "left": {
+                    "type": "IndexExpression",
+                    "span": ";18;39;;18;39",
+                    "expression": {
+                      "type": "MemberExpression",
+                      "span": ";18;34;;18;34",
+                      "expression": {
+                        "type": "Ident",
+                        "span": ";18;27;;18;33",
+                        "value": "history"
+                      },
+                      "member": {
+                        "type": "Ident",
+                        "span": ";18;35;;18;38",
+                        "value": "text"
+                      }
+                    },
+                    "index": null
+                  },
+                  "right": {
+                    "type": "IndexExpression",
+                    "span": ";18;49;;18;49",
+                    "expression": {
+                      "type": "Ident",
+                      "span": ";18;45;;18;48",
+                      "value": "line"
+                    },
+                    "index": null
+                  }
+                }
+              },
+              "body": {
+                "type": "Block",
+                "statements": [
+                  {
+                    "type": "ReturnStatement",
+                    "span": ";19;9;;19;14",
+                    "expression": null
+                  }
+                ]
+              },
+              "elseBody": null
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";21;9;;21;9",
+              "target": {
+                "type": "Ident",
+                "span": ";21;5;;21;7",
+                "value": "ent"
+              },
+              "expression": {
+                "type": {
+                  "type": "PointerType",
+                  "span": ";21;52;;21;52",
+                  "restOfType": {
+                    "type": "TypeName",
+                    "span": ";21;53;;21;59",
+                    "value": "Histent"
+                  }
+                },
+                "span": ";21;49;;21;50",
+                "expression": {
+                  "type": "CallExpression",
+                  "span": null,
+                  "callable": {
+                    "type": "Ident",
+                    "span": ";21;11;;21;16",
+                    "value": "MAlloc"
+                  },
+                  "arguments": {
+                    "type": "ArgumentList",
+                    "named": [],
+                    "positional": [
+                      {
+                        "type": "BinaryExpression",
+                        "span": ";21;34;;21;34",
+                        "binaryType": "+",
+                        "left": {
+                          "type": "CallExpression",
+                          "span": null,
+                          "callable": {
+                            "type": "Ident",
+                            "span": ";21;18;;21;23",
+                            "value": "sizeof"
+                          },
+                          "arguments": {
+                            "type": "ArgumentList",
+                            "named": [],
+                            "positional": [
+                              {
+                                "type": "Ident",
+                                "span": ";21;25;;21;31",
+                                "value": "Histent"
+                              }
+                            ]
+                          }
+                        },
+                        "right": {
+                          "type": "MemberExpression",
+                          "span": ";21;40;;21;40",
+                          "expression": {
+                            "type": "Ident",
+                            "span": ";21;36;;21;39",
+                            "value": "line"
+                          },
+                          "member": {
+                            "type": "Ident",
+                            "span": ";21;41;;21;46",
+                            "value": "length"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";22;17;;22;17",
+              "target": {
+                "type": "Ident",
+                "span": ";22;5;;22;15",
+                "value": "line_buffer"
+              },
+              "expression": {
+                "type": {
+                  "type": "PointerType",
+                  "span": ";22;32;;22;32",
+                  "restOfType": {
+                    "type": "TypeName",
+                    "span": ";22;33;;22;34",
+                    "value": "U8"
+                  }
+                },
+                "span": ";22;29;;22;30",
+                "expression": {
+                  "type": "BinaryExpression",
+                  "span": ";22;24;;22;24",
+                  "binaryType": "+",
+                  "left": {
+                    "type": "Ident",
+                    "span": ";22;20;;22;22",
+                    "value": "ent"
+                  },
+                  "right": {
+                    "type": "LiteralInteger",
+                    "span": ";22;26;;22;26",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";23;14;;23;14",
+              "target": {
+                "type": "MemberExpression",
+                "span": ";23;8;;23;8",
+                "expression": {
+                  "type": "Ident",
+                  "span": ";23;5;;23;7",
+                  "value": "ent"
+                },
+                "member": {
+                  "type": "Ident",
+                  "span": ";23;9;;23;12",
+                  "value": "text"
+                }
+              },
+              "expression": {
+                "type": "IndexExpression",
+                "span": ";23;27;;23;27",
+                "expression": {
+                  "type": "Ident",
+                  "span": ";23;16;;23;26",
+                  "value": "line_buffer"
+                },
+                "index": {
+                  "type": "SliceExpression",
+                  "span": ";23;30;;23;31",
+                  "left": {
+                    "type": "LiteralInteger",
+                    "span": ";23;28;;23;28",
+                    "value": 0
+                  },
+                  "right": {
+                    "type": "MemberExpression",
+                    "span": ";23;37;;23;37",
+                    "expression": {
+                      "type": "Ident",
+                      "span": ";23;33;;23;36",
+                      "value": "line"
+                    },
+                    "member": {
+                      "type": "Ident",
+                      "span": ";23;38;;23;43",
+                      "value": "length"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";24;16;;24;16",
+              "target": {
+                "type": "IndexExpression",
+                "span": ";24;13;;24;13",
+                "expression": {
+                  "type": "MemberExpression",
+                  "span": ";24;8;;24;8",
+                  "expression": {
+                    "type": "Ident",
+                    "span": ";24;5;;24;7",
+                    "value": "ent"
+                  },
+                  "member": {
+                    "type": "Ident",
+                    "span": ";24;9;;24;12",
+                    "value": "text"
+                  }
+                },
+                "index": null
+              },
+              "expression": {
+                "type": "Ident",
+                "span": ";24;18;;24;21",
+                "value": "line"
+              }
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";25;14;;25;14",
+              "target": {
+                "type": "MemberExpression",
+                "span": ";25;8;;25;8",
+                "expression": {
+                  "type": "Ident",
+                  "span": ";25;5;;25;7",
+                  "value": "ent"
+                },
+                "member": {
+                  "type": "Ident",
+                  "span": ";25;9;;25;12",
+                  "value": "next"
+                }
+              },
+              "expression": {
+                "type": "Ident",
+                "span": ";25;16;;25;22",
+                "value": "history"
+              }
+            },
+            {
+              "type": "AssignmentStatement",
+              "span": ";26;13;;26;13",
+              "target": {
+                "type": "Ident",
+                "span": ";26;5;;26;11",
+                "value": "history"
+              },
+              "expression": {
+                "type": "Ident",
+                "span": ";26;15;;26;17",
+                "value": "ent"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

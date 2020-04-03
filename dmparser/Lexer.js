@@ -308,6 +308,7 @@ class Lexer {
             [Token.TOKEN_KEYWORD_STRUCT,    'struct'],
             [Token.TOKEN_KEYWORD_SWITCH,    'switch'],
             [Token.TOKEN_KEYWORD_TMP,       'tmp'],
+            [Token.TOKEN_KEYWORD_TYPE,      'type'],
             [Token.TOKEN_KEYWORD_VAR,       'var'],
             [Token.TOKEN_KEYWORD_VERB,      'verb'],
         ]);

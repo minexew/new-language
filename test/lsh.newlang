@@ -1,10 +1,13 @@
-struct histent:
-    next: &histent?
+type Histent
+
+type Histent = (
+    next: *Histent
     text: String
+)
 
-var history = null as &histent?
+var history = null as *Histent
 
-func LoadHistory () -> Bool:
+func LoadHistory () -> (Bool):
     history = null
     return true
 
@@ -12,10 +15,10 @@ func HistoryPush (line: String) -> ():
     if line.length == 0:
         return
 
-    if history && history->text[] == line[]:
+    if history != null && history.text[] == line[]:
         return
 
-    ent = MAlloc(sizeof(histent) + line.length) as &histent
+    ent = MAlloc(sizeof(Histent) + line.length) as &Histent
     line_buffer = (ent + 1) as &U8
     ent.text = line_buffer[0 .. line.length]
     ent.text[] = line
