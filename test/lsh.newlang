@@ -1,0 +1,23 @@
+struct histent:
+    next: &histent?
+    text: String
+
+var history = null as &histent?
+
+func LoadHistory () -> Bool:
+    history = null
+    return true
+
+func HistoryPush (line: String) -> ():
+    if line.length == 0:
+        return
+
+    if history && history->text[] == line[]:
+        return
+
+    ent = MAlloc(sizeof(histent) + line.length) as &histent
+    line_buffer = (ent + 1) as &U8
+    ent.text = line_buffer[0 .. line.length]
+    ent.text[] = line
+    ent.next = history
+    history = ent

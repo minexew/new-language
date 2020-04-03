@@ -305,6 +305,7 @@ class Lexer {
             [Token.TOKEN_KEYWORD_RETURN,    'return'],
             [Token.TOKEN_KEYWORD_SET,       'set'],
             [Token.TOKEN_KEYWORD_SPAWN,     'spawn'],
+            [Token.TOKEN_KEYWORD_STRUCT,    'struct'],
             [Token.TOKEN_KEYWORD_SWITCH,    'switch'],
             [Token.TOKEN_KEYWORD_TMP,       'tmp'],
             [Token.TOKEN_KEYWORD_VAR,       'var'],
@@ -329,6 +330,7 @@ class Lexer {
 
             // single-character tokens
             [Token.TOKEN_AND,               '&'],
+            [Token.TOKEN_ASTERISK,          '*'],
             [Token.TOKEN_BLOCK_BEGIN,       '{'],
             [Token.TOKEN_BLOCK_END,         '}'],
             [Token.TOKEN_COLON,             ':'],
@@ -344,6 +346,7 @@ class Lexer {
             [Token.TOKEN_PAREN_R,           ')'],
             [Token.TOKEN_PIPE,              '|'],
             [Token.TOKEN_PLUS,              '+'],
+            [Token.TOKEN_QUESTION,          '?'],
             [Token.TOKEN_SLASH,             '/'],
             [Token.TOKEN_SQ_BRACKET_L,      '['],
             [Token.TOKEN_SQ_BRACKET_R,      ']'],

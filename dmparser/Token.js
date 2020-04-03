@@ -8,6 +8,7 @@ class Token {
 
 Token.TOKEN_AND =           'AND';
 Token.TOKEN_ARROW =         'ARROW';
+Token.TOKEN_ASTERISK =      'ASTERISK';
 Token.TOKEN_BLOCK_BEGIN =   'BLOCK_BEGIN';          // indent increase or '{'
 Token.TOKEN_BLOCK_END =     'BLOCK_END';            // indent decrease or '}'
 Token.TOKEN_COLON =         'COLON';
@@ -37,6 +38,7 @@ Token.TOKEN_PIPE =          'PIPE';
 Token.TOKEN_PLUS =          'PLUS';
 Token.TOKEN_PLUS_EQUAL =    'PLUS_EQUAL';
 Token.TOKEN_PLUS_PLUS =     'PLUS_PLUS';
+Token.TOKEN_QUESTION =      'QUESTION';
 Token.TOKEN_SHIFT_L =       'SHIFT_L';
 Token.TOKEN_SLASH =         'SLASH';                // TODO: as it turns out, not all slashes are equivalent (whitespace matters)
 Token.TOKEN_SQ_BRACKET_L =  'TOKEN_SQ_BRACKET_L';
@@ -58,6 +60,7 @@ Token.TOKEN_KEYWORD_PROC =      'KEYWORD_PROC';
 Token.TOKEN_KEYWORD_RETURN =    'KEYWORD_RETURN';
 Token.TOKEN_KEYWORD_SET =       'KEYWORD_SET';
 Token.TOKEN_KEYWORD_SPAWN =     'KEYWORD_SPAWN';
+Token.TOKEN_KEYWORD_STRUCT =    'KEYWORD_STRUCT';
 Token.TOKEN_KEYWORD_SWITCH =    'KEYWORD_SWITCH';
 Token.TOKEN_KEYWORD_TMP =       'KEYWORD_TMP';
 Token.TOKEN_KEYWORD_VAR =       'KEYWORD_VAR';
