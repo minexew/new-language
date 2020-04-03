@@ -7,8 +7,10 @@ class Token {
 }
 
 Token.TOKEN_AND =           'AND';
+Token.TOKEN_ARROW =         'ARROW';
 Token.TOKEN_BLOCK_BEGIN =   'BLOCK_BEGIN';          // indent increase or '{'
 Token.TOKEN_BLOCK_END =     'BLOCK_END';            // indent decrease or '}'
+Token.TOKEN_COLON =         'COLON';
 Token.TOKEN_COMMA =         'COMMA';
 Token.TOKEN_COMMENT =       'COMMENT';              // not emitted at this point (should be optional)
 Token.TOKEN_DOT =           'DOT';
@@ -43,10 +45,12 @@ Token.TOKEN_STRING_DQ =     'STRING_DQ';            // "string"
 Token.TOKEN_STRING_SQ =     'STRING_SQ';            // 'string'
 
 Token.TOKEN_KEYWORD_AS =        'KEYWORD_AS';
+Token.TOKEN_KEYWORD_ATTRIBUTE = 'KEYWORD_ATTRIBUTE';
 Token.TOKEN_KEYWORD_CONST =     'KEYWORD_CONST';
 Token.TOKEN_KEYWORD_DEL =       'KEYWORD_DEL';
 Token.TOKEN_KEYWORD_ELSE =      'KEYWORD_ELSE';
 Token.TOKEN_KEYWORD_FOR =       'KEYWORD_FOR';
+Token.TOKEN_KEYWORD_FUNC =      'KEYWORD_FUNC';
 Token.TOKEN_KEYWORD_IF =        'KEYWORD_IF';
 Token.TOKEN_KEYWORD_IN =        'KEYWORD_IN';
 Token.TOKEN_KEYWORD_NEW =       'KEYWORD_NEW';

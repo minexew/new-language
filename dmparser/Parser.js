@@ -130,25 +130,14 @@ class Parser {
         const list = new ast.ArgumentDeclList(start.span);
 
         for (;;) {
-            const decl = this.variableDeclarationBare();
+            const arg = this.nameAndType();
 
-            if (!decl)
+            if (!arg)
                 break;
 
-            const [name, type] = decl;
+            const [name, type] = arg;
 
-            let inputMode = null;
-            let inSet = null;
-
-            if (this.consumeToken(Token.TOKEN_KEYWORD_AS)) {
-                inputMode = this.expectRule(this.identifier, 'input mode');
-            }
-            if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
-                // FIXME: this is most certainly NOT a general expression
-                inSet = this.expectRule(this.expression, 'set');
-            }
-
-            list.pushArgument(name, type, inputMode, inSet);
+            list.pushArgument(name, type);
 
             if (!this.consumeToken(Token.TOKEN_COMMA))
                 break;
@@ -243,7 +232,7 @@ class Parser {
         return null;
     }
 
-    class_() {
+    struct() {
         const path = this.relativePath();
         //console.log('decl path', path);
 
@@ -753,6 +742,43 @@ class Parser {
         return expr;
     }
 
+    function_() {
+        if (!this.consumeToken(Token.TOKEN_KEYWORD_FUNC)) {
+            return null;
+        }
+
+        const name = this.expectRule(this.identifier);
+        const inputList = this.expectRule(this.argumentDeclList);
+        this.expectToken(Token.TOKEN_ARROW);
+        const outputList = this.expectRule(this.argumentDeclList);
+        const attributes = [];
+
+        while (this.consumeToken(Token.TOKEN_KEYWORD_ATTRIBUTE)) {
+            this.expectToken(Token.TOKEN_PAREN_L, "Expected '('");
+            const attribute = this.expectRule(this.identifier);
+
+            if (attribute.value !== 'extern') {
+                this.syntaxError("Expected 'extern'");
+            }
+
+            attributes.push(attribute);
+            this.expectToken(Token.TOKEN_PAREN_R, "Expected ')'");
+        }
+
+        let body = null;
+
+        if (this.consumeToken(Token.TOKEN_COLON)) {
+            this.consumeNewlines();
+            this.expectToken(Token.TOKEN_BLOCK_BEGIN)
+            body = this.blockBare();
+
+            this.consumeNewlines();
+            this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
+        }
+
+        return new ast.Function(name, inputList, outputList, attributes, body);
+    }
+
     identifier() {
         const tok = this.consumeToken(Token.TOKEN_IDENT);
 
@@ -781,6 +807,19 @@ class Parser {
         return null;
     }
 
+    nameAndType() {
+        const ident = this.identifier();
+
+        if (!ident)
+            return null;
+
+        this.expectToken(Token.TOKEN_COLON);
+
+        const type = this.expectRule(this.identifier);
+
+        return [ident, type];
+    }
+
     namedArgumentName() {
         const saved = this.saveContext();
 
@@ -801,63 +840,63 @@ class Parser {
         return [name, equal.span];
     }
 
-    procedure() {
-        const saved = this.saveContext();
+    // procedure() {
+    //     const saved = this.saveContext();
 
-        const name = this.identifier();
+    //     const name = this.identifier();
 
-        if (!name) {
-            this.restoreContext(saved);
-            return null;
-        }
+    //     if (!name) {
+    //         this.restoreContext(saved);
+    //         return null;
+    //     }
 
-        const argList = this.argumentDeclList();
+    //     const argList = this.argumentDeclList();
 
-        if (!argList) {
-            this.restoreContext(saved);
-            return null;
-        }
+    //     if (!argList) {
+    //         this.restoreContext(saved);
+    //         return null;
+    //     }
 
-        let body;
+    //     let body;
 
-        this.consumeNewlines();
-        if (this.consumeToken(Token.TOKEN_BLOCK_BEGIN)) {
-            // Parse `set` directives
-            for (; ;) {
-                this.consumeNewlines();
+    //     this.consumeNewlines();
+    //     if (this.consumeToken(Token.TOKEN_BLOCK_BEGIN)) {
+    //         // Parse `set` directives
+    //         for (; ;) {
+    //             this.consumeNewlines();
 
-                if (this.consumeToken(Token.TOKEN_KEYWORD_SET)) {
-                    const name = this.expectRule(this.identifier);
+    //             if (this.consumeToken(Token.TOKEN_KEYWORD_SET)) {
+    //                 const name = this.expectRule(this.identifier);
 
-                    if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
-                        const expr = this.expectRule(this.expression);
-                    }
-                    else {
-                        this.expectToken(Token.TOKEN_EQUAL);
+    //                 if (this.consumeToken(Token.TOKEN_KEYWORD_IN)) {
+    //                     const expr = this.expectRule(this.expression);
+    //                 }
+    //                 else {
+    //                     this.expectToken(Token.TOKEN_EQUAL);
 
-                        this.syntaxError('Not implemented');
-                    }
+    //                     this.syntaxError('Not implemented');
+    //                 }
 
-                    if (!this.consumeToken(Token.TOKEN_NEWLINE))
-                        break;
+    //                 if (!this.consumeToken(Token.TOKEN_NEWLINE))
+    //                     break;
 
-                    continue;
-                }
+    //                 continue;
+    //             }
 
-                break;
-            }
+    //             break;
+    //         }
 
-            body = this.blockBare();
+    //         body = this.blockBare();
 
-            this.consumeNewlines();
-            this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
-        }
-        else {
-            body = new ast.Block();
-        }
+    //         this.consumeNewlines();
+    //         this.expectToken(Token.TOKEN_BLOCK_END, 'Expected statement');
+    //     }
+    //     else {
+    //         body = new ast.Block();
+    //     }
 
-        return new ast.Procedure(name, argList, body);
-    }
+    //     return new ast.Procedure(name, argList, body);
+    // }
 
     // a
     // a/b
@@ -1015,13 +1054,25 @@ class Parser {
     unit() {
         const unit = new ast.Unit(this.lexed.unitName);
 
+        // for (;;) {
+        //     let class_;
+
+        //     this.consumeNewlines();
+
+        //     if (class_ = this.class_()) {
+        //         unit.pushClassDeclaration(class_);
+        //     }
+        //     else
+        //         break;
+        // }
+
         for (;;) {
             let class_;
 
             this.consumeNewlines();
 
-            if (class_ = this.class_()) {
-                unit.pushClassDeclaration(class_);
+            if (class_ = this.function_()) {
+                unit.pushFunctionDeclaration(class_);
             }
             else
                 break;

@@ -13,9 +13,7 @@ class AstSerializer {
                 type: 'ArgumentDeclList',
                 arguments: node.arguments.map(([name, type, inputType, inSet]) => ({
                     name: sn(name),
-                    type: type ? sn(type) : null,
-                    inputType: inputType ? sn(inputType) : null,
-                    inSet: inSet ? sn(inSet) : null,
+                    type: type ? sn(type) : null
                 })),
             };
         }
@@ -61,25 +59,25 @@ class AstSerializer {
                 arguments: sn(node.arguments),
             };
         }
-        else if (node instanceof ast.Class) {
-            return {
-                type: 'Class',
-                span: ss(node.span),
-                path: sn(node.path),
-                classes: node.classes.map((class_) => sn(class_)),
-                procedures: node.procedures.map(([procedure, declaredInProcBlock]) => ({
-                    procedure: sn(procedure),
-                    declaredInProcBlock: declaredInProcBlock,
-                })),
-                properties: node.properties.map(([name, expression, span]) => ({
-                    name: sn(name),
-                    expression: sn(expression),
-                    span: ss(span),
-                })),
-                variables: node.variables.map((variable) => sn(variable)),
-                verbs: node.verbs.map((procedure) => sn(procedure)),
-            };
-        }
+        // else if (node instanceof ast.Class) {
+        //     return {
+        //         type: 'Class',
+        //         span: ss(node.span),
+        //         path: sn(node.path),
+        //         classes: node.classes.map((class_) => sn(class_)),
+        //         procedures: node.procedures.map(([procedure, declaredInProcBlock]) => ({
+        //             procedure: sn(procedure),
+        //             declaredInProcBlock: declaredInProcBlock,
+        //         })),
+        //         properties: node.properties.map(([name, expression, span]) => ({
+        //             name: sn(name),
+        //             expression: sn(expression),
+        //             span: ss(span),
+        //         })),
+        //         variables: node.variables.map((variable) => sn(variable)),
+        //         verbs: node.verbs.map((procedure) => sn(procedure)),
+        //     };
+        // }
         else if (node instanceof ast.DelStatement) {
             return {
                 type: 'DelStatement',
@@ -101,6 +99,16 @@ class AstSerializer {
                 varDecl: sn(node.varDecl),
                 expression: sn(node.expression),
                 body: sn(node.body),
+            };
+        }
+        else if (node instanceof ast.Function) {
+            return {
+                type: 'Function',
+                name: sn(node.name),
+                inputs: sn(node.inputs),
+                outputs: sn(node.outputs),
+                attributes: node.attributes.map((attribute) => sn(attribute)),
+                body: node.body ? sn(node.body) : null,
             };
         }
         else if (node instanceof ast.Ident) {
@@ -145,14 +153,6 @@ class AstSerializer {
                 member: sn(node.member),
             };
         }
-        else if (node instanceof ast.Procedure) {
-            return {
-                type: 'Procedure',
-                name: sn(node.name),
-                arguments: sn(node.arguments),
-                body: sn(node.body),
-            };
-        }
         else if (node instanceof ast.ReturnStatement) {
             return {
                 type: 'ReturnStatement',
@@ -189,7 +189,7 @@ class AstSerializer {
             return {
                 type: 'Unit',
                 span: ss(node.span),
-                classes: node.classes.map((class_) => sn(class_))
+                functions: node.functions.map((function_) => sn(function_))
             };
         }
         else if (node instanceof ast.VarStatement) {

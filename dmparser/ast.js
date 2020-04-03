@@ -4,6 +4,10 @@ function isValidPath(type) {
     return (type instanceof Path) || (type instanceof Ident);
 }
 
+function isValidType(type) {
+    return (type instanceof Ident);
+}
+
 // ----------------------------------------------------------------------- //
 // EXPRESSIONS
 // ----------------------------------------------------------------------- //
@@ -294,13 +298,11 @@ class ArgumentDeclList {
         this.arguments = [];
     }
 
-    pushArgument(name, type, inputMode, inSet) {
+    pushArgument(name, type) {
         assert(name instanceof Ident);
-        assert((type === null) || isValidPath(type));
-        assert((inputMode === null) || (inputMode instanceof Ident));
-        assert((inSet === null) || (inSet instanceof Expression));      // TODO: too broad
+        assert((type === null) || isValidType(type));
 
-        this.arguments.push([name, type, inputMode, inSet]);
+        this.arguments.push([name, type]);
     }
 }
 
@@ -338,59 +340,60 @@ class Block {
     }
 }
 
-class Class {
-    constructor(path) {
-        this.path = path;           // TODO: type check
+// class Class {
+//     constructor(path) {
+//         this.path = path;           // TODO: type check
 
-        this.classes = [];
-        this.procedures = [];
-        this.properties = [];
-        this.variables = [];
-        this.verbs = [];
-    }
+//         this.classes = [];
+//         this.procedures = [];
+//         this.properties = [];
+//         this.variables = [];
+//         this.verbs = [];
+//     }
 
-    pushClassDeclaration(class_) {
-        assert(class_ instanceof Class);
+//     pushClassDeclaration(class_) {
+//         assert(class_ instanceof Class);
 
-        this.classes.push(class_);
-    }
+//         this.classes.push(class_);
+//     }
 
-    pushProc(proc, declaredInProcBlock) {
-        assert(proc instanceof Procedure);
+//     pushProc(proc, declaredInProcBlock) {
+//         assert(proc instanceof Procedure);
 
-        this.procedures.push([proc, declaredInProcBlock]);
-    }
+//         this.procedures.push([proc, declaredInProcBlock]);
+//     }
 
-    pushPropertyDeclaration(name, value) {
+//     pushPropertyDeclaration(name, value) {
+//         assert(name instanceof Ident);
+//         assert(value instanceof Expression);        // TODO: what are the limitations here?
+
+//         this.properties.push([name, value]);
+//     }
+
+//     pushVariableDeclaration(declaration) {
+//         assert(declaration instanceof VarStatement);
+
+//         this.variables.push(declaration);
+//     }
+
+//     pushVerb(verb) {
+//         assert(verb instanceof Procedure);
+
+//         this.verbs.push(verb);
+//     }
+// }
+
+class Function {
+    constructor(name, inputs, outputs, attributes, body) {
         assert(name instanceof Ident);
-        assert(value instanceof Expression);        // TODO: what are the limitations here?
-
-        this.properties.push([name, value]);
-    }
-
-    pushVariableDeclaration(declaration) {
-        assert(declaration instanceof VarStatement);
-
-        this.variables.push(declaration);
-    }
-
-    pushVerb(verb) {
-        assert(verb instanceof Procedure);
-
-        this.verbs.push(verb);
-    }
-}
-
-class Procedure {
-    constructor(name, arguments_, body) {
-        // TODO: do we want to have different ArgumentDeclList types for procs vs verbs?
-
-        assert(name instanceof Ident);
-        assert(arguments_ instanceof ArgumentDeclList);
-        assert(body instanceof Block);
+        assert(inputs instanceof ArgumentDeclList);
+        assert(outputs instanceof ArgumentDeclList);
+        assert((body === null) || (body instanceof Block));
 
         this.name = name;
-        this.arguments = arguments_;
+        this.inputs = inputs;
+        this.outputs = outputs;
+        this.attributes = attributes;
         this.body = body;
     }
 }
@@ -399,14 +402,13 @@ class Unit {
     constructor(unitName) {
         this.unitName = unitName;
 
-        this.classes = [];
-        //this.procedures = [];
+        this.functions = [];
     }
 
-    pushClassDeclaration(class_) {
-        assert(class_ instanceof Class);
+    pushFunctionDeclaration(class_) {
+        assert(class_ instanceof Function);
 
-        this.classes.push(class_);
+        this.functions.push(class_);
     }
 }
 
@@ -416,11 +418,12 @@ module.exports.AssignmentStatement = AssignmentStatement;
 module.exports.BinaryExpression = BinaryExpression;
 module.exports.Block = Block;
 module.exports.CallExpression = CallExpression;
-module.exports.Class = Class;
+// module.exports.Class = Class;
 module.exports.DelStatement = DelStatement;
 module.exports.Expression = Expression;
 module.exports.ExpressionStatement = ExpressionStatement;
 module.exports.ForListStatement = ForListStatement;
+module.exports.Function = Function;
 module.exports.Ident = Ident;
 module.exports.IfStatement = IfStatement;
 module.exports.LiteralInteger = LiteralInteger;
@@ -430,7 +433,6 @@ module.exports.MinusAssignmentStatement = MinusAssignmentStatement;
 module.exports.NewExpression = NewExpression;
 module.exports.Path = Path;
 module.exports.PlusAssignmentStatement = PlusAssignmentStatement;
-module.exports.Procedure = Procedure;
 module.exports.ReturnStatement = ReturnStatement;
 module.exports.ReturnValueExpression = ReturnValueExpression;
 module.exports.RootNamespace = RootNamespace;

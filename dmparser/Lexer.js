@@ -290,10 +290,12 @@ class Lexer {
         // TODO: plain old assoc array will be more than enough for this
         const keywords = new Map([
             [Token.TOKEN_KEYWORD_AS,        'as'],
+            [Token.TOKEN_KEYWORD_ATTRIBUTE, 'attribute'],
             [Token.TOKEN_KEYWORD_CONST,     'const'],
             [Token.TOKEN_KEYWORD_DEL,       'del'],
             [Token.TOKEN_KEYWORD_ELSE,      'else'],
             [Token.TOKEN_KEYWORD_FOR,       'for'],
+            [Token.TOKEN_KEYWORD_FUNC,      'func'],
             [Token.TOKEN_KEYWORD_IF,        'if'],
             [Token.TOKEN_KEYWORD_IN,        'in'],
             [Token.TOKEN_KEYWORD_NEW,       'new'],
@@ -309,6 +311,7 @@ class Lexer {
 
         const literalTokens = new Map([
             // multi-character tokens
+            [Token.TOKEN_ARROW,             '->'],
             [Token.TOKEN_DOT_DOT,           '..'],
             [Token.TOKEN_EQUAL_EQUAL,       '=='],
             [Token.TOKEN_GREATER_EQUAL,     '>='],
@@ -326,6 +329,7 @@ class Lexer {
             [Token.TOKEN_AND,               '&'],
             [Token.TOKEN_BLOCK_BEGIN,       '{'],
             [Token.TOKEN_BLOCK_END,         '}'],
+            [Token.TOKEN_COLON,             ':'],
             [Token.TOKEN_COMMA,             ','],
             [Token.TOKEN_DOT,               '.'],
             [Token.TOKEN_EQUAL,             '='],
