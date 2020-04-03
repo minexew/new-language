@@ -231,7 +231,8 @@ class Lexer {
 
                 // FIXME: check for EOF
 
-                return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
+                // If we ever need to tokenize comments...
+                //return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
             }
             else if (this.readSequence('//')) {
                 let comment = '';
@@ -240,7 +241,8 @@ class Lexer {
                     comment += this.read();
                 }
 
-                return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
+                // If we ever need to tokenize comments...
+                //return this.emitToken(Token.TOKEN_COMMENT, [start, this.point], comment);
             }
             else if (this.readChar(' ')) {
                 if (this.indent !== null) {

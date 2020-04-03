@@ -1,6 +1,2 @@
 /.idea/
 /node_modules/
-
-# Not sure if this can be added to the repo due to licensing uncertainty
-/test/Step BYOND/
-/test/Your First World/
