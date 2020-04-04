@@ -12,7 +12,7 @@
           "span": ";1;6;;1;12",
           "value": "Histent"
         },
-        "expression": null
+        "definition": null
       },
       {
         "type": "TypeDeclarationStatement",
@@ -22,7 +22,7 @@
           "span": ";3;6;;3;12",
           "value": "Histent"
         },
-        "expression": {
+        "definition": {
           "type": "TupleType",
           "span": ";3;16;;3;16",
           "items": [

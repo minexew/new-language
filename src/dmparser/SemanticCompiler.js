@@ -1,10 +1,389 @@
+const assert = require('assert');
 const ast = require('./ast.ts');
-const SourcePoint = require('./SourcePoint');
-const Token = require('./Token');
+
+class TypeError {
+    constructor(message, span) {
+        this.message = message;
+        this.span = span;
+    }
+}
+
+class Type {
+    getMember(name) {
+        return null;
+    }
+
+    toString() {
+        // console.log("Note: ", this);
+        throw "Cannot stringify type of class " + this.constructor.name;
+    }
+}
+
+class ArrayType extends Type {
+    constructor(itemType, sizeType) {
+        super();
+
+        assert(itemType instanceof Type);
+        assert(sizeType instanceof Type);
+
+        this.itemType = itemType;
+        this.sizeType = sizeType;
+    }
+
+    getMember(name) {
+        if (name === "length") {
+            return this.sizeType;
+        }
+        else {
+            return null;
+        }
+    }
+
+    toString() {
+        return "[] " + super.toString();
+    }
+}
+
+class NullptrType extends Type {
+}
+
+class TypeDecl extends Type {
+    constructor(name, definition, owningScope, declarationStatement) {
+        super();
+
+        assert((definition === null) || (definition instanceof Type));
+        assert(owningScope instanceof Scope);
+        assert((declarationStatement === null) || (declarationStatement instanceof ast.TypeDeclarationStatement));
+
+        this.name = name;
+        this.definition = definition;
+        this.owningScope = owningScope;
+        this.declarationStatement = declarationStatement;
+    }
+
+    toString() {
+        return this.name;
+    }
+}
+
+class PointerType extends Type {
+    constructor(type) {
+        super();
+
+        this.type = type;
+    }
+
+    toString() {
+        return "*" + super.toString();
+    }
+}
+
+class TupleType extends Type {
+    constructor(items) {
+        super();
+
+        this.items = items;
+    }
+}
+
+class Variable {
+    constructor(name, type, scope, declarationStatement) {
+        assert(type instanceof Type);
+        assert(scope instanceof Scope);
+        assert((declarationStatement === null) || (declarationStatement instanceof ast.Statement));
+
+        this.name = name;
+        this.type = type;
+        this.scope = scope;
+        this.declarationStatement = declarationStatement;
+    }
+}
+
+class Scope {
+    constructor(parentScope) {
+        this.parentScope = parentScope;
+
+        this.types = {};
+        this.variables = {};
+    }
+
+    findValueIdent(name) {
+        if (this.variables.hasOwnProperty(name)) {
+            return this.variables[name];
+        }
+        else if (this.parentScope !== null) {
+            return this.parentScope.findValueIdent(name);
+        }
+        else {
+            return null;
+        }
+    }
+
+    findType(name) {
+        if (this.types.hasOwnProperty(name)) {
+            return this.types[name];
+        }
+        else if (this.parentScope !== null) {
+            return this.parentScope.findType(name);
+        }
+        else {
+            return null;
+        }
+    }
+
+    insertType(name, definition, declarationStatement) {
+        const type = this.findType(name);
+
+        if (type) {
+            // If type already exists AND is a concrete type (e.g. not a forward-declaration), raise an error
+            if (type.definition !== null) {
+                return new TypeError("Redefinition of type " + type.name, declarationStatement.name.span);
+                // TODO: print location of original definition
+            }
+
+            // If the type was previously forward-declared in another scope, raise an error
+            if (type.owningScope !== this) {
+                // TODO: more helpful message
+                return new TypeError("Definition of type " + type.name + " declared in another scope!", declarationStatement.name.span);
+            }
+        }
+
+        this.types[name] = new TypeDecl(name, definition, this, declarationStatement);
+        return this.types[name];
+    }
+
+    insertVariable(name, type, declarationStatement) {
+        const ident = this.findValueIdent(name);
+
+        if (ident) {
+            return new TypeError("Redefinition of identifier " + ident.name, declarationStatement);
+        }
+
+        this.variables[name] = new Variable(name, type, this, declarationStatement);
+        return this.variables[name];
+    }
+}
 
 class SemanticCompiler {
-    compileUnit(ast) {
-        assert(ast instanceof ast.Unit);
+    constructor(diag) {
+        this.diag = diag;
+    }
+
+    compileUnit(unit) {
+        assert(unit instanceof ast.Unit);
+
+        const superglobalScope = new Scope(null);
+
+        const typeBool = this.insertType(superglobalScope, "Bool", null, null);
+        const typeNullptr = this.insertType(superglobalScope, "Nullptr", new NullptrType(), null);
+        const typeU8 = this.insertType(superglobalScope, "U8", null, null);
+        const typeSize = this.insertType(superglobalScope, "Size", null, null);
+        const typeString = this.insertType(superglobalScope, "String", new ArrayType(typeU8, typeSize), null);
+
+        this.insertVariable(superglobalScope, "false", typeBool, null);
+        this.insertVariable(superglobalScope, "null", typeNullptr, null);   // TODO: consider using "()" for purposes of the null constant
+        this.insertVariable(superglobalScope, "true", typeBool, null);
+
+        const program = this.compileBlock(unit.body, superglobalScope);
+    }
+
+    compileBlock(block, parentScope) {
+        assert(block instanceof ast.Block);
+
+        const scope = new Scope(parentScope);
+
+        for (const node of block.statements) {
+            if (node instanceof ast.AssignmentStatement) {
+                const type = this.validateExpression(node.expression, scope);
+                this.validateAssignmentTarget(node.target, type, scope);
+
+                // TODO: emit assignment
+            }
+            else if (node instanceof ast.IfStatement) {
+                const type = this.validateExpression(node.expression, scope);
+
+                if (type != this.typeBool) {
+                    // TODO: print what type we got instead
+                    this.raiseError("Expression in 'if' statement must be boolean", node.expression.span);
+                }
+
+                this.compileBlock(node.body);
+
+                if (node.elseBody) {
+                    this.compileBlock(node.elseBody);
+                }
+
+                // TODO: emit statement
+            }
+            else if (node instanceof ast.FunctionStatement) {
+                this.compileFunction(scope, node);
+            }
+            else if (node instanceof ast.ReturnStatement) {
+                this.validateExpression(node.expression, scope);
+                // TODO: emit assignment
+            }
+            else if (node instanceof ast.TypeDeclarationStatement) {
+                const definition = node.definition ? this.validateTypeExpression(node.definition, scope) : null;
+                this.insertType(scope, node.name.value, definition, node);
+            }
+            else if (node instanceof ast.VarStatement) {
+                const type = this.validateExpression(node.value, scope);
+                this.insertVariable(scope, node.name.value, type, node);
+                // TODO: emit assignment
+            }
+            else
+                assert.fail('Node type not handled: ' + node.constructor.name);
+        }
+    }
+
+    compileFunction(parentScope, node) {
+        this.insertFunction(parentScope, node.name.value, node.inputTuple, node.outputTuple, node.attributes, node.body);
+
+        const scope = new Scope(parentScope);
+
+        for (const [name, type] of node.inputTuple.items) {
+            const t = this.validateTypeExpression(type, parentScope);
+            assert(t);
+            this.insertVariable(scope, name.value, t, node);
+        }
+
+        this.compileBlock(node.body, scope);
+    }
+
+    insertFunction(scope, name, inputTuple, outputTuple, attributes, body) {
+        // FIXME
+    }
+
+    insertType(scope, name, definition, declarationStatement) {
+        const res = scope.insertType(name, definition, declarationStatement);
+
+        if (res instanceof TypeError) {
+            this.raiseError(res.message, res.span);
+            return null;
+        }
+
+        return res;
+    }
+
+    insertVariable(scope, name, type, declarationStatement) {
+        const res = scope.insertVariable(name, type, declarationStatement);
+
+        if (res instanceof TypeError) {
+            this.raiseError(res.message, res.span);
+            return null;
+        }
+
+        return res;
+    }
+
+    raiseError(what, pointOrSpan) {
+        if (what === undefined)
+            what = "Semantic error";
+    
+        this.diag.error(what, pointOrSpan);
+        throw new Error(what);
+    }
+
+    validateAssignmentTarget(node, valueType, scope) {
+        if (node instanceof ast.Ident) {
+            const ident = scope.findValueIdent(node.value);
+
+            if (!ident) {
+                this.raiseError("Unknown name '" + node.value + "'", node.span);
+            }
+
+            // FIXME: ensure assignable!
+            // TODO: validate type compatibility
+            return ident.type;
+        }
+        else
+            assert.fail('Node type not handled: ' + node.constructor.name);
+    }
+
+    // Validate and expression and return the resulting type
+    validateExpression(node, scope) {
+        if (node instanceof ast.BinaryExpression) {
+            const leftType = this.validateExpression(node.left, scope);
+            const rightType =this.validateExpression(node.right, scope);
+            // FIXME: find suitable operator
+            // TODO: emit assignment
+
+            if (leftType != rightType) {
+                this.raiseError("Type mismatch", node.span);
+            }
+
+            assert(leftType);
+            return leftType;
+        }
+        else if (node instanceof ast.Ident) {
+            const ident = scope.findValueIdent(node.value);
+
+            if (!ident) {
+                this.raiseError("Unknown name '" + node.value + "'", node.span);
+            }
+
+            assert(ident.type);
+            return ident.type;
+        }
+        else if (node instanceof ast.MemberExpression) {
+            const type = this.validateExpression(node.expression, scope);
+
+            const memberType = type.getMember(node.member.value);
+
+            if (!memberType) {
+                this.raiseError("No member named '" + node.member.value + "' in type " + type, node.span);
+            }
+
+            // if (type instanceof ArrayType && node.member.value === "length") {
+            //     return [this.typeSize, null];
+            // }
+            // TODO: if struct, ...
+            // TODO: if array, ...
+
+            //return [type, undefined];
+            this.raiseError("Not implemented", node.span);
+        }
+        else if (node instanceof ast.TypeCastExpression) {
+            const oldType = this.validateExpression(node.expression, scope);
+            const newType = this.validateTypeExpression(node.type, scope);
+            // TODO: cast...
+            assert(newType);
+            return newType;
+        }
+        else
+            assert.fail('Node type not handled: ' + node.constructor.name);
+    }
+
+    validateTypeExpression(node, scope) {
+        if (node instanceof ast.PointerType) {
+            // scope.findType(node.value)
+            const type = this.validateTypeExpression(node.restOfType, scope);
+
+            return new PointerType(type);
+        }
+        else if (node instanceof ast.TupleType) {
+            // TODO: cache these
+
+            const items = [];
+
+            for (const [name, type] of node.items) {
+                const t = this.validateTypeExpression(type, scope);
+                items.push([name, t]);
+            }
+
+            return new TupleType(items);
+        }
+        else if (node instanceof ast.TypeName) {
+            const type = scope.findType(node.value);
+
+            if (!type) {
+                this.raiseError("Unknown type name '" + node.value + "'", node.span);
+            }
+
+            return type;
+        }
+        else
+            assert.fail('Node type not handled: ' + node.constructor.name);
     }
     // constructor(lexed, fileAccessor, diagnosticsSink) {
     //     this.lexed = lexed;

@@ -32,6 +32,11 @@ class TupleType extends TypeExpression {
     constructor(items, span) {
         super(span);
 
+        for (const [name, type] of items) {
+            assert((name === null) || (name instanceof Ident));
+            assert(type instanceof TypeExpression);
+        }
+
         this.items = items;
     }
 }
@@ -360,14 +365,14 @@ class SpawnStatement extends Statement {
 }
 
 class TypeDeclarationStatement extends Statement {
-    constructor(name, expression, span) {
+    constructor(name, definition, span) {
         super(span);
 
         assert(name instanceof TypeName);
-        assert((expression === null) || (expression instanceof TypeExpression));
+        assert((definition === null) || (definition instanceof TypeExpression));
 
         this.name = name;
-        this.expression = expression;
+        this.definition = definition;
     }
 }
 
@@ -376,7 +381,8 @@ class VarStatement extends Statement {
         super(span);
 
         assert(name instanceof Ident);
-        assert((value === null) || (value instanceof Expression));
+        //assert((value === null) || (value instanceof Expression));
+        assert(value instanceof Expression);
 
         this.name = name;
         this.value = value;
@@ -498,11 +504,12 @@ module.exports.ReturnValueExpression = ReturnValueExpression;
 module.exports.RootNamespace = RootNamespace;
 module.exports.SliceExpression = SliceExpression;
 module.exports.SpawnStatement = SpawnStatement;
-// module.exports.Struct = Struct;
+module.exports.Statement = Statement;
 module.exports.SuperMethodExpression = SuperMethodExpression;
 module.exports.TupleType = TupleType;
 module.exports.TypeCastExpression = TypeCastExpression;
 module.exports.TypeDeclarationStatement = TypeDeclarationStatement;
+module.exports.TypeExpression = TypeExpression;
 module.exports.TypeName = TypeName;
 module.exports.UnaryExpression = UnaryExpression;
 module.exports.Unit = Unit;

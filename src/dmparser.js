@@ -41,9 +41,9 @@ class Dmparser {
     }
 
     async compileUnit(unitName) {
-        const ast = this.parseUnit(unitName);
+        const ast = await this.parseUnit(unitName);
 
-        const sema = new SemanticCompiler();
+        const sema = new SemanticCompiler(this.diagnosticsSink);
         const program = sema.compileUnit(ast);
     }
 }

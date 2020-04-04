@@ -53,6 +53,10 @@ describe('real-world programs', function() {
             AstSerializer.serializeUnit(parsed));
     });
 
+    it('should compile Lsh', async function() {
+        const program = await new Dmparser(sfa, diagPrint).compileUnit('test/lsh.newlang');
+    });
+
     it('should lex make-snailnet', async function() {
         const lexed = await new Dmparser(sfa, diagPrint).lexUnit('test/make-snailnet.newlang', defaultOptions);
     });

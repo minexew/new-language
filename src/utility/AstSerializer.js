@@ -211,7 +211,7 @@ class AstSerializer {
                 type: node.constructor.name,
                 span: ss(node.span),
                 name: sn(node.name),
-                expression: node.expression ? sn(node.expression) : null,
+                definition: node.definition ? sn(node.definition) : null,
             };
         }
         else if (node instanceof ast.TypeName) {
