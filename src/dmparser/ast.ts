@@ -1,4 +1,4 @@
-const assert = require('assert');
+import {ok as assert} from 'assert';
 
 function isValidPath(type) {
     return (type instanceof Path) || (type instanceof Ident);
@@ -12,13 +12,15 @@ function isValidType(type) {
 // TYPE EXPRESSIONS
 // ----------------------------------------------------------------------- //
 
-class TypeExpression {
+export class TypeExpression {
+    span: any;
     constructor(span) {
         this.span = span;
     }
 }
 
-class PointerType extends TypeExpression {
+export class PointerType extends TypeExpression {
+    restOfType: any;
     constructor(restOfType, span) {
         super(span);
 
@@ -28,7 +30,8 @@ class PointerType extends TypeExpression {
     }
 }
 
-class TupleType extends TypeExpression {
+export class TupleType extends TypeExpression {
+    items: any;
     constructor(items, span) {
         super(span);
 
@@ -41,7 +44,8 @@ class TupleType extends TypeExpression {
     }
 }
 
-class TypeName extends TypeExpression {
+export class TypeName extends TypeExpression {
+    value: any;
     constructor(value, span) {
         super(span);
         this.value = value;
@@ -52,13 +56,31 @@ class TypeName extends TypeExpression {
 // EXPRESSIONS
 // ----------------------------------------------------------------------- //
 
-class Expression {
+export class Expression {
+    span: any;
     constructor(span) {
         this.span = span;
     }
 }
 
-class BinaryExpression extends Expression {
+export class BinaryExpression extends Expression {
+    binaryType: any;
+    left: any;
+    right: any;
+    static ADD: string;
+    static BITWISE_AND: string;
+    static BITWISE_OR: string;
+    static BITWISE_XOR: string;
+    static EQUAL: string;
+    static GREATER_EQUAL: string;
+    static GREATER_THAN: string;
+    static LESS_EQUAL: string;
+    static LESS_THAN: string;
+    static LOGIC_AND: string;
+    static LOGIC_OR: string;
+    static NOT_EQUAL: string;
+    static SHIFT_L: string;
+    static SUBTRACT: string;
     constructor(type, left, right, span) {
         super(span);
 
@@ -86,7 +108,9 @@ BinaryExpression.NOT_EQUAL =        '!=';
 BinaryExpression.SHIFT_L =          '<<';
 BinaryExpression.SUBTRACT =         '-';
 
-class CallExpression extends Expression {
+export class CallExpression extends Expression {
+    callable: any;
+    arguments: any;
     constructor(callable, arguments_) {
         super(null);
 
@@ -98,7 +122,9 @@ class CallExpression extends Expression {
     }
 }
 
-class IndexExpression extends Expression {
+export class IndexExpression extends Expression {
+    expression: any;
+    index: any;
     constructor(expression, index, span) {
         super(span);
 
@@ -110,7 +136,9 @@ class IndexExpression extends Expression {
     }
 }
 
-class MemberExpression extends Expression {
+export class MemberExpression extends Expression {
+    expression: any;
+    member: any;
     constructor(expression, member, span) {
         super(span);
 
@@ -122,7 +150,9 @@ class MemberExpression extends Expression {
     }
 }
 
-class NewExpression extends Expression {
+export class NewExpression extends Expression {
+    className: any;
+    arguments: any;
     constructor(className, arguments_, span) {
         super(span);
 
@@ -134,7 +164,9 @@ class NewExpression extends Expression {
     }
 }
 
-class SliceExpression extends Expression {
+export class SliceExpression extends Expression {
+    left: any;
+    right: any;
     constructor(left, right, span) {
         super(span);
 
@@ -146,7 +178,9 @@ class SliceExpression extends Expression {
     }
 }
 
-class TypeCastExpression extends Expression {
+export class TypeCastExpression extends Expression {
+    expression: any;
+    type: any;
     constructor(expression, type, span) {
         super(span);
 
@@ -158,7 +192,12 @@ class TypeCastExpression extends Expression {
     }
 }
 
-class UnaryExpression extends Expression {
+export class UnaryExpression extends Expression {
+    unaryType: any;
+    right: any;
+    static NOT: string;
+    static POSTFIX_DECREMENT: string;
+    static POSTFIX_INCREMENT: string;
     constructor(type, right, span) {
         super(span);
 
@@ -173,32 +212,35 @@ UnaryExpression.NOT = '!';
 UnaryExpression.POSTFIX_DECREMENT = '--';
 UnaryExpression.POSTFIX_INCREMENT = '++';
 
-class Ident extends Expression {
+export class Ident extends Expression {
+    value: any;
     constructor(value, span) {
         super(span);
         this.value = value;
     }
 }
 
-class Literal extends Expression {
+export class Literal extends Expression {
     constructor(span) {
         super(span);
     }
 }
 
-class ReturnValueExpression extends Expression {
+export class ReturnValueExpression extends Expression {
     constructor(span) {
         super(span);
     }
 }
 
-class RootNamespace extends Expression {
+export class RootNamespace extends Expression {
     constructor(span) {
         super(span);
     }
 }
 
-class Path extends Expression {
+export class Path extends Expression {
+    namespace: any;
+    member: any;
     constructor(namespace, member, span) {
         super(span);
 
@@ -210,20 +252,25 @@ class Path extends Expression {
     }
 }
 
-class SuperMethodExpression extends Expression {
+export class SuperMethodExpression extends Expression {
     constructor(span) {
         super(span);
     }
 }
 
-class LiteralInteger extends Literal {
-    constructor(value, span) {
+export class LiteralInteger extends Literal {
+    value: number;
+
+    constructor(value: number, span) {
         super(span);
+
         this.value = value;
     }
 }
 
-class LiteralString extends Literal {
+export class LiteralString extends Literal {
+    text: any;
+    singleQuoted: any;
     constructor(text, singleQuoted, span) {
         super(span);
         this.text = text;
@@ -235,13 +282,16 @@ class LiteralString extends Literal {
 // STATEMENTS
 // ----------------------------------------------------------------------- //
 
-class Statement {
+export class Statement {
+    span: any;
     constructor(span) {
         this.span = span;
     }
 }
 
-class AssignmentStatement extends Statement {
+export class AssignmentStatement extends Statement {
+    target: any;
+    expression: any;
     constructor(target, expression, span) {
         super(span);
 
@@ -253,7 +303,8 @@ class AssignmentStatement extends Statement {
     }
 }
 
-class DelStatement extends Statement {
+export class DelStatement extends Statement {
+    expression: any;
     constructor(expression, span) {
         super(span);
 
@@ -263,7 +314,8 @@ class DelStatement extends Statement {
     }
 }
 
-class ExpressionStatement extends Statement {
+export class ExpressionStatement extends Statement {
+    expression: any;
     constructor(expression, span) {
         super(span);
 
@@ -273,7 +325,10 @@ class ExpressionStatement extends Statement {
     }
 }
 
-class ForListStatement extends Statement {
+export class ForListStatement extends Statement {
+    varDecl: any;
+    expression: any;
+    body: any;
     constructor(varDecl, expression, body, span) {
         super(span);
 
@@ -287,7 +342,12 @@ class ForListStatement extends Statement {
     }
 }
 
-class FunctionStatement extends Statement {
+export class FunctionStatement extends Statement {
+    name: any;
+    inputTuple: any;
+    outputTuple: any;
+    attributes: any;
+    body: any;
     constructor(name, inputTuple, outputTuple, attributes, body, span) {
         super(span);
 
@@ -304,7 +364,10 @@ class FunctionStatement extends Statement {
     }
 }
 
-class IfStatement extends Statement {
+export class IfStatement extends Statement {
+    expression: any;
+    body: any;
+    elseBody: any;
     constructor(expression, body, elseBody, span) {
         super(span);
 
@@ -318,7 +381,9 @@ class IfStatement extends Statement {
     }
 }
 
-class MinusAssignmentStatement extends Statement {
+export class MinusAssignmentStatement extends Statement {
+    target: any;
+    expression: any;
     constructor(target, expression, span) {
         super(span);
 
@@ -330,7 +395,9 @@ class MinusAssignmentStatement extends Statement {
     }
 }
 
-class PlusAssignmentStatement extends Statement {
+export class PlusAssignmentStatement extends Statement {
+    target: any;
+    expression: any;
     constructor(target, expression, span) {
         super(span);
 
@@ -342,17 +409,19 @@ class PlusAssignmentStatement extends Statement {
     }
 }
 
-class ReturnStatement extends Statement {
-    constructor(expression, span) {
-        super(span);
+export class ReturnStatement extends Statement {
+    expression: Expression | null;
 
-        assert((expression === null) || (expression instanceof Expression));
+    constructor(expression: Expression | null, span) {
+        super(span);
 
         this.expression = expression;
     }
 }
 
-class SpawnStatement extends Statement {
+export class SpawnStatement extends Statement {
+    expression: any;
+    body: any;
     constructor(expression, body, span) {
         super(span);
 
@@ -364,7 +433,9 @@ class SpawnStatement extends Statement {
     }
 }
 
-class TypeDeclarationStatement extends Statement {
+export class TypeDeclarationStatement extends Statement {
+    name: any;
+    definition: any;
     constructor(name, definition, span) {
         super(span);
 
@@ -376,7 +447,9 @@ class TypeDeclarationStatement extends Statement {
     }
 }
 
-class VarStatement extends Statement {
+export class VarStatement extends Statement {
+    name: any;
+    value: any;
     constructor(name, value, span) {
         super(span);
 
@@ -408,7 +481,10 @@ class VarStatement extends Statement {
 //     }
 // }
 
-class ArgumentList {
+export class ArgumentList {
+    span: any;
+    named: any[];
+    positional: any[];
     constructor(span) {
         this.span = span;
 
@@ -430,7 +506,8 @@ class ArgumentList {
     }
 }
 
-class Block {
+export class Block {
+    statements: any[];
     constructor() {
         this.statements = [];
     }
@@ -442,7 +519,7 @@ class Block {
     }
 }
 
-// class Struct {
+// export class Struct {
 //     constructor(name, fields) {
 //         assert(name instanceof Ident);
 
@@ -470,47 +547,11 @@ class Block {
 //     }
 // }
 
-class Unit {
+export class Unit {
+    unitName: any;
+    body: any;
     constructor(unitName, body) {
         this.unitName = unitName;
         this.body = body;
     }
 }
-
-// module.exports.ArgumentDeclList = ArgumentDeclList;
-module.exports.ArgumentList = ArgumentList;
-module.exports.AssignmentStatement = AssignmentStatement;
-module.exports.BinaryExpression = BinaryExpression;
-module.exports.Block = Block;
-module.exports.CallExpression = CallExpression;
-module.exports.DelStatement = DelStatement;
-module.exports.Expression = Expression;
-module.exports.ExpressionStatement = ExpressionStatement;
-module.exports.ForListStatement = ForListStatement;
-module.exports.FunctionStatement = FunctionStatement;
-module.exports.Ident = Ident;
-module.exports.IfStatement = IfStatement;
-module.exports.IndexExpression = IndexExpression;
-module.exports.LiteralInteger = LiteralInteger;
-module.exports.LiteralString = LiteralString;
-module.exports.MemberExpression = MemberExpression;
-module.exports.MinusAssignmentStatement = MinusAssignmentStatement;
-module.exports.NewExpression = NewExpression;
-module.exports.Path = Path;
-module.exports.PlusAssignmentStatement = PlusAssignmentStatement;
-module.exports.PointerType = PointerType;
-module.exports.ReturnStatement = ReturnStatement;
-module.exports.ReturnValueExpression = ReturnValueExpression;
-module.exports.RootNamespace = RootNamespace;
-module.exports.SliceExpression = SliceExpression;
-module.exports.SpawnStatement = SpawnStatement;
-module.exports.Statement = Statement;
-module.exports.SuperMethodExpression = SuperMethodExpression;
-module.exports.TupleType = TupleType;
-module.exports.TypeCastExpression = TypeCastExpression;
-module.exports.TypeDeclarationStatement = TypeDeclarationStatement;
-module.exports.TypeExpression = TypeExpression;
-module.exports.TypeName = TypeName;
-module.exports.UnaryExpression = UnaryExpression;
-module.exports.Unit = Unit;
-module.exports.VarStatement = VarStatement;

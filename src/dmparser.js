@@ -1,6 +1,6 @@
 const Lexer = require('./dmparser/Lexer');
 const Parser = require('./dmparser/Parser');
-const SemanticCompiler = require('./dmparser/SemanticCompiler');
+const SemanticCompiler = require('./dmparser/SemanticCompiler.ts');
 
 class Dmparser {
     constructor(fileAccessor, diagnosticsSink) {
