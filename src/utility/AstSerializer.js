@@ -1,4 +1,4 @@
-const ast = require('../dmparser/ast');
+const ast = require('../dmparser/ast.ts');
 const SpanSerializer = require('./SpanSerializer');
 
 const assert = require('assert');

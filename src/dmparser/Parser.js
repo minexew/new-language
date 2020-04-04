@@ -1,4 +1,4 @@
-const ast = require('./ast');
+const ast = require('./ast.ts');
 const SourcePoint = require('./SourcePoint');
 const Token = require('./Token');
 
