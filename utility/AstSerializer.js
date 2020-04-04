@@ -228,7 +228,7 @@ class AstSerializer {
         else if (node instanceof ast.Unit) {
             return {
                 type: 'Unit',
-                name: node.name,
+                unitName: node.unitName,
                 body: sn(node.body),
             };
         }

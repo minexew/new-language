@@ -1,102 +1,109 @@
 {
   "type": "Unit",
-  "span": null,
-  "functions": [
-    {
-      "type": "Function",
-      "name": {
-        "type": "Ident",
-        "span": "test/hello-world.newlang;1;6;;1;10",
-        "value": "Print"
-      },
-      "inputs": {
-        "type": "ArgumentDeclList",
-        "arguments": [
-          {
-            "name": {
-              "type": "Ident",
-              "span": ";1;13;;1;19",
-              "value": "message"
-            },
-            "type": {
-              "type": "Ident",
-              "span": ";1;22;;1;27",
-              "value": "String"
-            }
-          }
-        ]
-      },
-      "outputs": {
-        "type": "ArgumentDeclList",
-        "arguments": []
-      },
-      "attributes": [
-        {
+  "unitName": "test/hello-world.newlang",
+  "body": {
+    "type": "Block",
+    "statements": [
+      {
+        "type": "FunctionStatement",
+        "name": {
           "type": "Ident",
-          "span": ";1;46;;1;51",
-          "value": "extern"
-        }
-      ],
-      "body": null
-    },
-    {
-      "type": "Function",
-      "name": {
-        "type": "Ident",
-        "span": ";3;6;;3;13",
-        "value": "SayHello"
-      },
-      "inputs": {
-        "type": "ArgumentDeclList",
-        "arguments": [
-          {
-            "name": {
-              "type": "Ident",
-              "span": ";3;16;;3;22",
-              "value": "message"
-            },
-            "type": {
-              "type": "Ident",
-              "span": ";3;25;;3;30",
-              "value": "String"
-            }
-          }
-        ]
-      },
-      "outputs": {
-        "type": "ArgumentDeclList",
-        "arguments": []
-      },
-      "attributes": [],
-      "body": {
-        "type": "Block",
-        "statements": [
-          {
-            "type": "ExpressionStatement",
-            "span": null,
-            "expression": {
-              "type": "CallExpression",
-              "span": null,
-              "callable": {
+          "span": "test/hello-world.newlang;1;6;;1;10",
+          "value": "Print"
+        },
+        "inputTuple": {
+          "type": "TupleType",
+          "span": ";1;12;;1;12",
+          "items": [
+            {
+              "name": {
                 "type": "Ident",
-                "span": ";4;5;;4;9",
-                "value": "Print"
+                "span": ";1;13;;1;19",
+                "value": "message"
               },
-              "arguments": {
-                "type": "ArgumentList",
-                "named": [],
-                "positional": [
-                  {
-                    "type": "Ident",
-                    "span": ";4;11;;4;17",
-                    "value": "message"
-                  }
-                ]
+              "type": {
+                "type": "TypeName",
+                "span": ";1;22;;1;27",
+                "value": "String"
               }
             }
+          ]
+        },
+        "outputTuple": {
+          "type": "TupleType",
+          "span": ";1;33;;1;33",
+          "items": []
+        },
+        "attributes": [
+          {
+            "type": "Ident",
+            "span": ";1;46;;1;51",
+            "value": "extern"
           }
-        ]
+        ],
+        "body": null
+      },
+      {
+        "type": "FunctionStatement",
+        "name": {
+          "type": "Ident",
+          "span": ";3;6;;3;13",
+          "value": "SayHello"
+        },
+        "inputTuple": {
+          "type": "TupleType",
+          "span": ";3;15;;3;15",
+          "items": [
+            {
+              "name": {
+                "type": "Ident",
+                "span": ";3;16;;3;22",
+                "value": "message"
+              },
+              "type": {
+                "type": "TypeName",
+                "span": ";3;25;;3;30",
+                "value": "String"
+              }
+            }
+          ]
+        },
+        "outputTuple": {
+          "type": "TupleType",
+          "span": ";3;36;;3;36",
+          "items": []
+        },
+        "attributes": [],
+        "body": {
+          "type": "Block",
+          "statements": [
+            {
+              "type": "ExpressionStatement",
+              "span": null,
+              "expression": {
+                "type": "CallExpression",
+                "span": null,
+                "callable": {
+                  "type": "Ident",
+                  "span": ";4;5;;4;9",
+                  "value": "Print"
+                },
+                "arguments": {
+                  "type": "ArgumentList",
+                  "named": [],
+                  "positional": [
+                    {
+                      "type": "Ident",
+                      "span": ";4;11;;4;17",
+                      "value": "message"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }
